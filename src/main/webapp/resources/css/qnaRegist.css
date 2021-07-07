@@ -1,0 +1,83 @@
+/* 전체 설정 */
+* {
+    font-size: 18px;
+    
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+/* 본문 크기 */
+section {
+    min-height: 500px;
+}
+
+/* 본문 헤더 */
+.titlebox {
+	width: 250px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	margin: 70px auto;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* 글쓰기 폼 */
+.form-title {
+    border-top: 1px solid #ccc;
+
+    padding: 15px;
+    vertical-align: middle;
+    
+}
+
+form label {
+    width: 100px;
+}
+
+/* 제목 입력란 */
+.input-title {
+    width: 50%;
+}
+
+.content{
+
+}
+
+form textarea {
+    width: 80%;
+    height: 150px;
+    padding: 10px;
+    vertical-align: middle;
+    resize: vertical;
+}
+
+/* 버튼 영역 */
+.content-btn {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+/* 시그니처 버튼 디자인 */
+.btn-signature1 {
+    text-align: center;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+}
+
+.btn-signature2 {
+    text-align: center;
+
+    color: white;
+    background-color: rgb(171, 188, 227);
+    border: none;
+}
