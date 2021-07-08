@@ -39,6 +39,8 @@
 	
 	<!-- 컨트롤러 자동 스캔 -->
 	<context:component-scan base-package="com.erproject.controller" />
+	<!-- 서비스 자동 스캔 -->
+	<context:component-scan base-package="com.erproject.*.service" />
 	
 	
 	

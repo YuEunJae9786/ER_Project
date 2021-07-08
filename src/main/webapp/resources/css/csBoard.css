@@ -85,7 +85,7 @@ a:hover, a:focus {
 }
 
 /* 대분류 */
-.list-categori {
+.list-mainCategori {
     display: inline-block;
 
     height: 50px;
@@ -175,7 +175,6 @@ a:hover, a:focus {
 .content-section > ul > li.active {
     height: auto;
     line-height: unset;
-
 }
 
 /* 게시판 상세 - 답변 */

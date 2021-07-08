@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
 </head>
+
+<style>
+	.content-view-wrap {
+	    white-space: pre-wrap;
+	}
+</style>
 
 <!-- 본문 제목 -->
     <div class="col-xs-12">
@@ -22,19 +30,22 @@
 
     <!-- 글등록 -->
     <div class="container post-regist hidden2">
-        <form action="" method="post">
-            
+        <form action="noticeRegist" method="post" id="registForm">
+        
+        	<!-- 컨트롤러에 같이 넘겨줘야 하는 데이터 -->
+        	<input type="hidden" id="boardWriter" name="" value="master123">
+        	
             <!-- 제목 -->
             <label>제목</label><br/>
-            <input type="text" name="title" placeholder="제목을 입력하세요" autocomplete="off" style="width: 70%;"><br/>
+            <input type="text" id="boardTitle" name="" placeholder="제목을 입력하세요" autocomplete="off" style="width: 70%;"><br/>
 
             <!-- 내용 -->
             <label>내용</label><br/>
-            <textarea class="regist-content">내용을 입력하세요</textarea><br/>
+            <textarea id="boardContent" name="" class="regist-content" placeholder="내용을 입력하세요"></textarea><br/>
 
             <div class="btn">
                 <button type="button" class="btn btn-default btn-signature1">이미지 업로드</button>
-                <button type="button" class="btn btn-default btn-signature2">등록</button>
+                <button type="button" id="registBtn" class="btn btn-default btn-signature2">등록</button>
             </div>
 
         </form>
@@ -43,36 +54,40 @@
     
     <!-- 게시판 상단 순서, 검색 -->
     <div class="container">
+    
+    	<form action="csBoardList" method="post" id="listForm">
 
-        <!-- 순서 -->
-        <div class="list-option">
-            <select>
-                <option>최신순</option>
-                <option>조회순</option>
-            </select>
-        </div>
-
-        <!-- 대분류 -->
-        <div class="list-categori">
-            <select>
-                <option>대분류</option>
-                <option>로그인</option>
-                <option>제품</option>
-                <option>대여</option>
-            </select>
-        </div>
-            
-        <!-- 검색 -->
-        <div class="search">
-            <select>
-                <option>제목</option>
-                <option>작성자</option>
-                <option>제목+작성자</option>
-            </select>
-
-            <input type="text" placeholder="검색내용">
-            <button type="button" class="btn btn-default btn-single btn-signature1">검색</button>
-        </div>
+	        <!-- 순서 -->
+	        <div class="list-option">
+	            <select name="orderType">
+	                <option value="latestOrder" ${orderType eq '' or orderType eq 'latestOrder' ? 'selected' : ''}>최신순</option>
+	                <option value="viewOrder" ${orderType eq 'viewOrder' ? 'selected' : '' }>조회순</option>
+	            </select>
+	        </div>
+	
+	        <!-- 대분류 -->
+	        <div class="list-mainCategori">
+	            <select>
+	                <option>대분류</option>
+	                <option>로그인</option>
+	                <option>제품</option>
+	                <option>대여</option>
+	            </select>
+	        </div>
+	            
+	        <!-- 검색 -->
+	        <div class="search">
+	            <select>
+	                <option>제목</option>
+	                <option>작성자</option>
+	                <option>제목+작성자</option>
+	            </select>
+	
+	            <input type="text" placeholder="검색내용">
+	            <button type="button" class="btn btn-default btn-single btn-signature1">검색</button>
+	        </div>
+	        
+    	</form>
     </div>
 
     <!-- 본문 게시판 1 -->
@@ -88,86 +103,27 @@
                 </ul>
             </div>
             <div class="content-section">
-                <ul>
-                    <li class="col-xs-2 col-sm-1">1</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" id="a" onclick="contentView()">공지사항 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/dog.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            우리가 꿈꿀 수 있다면 이룰 수도 있습니다. <br/>
-
-                            꿈을 가지고 희망을 가져요. <br/>
-                            
-                            그리고 그 꿈을 멋지게 실현시킬 나의 미래를 생각하며<br/>
-                            
-                            오늘 하루도 힘내봅시다.<br/>
-                        </div>
-                        <div class="content-view-btn">
-                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">2</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" onclick="contentView()">이게 대체 왜 안되는거야 ul 태그 진짜 짜증난다 정말 </a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-05</li>
-                    <li class="col-xs-2 col-md-1">3</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/cat.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            누구나 마음 속에 여러 사람이 살아 <br/>
-
-                            죽고 싶은 나와 살고 싶은 내가 있어 <br/>
-                            
-                            포기하고 싶은 나와 지푸라기라도 잡고싶은 내가 매일매일 싸우며 살아간다고<br/>
-                        </div>
-                        <div class="content-view-btn">
-                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">3</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">아놔 진짜 이거 맞냐?</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-05-03</li>
-                    <li class="col-xs-2 col-md-1">4</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">4</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">공지사항은 개뿔</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">5</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">내가지금잠잘때가맞냐?</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                
+            	<c:forEach var="list" items="${noticeList }">
+	            	<ul>
+	                    <li class="col-xs-2 col-sm-1">${list.notice_No }</li>
+	                    <li class="col-xs-3 col-md-6">
+	                        <a href="#" id="a" onclick="contentView()">${list.notice_Title }</a>
+	                    </li>
+	                    <li class="col-xs-2 col-md-2">${list.notice_Writer }</li>
+	                    <li class="col-xs-3 col-md-2">${list.notice_Regdate }</li>
+	                    <li class="col-xs-2 col-md-1">${list.notice_View }</li>
+	                    <li class="col-xs-12 content-view hidden">
+	                        <div class="content-view-img">
+	                            <img src="${pageContext.request.contextPath }/resources/img/dog.png" alt="이미지">
+	                        </div>
+	                        <div class="content-view-wrap">${list.notice_Content }</div>
+	                        <div class="content-view-btn">
+	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
+	                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
+	                        </div>
+	                    ​</li>
+	                </ul>
+           		</c:forEach>
             </div>
         </div>
 
@@ -436,6 +392,53 @@
         </ul>
     </div>
     
+    <!-- 컨트롤러 이동 스크립트 -->
+    <script>
+    	
+    	$(document).ready( function() {
+    		
+	   		$("#registForm > .btn > #registBtn").click( function() {
+	   			
+	   			$("#registForm > input[name=whereBoard]").attr("value", $(".content-header .active").html() );
+	   			
+	   			// 어떤 게시판?
+	   			var whereBoard = $(".content-header .active").html();
+	   			
+	   			console.log(whereBoard);
+	   			
+	   			if(whereBoard == "Notice"){
+	   				$("#registForm").attr("action","noticeRegist");
+	   				$("#registForm input[id=boardWriter]").attr("name", "notice_Writer");
+	   				$("#registForm input[id=boardTitle]").attr("name", "notice_Title");
+	   				$("#registForm textarea[id=boardContent]").attr("name", "notice_Content");
+	   			} else if ( whereBoard == "FAQ") {
+	   				$("#registForm").attr("action","faqRegist");
+	   				$("#registForm input[id=boardWriter]").attr("name", "faq_Writer");
+	   				$("#registForm input[id=boardTitle]").attr("name", "faq_Title");
+	   				$("#registForm input[id=boardContent]").attr("name", "faq_Content");
+	   			}
+	   			
+	   			console.log( $("#registForm input[id=boardWriter]").attr("name") );
+	   			console.log( $("#registForm input[id=boardTitle]").attr("name") );
+	   			console.log( $("#registForm textarea[id=boardContent]").attr("name") );
+	   			
+	   			$("#registForm").submit();
+	   			
+	   		}); // click
+	   		
+	   		// 게시판 순서
+	   		$(".list-option > select").change( function() {
+	   			
+	   			$("#listForm").submit();
+	   			
+	   		}); // change
+	   		
+    	}); // ready
+    		
+    
+    </script>
+    
+    <!-- 동적 작동 -->
     <script>
 
         /* 헤더 active */
@@ -499,3 +502,21 @@
         });
 
     </script>
+    
+    <!-- 메시지 처리 -->
+    <script>
+    
+    	$(document).ready( function() {
+    		
+    		if(history.state == '' ) return;	
+    		
+	    	var msg = '<c:out value="${msg }" />';
+	    	if(msg != null){
+	    		alert(msg);
+				// 기존 기록을 삭제하고 새로운 기록을 추가 ( 이렇게 변경된 값은 history.state로 데이터를 확인가능 )
+				history.replaceState('', null, null);
+	    	}
+    	});
+    
+    </script>
+    

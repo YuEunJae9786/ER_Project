@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.erproject.csboard.mapper.CsBoardMapper">
+  
+  	<insert id="noticeRegist">
+  		insert into NOTICE(NOTICE_NO, NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_VIEW)
+  					VALUES(NOTICE_SEQ.NEXTVAL, #{notice_Writer}, #{notice_Title}, #{notice_Content}, #{notice_View})
+  	</insert>
+  	
+  	<select id="noticeGetList" resultType="NoticeVO">
+  		<![CDATA[
+  		select a.notice_No,
+  			   a.notice_Writer,
+  			   a.notice_Title,
+  			   a.notice_Content,
+  			   a.notice_View,
+  			   case when gap <= 60 THEN '방금전'
+  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
+  			   else to_char(notice_regdate, 'YYYY-MM-DD')
+  			   end as notice_Regdate
+  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
+  				from notice 
+  				order by
+  		]]>
+  			<if test="orderType == 'latestOrder'">notice_no</if>
+  			<if test="orderType == '' or orderType == null">notice_no</if>
+  			<if test="orderType == 'viewOrder'">notice_view</if>
+  		<![CDATA[
+  		  desc ) a
+  		]]>
+  	</select>
+  
+  </mapper>
