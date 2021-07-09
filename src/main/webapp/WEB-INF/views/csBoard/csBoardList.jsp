@@ -35,9 +35,21 @@
         	<!-- 컨트롤러에 같이 넘겨줘야 하는 데이터 -->
         	<input type="hidden" id="boardWriter" name="" value="master123">
         	
+        	<div class="categori" id="boardCategori">
+	        	<label>대분류</label><br/>
+	        	<select>
+	        		<option>로그인</option>
+	        		<option>대여</option>
+	        		<option>리뷰</option>
+	        	</select>
+	            
+        	</div>
+        	
             <!-- 제목 -->
             <label>제목</label><br/>
             <input type="text" id="boardTitle" name="" placeholder="제목을 입력하세요" autocomplete="off" style="width: 70%;"><br/>
+            <hr/>
+        	
 
             <!-- 내용 -->
             <label>내용</label><br/>
@@ -132,7 +144,7 @@
     <!-- 본문 게시판 2 -->
     <div class="container content-notice-box2 hidden">
         <div class="row col-xs-12 content-notice">
-            <div class="content-header">
+            <div class="content-header">	
                 <ul>
                     <li class="col-xs-2 col-sm-1">순번</li>
                     <li class="col-xs-3 col-md-6">제목</li>
@@ -415,12 +427,8 @@
 	   				$("#registForm").attr("action","faqRegist");
 	   				$("#registForm input[id=boardWriter]").attr("name", "faq_Writer");
 	   				$("#registForm input[id=boardTitle]").attr("name", "faq_Title");
-	   				$("#registForm input[id=boardContent]").attr("name", "faq_Content");
+	   				$("#registForm textarea[id=boardContent]").attr("name", "faq_Content");
 	   			}
-	   			
-	   			console.log( $("#registForm input[id=boardWriter]").attr("name") );
-	   			console.log( $("#registForm input[id=boardTitle]").attr("name") );
-	   			console.log( $("#registForm textarea[id=boardContent]").attr("name") );
 	   			
 	   			$("#registForm").submit();
 	   			
@@ -462,11 +470,24 @@
 
         /* 글쓰기 hidden */
         $("#regist").click( function() {
-
+            
             /* QNA 게시판에서 글쓰기를 누를경우 페이지 이동 */
-            if( $(".content-header .active").html() == 'QNA'){
+            var currnetTab = $(".content-header .active").html();
+            if( currnetTab == 'QNA'){
                 location.href="qnaRegist.html";
                 return;
+            } else if  ( currnetTab == 'FAQ' ){
+            	
+                if( $("#boardCategori").hasClass("hidden") == true){
+                    $("#boardCategori").removeClass("hidden");
+                }
+
+            } else {
+
+                if( $("#boardCategori").hasClass("hidden") == false){
+                    $("#boardCategori").addClass("hidden");
+                }
+
             }
             
             /* QNA 게시판이 아닌 경우에 글쓰기를 누를경우, 숨겨져있던 글쓰기 나옴 */
@@ -511,7 +532,7 @@
     		if(history.state == '' ) return;	
     		
 	    	var msg = '<c:out value="${msg }" />';
-	    	if(msg != null){
+	    	if(msg != ''){
 	    		alert(msg);
 				// 기존 기록을 삭제하고 새로운 기록을 추가 ( 이렇게 변경된 값은 history.state로 데이터를 확인가능 )
 				history.replaceState('', null, null);
