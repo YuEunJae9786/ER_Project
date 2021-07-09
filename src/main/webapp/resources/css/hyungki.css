@@ -1,0 +1,303 @@
+/* 상세페이지 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.sect-main {
+    margin: 100px auto 0 auto;
+}
+
+.top-text {
+    border-bottom: 0.5px solid #ccc;
+    margin-bottom: 20px;
+    
+}
+
+.top-info {
+    overflow: hidden;
+}
+
+.productImgWrapper {
+    width: 50%;
+    padding-left: 25px;
+    float: left;
+    border: 0px solid #fff;
+}
+
+.productCntWrapper {
+    width: 47%;
+    margin-left: 3%;
+    margin-right: 0;
+    text-align: left;
+    padding-top: 15px;
+    float: left;
+    border: 0px solid #fff;
+}
+
+.productImgDetail {padding-left: 50px;}
+
+.productImgDetail > img {
+    max-width: 100%;
+    height: 412px;
+}
+
+.productRentalBtn1 {
+    margin-top: 50px;
+}
+.productRentalBtn1 > button {
+    color: #fff;
+    background-color: cornflowerblue;
+}
+
+.productRentalBtn2 {
+    margin-top: 10px;
+}
+.productRentalBtn2 > button {
+    color: #fff;
+    background-color: rgb(171, 188, 227);
+}
+
+.productRentalBtn1 > button {width: 200px;}
+.productRentalBtn2 > button {width: 200px;}
+
+.productImgSub {
+    margin-top: 10px;
+    padding-left: 5px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.subImg {
+    float: left;
+    border: 0px solid #fff;
+    margin-right: 1px;
+    margin-bottom: 5px;
+    width: 18.5000%;
+    height: 80px;
+}
+
+.subImg > img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 상세페이지(중간부분) */
+
+.mid-info {
+    margin-top: 75px;
+}
+
+.tabs-basic > li {
+    width: 20%;
+    text-align: center;
+    float: left;
+    list-style: none;
+}
+
+.tabs-basic > li > a {
+    color: #555;
+    font-size: medium;
+    font-weight: bold;
+    margin-right: 0px;
+    text-decoration: none;
+}
+.tabs-basic > li:hover {
+    background-color: #dddddd;
+    cursor: pointer;
+}
+
+/* 탭영역 sticky */
+.tabs-basic {
+    position: sticky; top: 80px; z-index: 100;
+    background-color: #fff;
+    overflow: hidden;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    border-bottom: 0.5px solid #ccc;
+}
+
+/* 제품소개 */
+.kickInfoImg {
+    text-align: center;
+}
+
+.kickInfoWrap, .linkWrap, .reviewBoardPost, .qnaWrap, .rentalWrap {
+    margin-top: 85px;
+    margin-bottom: 85px;
+}
+
+/* 후기게시판 */
+.textHeader {
+    overflow: hidden;
+}
+
+.reviewStar, .reviewWriter, .reivewDate {
+    margin-right: 10px;
+    float: left;
+}
+
+.reviewPostBtn {
+    padding-right: 30px;
+    text-align: right;
+}
+.reviewPostBtn > button {
+    color: #fff;
+    background-color: cornflowerblue;
+}
+
+.reviewMoveWin > a {
+    color: black;
+    text-decoration: none;
+}
+
+/*==========후기 상세보기==========*/
+.write-wrap {
+    width: 75%;
+	margin: 0 auto;
+	/*가운대 정렬방법 하지만 적용되지 않는다. 이유는 col클래스들이 float:left를 들고 있기 때문*/
+	float: none; /*플롯을 해제한다. 가운대정렬이 들어간다*/
+}
+
+.reviewDetailModiBtn {
+    color: #fff;
+    background-color: cornflowerblue;
+}
+.reviewDetailListBtn {
+    color: #fff;
+    background-color: rgb(171, 188, 227);
+}
+
+.reviewRegistBtn {
+    color: #fff;
+    background-color: cornflowerblue;
+}
+.reviewListBtn {
+    color: #fff;
+    background-color: rgb(171, 188, 227);
+}
+.reviewModiSaveBtn {
+    color: #fff;
+    background-color: cornflowerblue;
+}
+
+.reviewModiDelBtn {
+    color: #fff;
+    background-color: rgb(171, 188, 227);
+}
+
+/*=======댓글========*/
+.reply-wrap {
+	background-color: #f5f5f5;
+	padding: 15px;
+	border: 1px solid #ddd;
+	position: relative; /*부모에 relative*/
+}
+
+.reply-wrap .reply-image {
+	position: absolute; /*자식에서 absolute로 부모요소 위치로 조정*/
+	left: 15px;
+	top: 15px;
+}
+
+.reply-wrap .reply-content {
+	padding-left: 60px;
+}
+/*부트스트랩의 form-control 조정 */
+.reply-content>.form-control {
+	resize: vertical; /*세로로만 조정가능*/
+	width: 100%; /*최대 100%*/
+	min-height: 80px; /*최대 넓이*/
+	margin-bottom: 10px;
+}
+
+.reply-input>.form-control {
+	width: 200px;
+	margin-bottom: 5px;
+}
+
+.reply-group {
+	overflow: hidden;
+}
+
+.reply-input {
+	float: left;
+}
+
+.reply-group .right {
+	float: right;
+}
+
+/*댓글 영역*/
+.reply-group small {
+	margin-left: 10px;
+	height: 20px;
+	line-height: 20px;
+}
+
+.reply-group small, .reply-group strong {
+	float: left;
+}
+
+.reply-group a {
+	text-decoration: none;
+	color: #777;
+	float: right;
+}
+/*댓글창 포커스시 서서히 보이기 */
+.reply-content textarea {
+	height: 50px;
+	transition: height .4s ease-in-out;
+}
+
+.reply-content textarea:focus {
+	height: 150px;
+}
+
+/*==========후기 글쓰기==========*/
+.titlebox {
+	width: 250px;
+	text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	margin: 70px auto;
+	border-top: 1px solid #E1E1E1;
+	border-bottom: 1px solid #E1E1E1;
+}
+
+.t-control .t-title {
+	width: 100px;
+	min-width: 100px; /*화면줄었을때 최소크기*/
+	vertical-align: middle; /*테이블에서 세로 가운대정렬*/
+}
+
+/*input 요소의 넓이만 선택*/
+.t-control input {
+	width: 200px;
+	display: inline; /*인라인요소로 변경한다*/
+}
+
+/*개발자 도구에서 input-sm의 정렬을 푼다*/
+.t-control .input-sm {
+	height: auto;
+	line-height: normal;
+}
+/*td의 아래만 밑줄*/
+.t-control td {
+	border-bottom: 1px solid #E1E1E1;
+}
+
+.titlefoot {
+	text-align: center;
+	margin: 30px auto; /*박스의 가운데정렬*/
+	width: 50%; /*크기 50%*/
+}
+
+.t-title {
+    font-size: 15px;
+    font-weight: bold;
+}
