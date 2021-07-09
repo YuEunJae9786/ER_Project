@@ -7,6 +7,10 @@ a {
     color: black;
 }
 
+hr {
+	border-top: 1px solid #ccc;
+}
+
 ul, ol, li {
 	list-style: none;
 }
@@ -55,11 +59,18 @@ a:hover, a:focus {
     padding: 10px;
 
     border: 1px solid #ccc;
-    text-align: center;
+    text-align: left;
 }
 
 .post-regist > form > .btn {
     float: right;
+}
+
+.post-regist > form > .categori {
+	margin-bottom: 10px;
+}
+
+.post-regist > form .title {
 }
 
 .regist-content {
