@@ -37,10 +37,10 @@
         	
         	<div class="categori" id="boardCategori">
 	        	<label>대분류</label><br/>
-	        	<select>
-	        		<option>로그인</option>
-	        		<option>대여</option>
-	        		<option>리뷰</option>
+	        	<select name="faq_MainCategori">
+	        		<option value="login" selected>로그인</option>
+	        		<option value="rental">대여</option>
+	        		<option value="review">리뷰</option>
 	        	</select>
 	            
         	</div>

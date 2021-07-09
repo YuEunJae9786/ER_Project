@@ -10,6 +10,11 @@
   					VALUES(NOTICE_SEQ.NEXTVAL, #{notice_Writer}, #{notice_Title}, #{notice_Content}, #{notice_View})
   	</insert>
   	
+  	<insert id="faqRegist">
+  		insert into FAQ(FAQ_NO, FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_MAINCATEGORI)
+  					VALUES(FAQ_SEQ.NEXTVAL, #{faq_Writer}, #{faq_Title}, #{faq_Content}, #{faq_MainCategori})
+  	</insert>
+  	
   	<select id="noticeGetList" resultType="NoticeVO">
   		<![CDATA[
   		select a.notice_No,
