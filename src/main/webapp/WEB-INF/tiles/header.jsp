@@ -6,13 +6,20 @@
             <div class="head-logo">
                 <a href=""><img src="${pageContext.request.contextPath }/resources/img/logo.png" width="100px" height="80px"></a>
 
+
             </div>
 
             <div class="info-all">
                 <div class="head-info"><a href="">Login</a></div>
-                <div class="head-info"><a href="">Join</a></div>
-                <div class="head-info"><a href="">Service</a></div>
+                <div class="head-info"><a href="${pageContext.request.contextPath }/user/userJoin">Join</a></div>
+                <div class="head-info"><a href="">Mypage</a></div>
             </div>
         </div>
 
     </header>
+    
+    
+    
+
+ 
+    

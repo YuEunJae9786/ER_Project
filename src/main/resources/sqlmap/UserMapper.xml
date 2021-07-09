@@ -3,7 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.team404.user.mapper.UserMapper">
+  <mapper namespace="com.erproject.user.mapper.UserMapper">
+  
+  
+  
+ <insert id="join">
+  		insert into users(userId, userPw, userName, userPhone, userEmail, addrAll)
+  		values(#{userId}, #{userPw}, #{userName},  #{userPhone} , #{userEmail1} || #{userEmail2}, #{addrZipNum} ||#{addrBasic}|| #{addrDetail})
+  		
+  	</insert>
+  
+  
   
   
   </mapper>
