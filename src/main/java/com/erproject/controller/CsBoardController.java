@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
 import com.erproject.csboard.service.CsBoardService;
 import com.erproject.util.OrderUtil;
@@ -54,7 +55,13 @@ public class CsBoardController {
 	
 //	FAQ 게시판 글 등록
 	@RequestMapping("/faqRegist")
-	public String faqRegist() {
+	public String faqRegist(FaqVO vo,
+							RedirectAttributes RA) {
+		
+		System.out.println(vo.toString());
+		
+		
+		
 		
 		return "redirect:/csBoard/csBoardList";
 	}
