@@ -42,11 +42,11 @@
 										addMarker(position);
 
 									}
+									console.log(list[0].stationLatitude);
 								})
 			}
 			(function() {
 				getFetch();
-
 			})();
 
 			var markers = [];
@@ -245,9 +245,10 @@
 			<div class="info-header">사용가능한 킥보드</div>
 			<ul id="kick-list" class="kick-list" width="100%">
 				<!-- forEach써서 리스트 목록 나오게설정 -->
+				<c:forEach  var="i" begin="1" end="10">
 				<li id="list">
 					<!-- 기본정보 리스트 -->
-					<div id="list1" class="kick-info-list">
+					<div id="list${i}" class="kick-info-list">
 						<div class="mask">
 							<div>모델명</div>
 							<div>회사명</div>
@@ -258,7 +259,7 @@
 							src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"
 							alt="" class="kick-img">
 					</div> <!-- 상세정보 -->
-					<div id="detail1" class="kick-info-detail">
+					<div id="detail${i}" class="kick-info-detail">
 						<div class="detail-fix">
 							<div class="detail-info">
 								<div
@@ -269,7 +270,7 @@
 								<div
 									style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
 									<div>좌표 정보</div>
-									<div style="padding: 5px;">좌표 (xxx.xxxx, yyy.yyyy)</div>
+									<div style="padding: 5px;">좌표 (${list[i-1].stationLatitude},	${list[i-1].stationLongitude})</div>
 								</div>
 							</div>
 							<img
@@ -277,8 +278,8 @@
 								alt="" class="detail-img">
 						</div>
 						<div class="spec">
-							상세정보 <br> 스팩1.<br> 스팩2.<br> 스팩3.<br> <a>더
-								많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
+							상세정보 <br> 스팩1.<br> 스팩2.<br> 스팩3.<br>
+							<a>더많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
 						</div>
 						<div>
 							<button class="btn btn-default btn-signature1">문의하기</button>
@@ -286,88 +287,7 @@
 						</div>
 					</div>
 				</li>
-				<li id="list">
-					<!-- 기본정보 리스트 -->
-					<div id="list2" class="kick-info-list">
-						<div class="mask">
-							<div>모델명</div>
-							<div>회사명</div>
-							<div>좌표 정보</div>
-							<div>상세보기</div>
-						</div>
-						<img
-							src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"
-							alt="" class="kick-img">
-					</div> <!-- 상세정보 -->
-					<div id="detail2" class="kick-info-detail">
-						<div class="detail-fix">
-							<div class="detail-info">
-								<div
-									style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-									<div>모델명 : 디비에서 꺼내오자</div>
-									<div>회사명 : 디비에서 꺼내오자</div>
-								</div>
-								<div
-									style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-									<div>좌표 정보</div>
-									<div style="padding: 5px;">좌표 (xxx.xxxx, yyy.yyyy)</div>
-								</div>
-							</div>
-							<img
-								src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"
-								alt="" class="detail-img">
-						</div>
-						<div class="spec">
-							상세정보 <br> 스팩1.<br> 스팩2.<br> 스팩3.<br> <a>더
-								많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
-						</div>
-						<div>
-							<button class="btn btn-default btn-signature1">문의하기</button>
-							<button class="btn btn-default btn-signature2">예약하기</button>
-						</div>
-					</div>
-				</li>
-				<li id="list">
-					<!-- 기본정보 리스트 -->
-					<div id="list3" class="kick-info-list">
-						<div class="mask">
-							<div>모델명</div>
-							<div>회사명</div>
-							<div>좌표 정보</div>
-							<div>상세보기</div>
-						</div>
-						<img
-							src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"
-							alt="" class="kick-img">
-					</div> <!-- 상세정보 -->
-					<div id="detail3" class="kick-info-detail">
-						<div class="detail-fix">
-							<div class="detail-info">
-								<div
-									style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-									<div>모델명 : 디비에서 꺼내오자</div>
-									<div>회사명 : 디비에서 꺼내오자</div>
-								</div>
-								<div
-									style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-									<div>좌표 정보</div>
-									<div style="padding: 5px;">좌표 (xxx.xxxx, yyy.yyyy)</div>
-								</div>
-							</div>
-							<img
-								src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"
-								alt="" class="detail-img">
-						</div>
-						<div class="spec">
-							상세정보 <br> 스팩1.<br> 스팩2.<br> 스팩3.<br> <a>더
-								많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
-						</div>
-						<div>
-							<button class="btn btn-default btn-signature1">문의하기</button>
-							<button class="btn btn-default btn-signature2">예약하기</button>
-						</div>
-					</div>
-				</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
@@ -376,7 +296,7 @@
 	        $(document).ready(function(data) {
 	            
 	            var size = $("#kick-list").find("li").length;
-	
+				
 	            for(var i=1;i<=size;i++){
 	                (function(i) {
 	                    $('#list'+i).click(function(){
