@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class OrderUtil {
 
 	private String orderType;
+	private String listOrder;
 
 //	public OrderUtil() {
 //		super();

@@ -27,9 +27,14 @@ public class CsBoardServiceImpl implements CsBoardService{
 	}
 	
 	@Override
-	public List<NoticeVO> noticeGetList(OrderUtil orderType) {
+	public List<NoticeVO> noticeGetList(OrderUtil orderUtil) {
 		
-		return csBoardMapper.noticeGetList(orderType);
+		return csBoardMapper.noticeGetList(orderUtil);
+	}
+	
+	@Override
+	public List<FaqVO> faqGetList(OrderUtil orderUtil) {
+		return csBoardMapper.faqGetList(orderUtil);
 	}
 	
 	

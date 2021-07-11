@@ -21,12 +21,18 @@ public class CsBoardController {
 	@Qualifier("csBoardService")
 	private CsBoardService csBoardService;
 
+//	게시판 리스트
 	@RequestMapping("/csBoardList")
-	public void csBoard(OrderUtil orderType,
+	public void csBoard(OrderUtil orderUtil,
 						Model model) {
 		
-		model.addAttribute("noticeList", csBoardService.noticeGetList(orderType));
-		model.addAttribute("orderType", orderType.getOrderType());
+//		노티스 게시판 글 불러오기
+		model.addAttribute("noticeList", csBoardService.noticeGetList(orderUtil));
+//		faq 게시판 글 불러오기
+		model.addAttribute("faqList", csBoardService.faqGetList(orderUtil));
+		
+//		정렬 순서 기억
+		model.addAttribute("orderUtil", orderUtil);
 		
 	}
 	
