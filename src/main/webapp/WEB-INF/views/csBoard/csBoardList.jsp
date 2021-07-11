@@ -90,14 +90,14 @@
 	            
 	        <!-- 검색 -->
 	        <div class="search">
-	            <select>
-	                <option>제목</option>
-	                <option>작성자</option>
-	                <option>제목+작성자</option>
+	            <select name="searchType">
+	                <option value="title">제목</option>
+	                <option value="writer">작성자</option>
+	                <option value="tiwri">제목+작성자</option>
 	            </select>
 	
-	            <input type="text" placeholder="검색내용">
-	            <button type="button" class="btn btn-default btn-single btn-signature1">검색</button>
+	            <input type="text" name="searchName" placeholder="검색내용">
+	            <button type="submit" class="btn btn-default btn-single btn-signature1">검색</button>
 	        </div>
 	        
     	</form>
@@ -315,29 +315,33 @@
     </div>
 
     <!-- 페이지네이션 -->
-    <div class="container content-page">
-        <ul class="paging">
-
-            <!-- 이전 -->
-            <li class="prev"><a href="#">이전</a></li>
-
-            <!-- 페이지 -->
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-
-            <!-- 다음 -->
-            <li class="next"><a href="#">다음</a></li>
-
-            <!-- 글쓰기 -->
-            <div class="btn-right">
-                <button type="button" class="btn btn-default btn-signature1 btn-single" id="regist">글쓰기</button>
-            </div>
-            
-        </ul>
-    </div>
+    <form action="csBoardList" name="pageForm" method="post">
+	    <div class="container content-page">
+	        <ul class="paging">
+	
+	            <!-- 이전 -->
+	            <c:if test="${noticePage.prev }">
+	            	<li class="prev"><a href="#">이전</a></li>
+				</c:if>
+	
+	            <!-- 페이지 -->
+	            <c:forEach var="num" begin="${noticePage.startPage }" end="${noticePage.endPage }">
+		            <li class="${noticePage.pageNum eq num ? 'active' : '' }"><a href="#">${num }</a></li>
+	            </c:forEach>
+	
+	            <!-- 다음 -->
+	            <c:if test="${noticePage.next }">
+	            	<li class="next"><a href="#">다음</a></li>
+	            </c:if>
+	
+	            <!-- 글쓰기 -->
+	            <div class="btn-right">
+	                <button type="button" class="btn btn-default btn-signature1 btn-single" id="regist">글쓰기</button>
+	            </div>
+	            
+	        </ul>
+	    </div>
+    </form>
     
     <!-- 컨트롤러 이동 스크립트 -->
     <script>

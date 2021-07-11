@@ -11,7 +11,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
 import com.erproject.csboard.service.CsBoardService;
+import com.erproject.util.Criteria;
 import com.erproject.util.OrderUtil;
+import com.erproject.util.PageVO;
 
 @Controller
 @RequestMapping("/csBoard")
@@ -24,12 +26,23 @@ public class CsBoardController {
 //	게시판 리스트
 	@RequestMapping("/csBoardList")
 	public void csBoard(OrderUtil orderUtil,
+						Criteria cri,
 						Model model) {
 		
+//		노티스 게시판 페이징 만들기
+		PageVO noticePage = new PageVO(cri, csBoardService.getNoticeTotal(orderUtil));
+//		faq 게시판 페이징 만들기
+		PageVO faqPage = new PageVO(cri, csBoardService.getFaqTotal(orderUtil));
+		
+//		노티스 게시판 페이징 전달
+		model.addAttribute("noticePage", noticePage);
+//		faq 게시판 페이징 전달
+		model.addAttribute("faqPage", faqPage);
+		
 //		노티스 게시판 글 불러오기
-		model.addAttribute("noticeList", csBoardService.noticeGetList(orderUtil));
+		model.addAttribute("noticeList", csBoardService.noticeGetList(orderUtil, cri));
 //		faq 게시판 글 불러오기
-		model.addAttribute("faqList", csBoardService.faqGetList(orderUtil));
+		model.addAttribute("faqList", csBoardService.faqGetList(orderUtil, cri));
 		
 //		정렬 순서 기억
 		model.addAttribute("orderUtil", orderUtil);
