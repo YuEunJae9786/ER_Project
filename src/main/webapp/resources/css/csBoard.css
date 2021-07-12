@@ -236,6 +236,10 @@ a:hover, a:focus {
     margin-bottom: 50px;
 }
 
+.paging {
+    display: inline-block;
+}
+
 .paging > li {
     display:inline-block;
 
@@ -269,10 +273,6 @@ a:hover, a:focus {
 /* 히든 속성 */
 .hidden2 {
     display: none;
-}
-
-/* 엑티브 */
-.active {
 }
 
 /* 전체적인 버튼 디자인 */
