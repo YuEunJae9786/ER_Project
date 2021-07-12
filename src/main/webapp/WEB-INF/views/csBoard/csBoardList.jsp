@@ -317,29 +317,71 @@
     <!-- 페이지네이션 -->
     <form action="csBoardList" name="pageForm" method="post">
 	    <div class="container content-page">
-	        <ul class="paging">
+	        <ul class="paging content-notice-box1 hidden">
 	
 	            <!-- 이전 -->
 	            <c:if test="${noticePage.prev }">
-	            	<li class="prev"><a href="#">이전</a></li>
+	            	<li class="prev"><a href="#" data-pagenum="${noticePage.startPage - 1}">이전</a></li>
 				</c:if>
 	
 	            <!-- 페이지 -->
 	            <c:forEach var="num" begin="${noticePage.startPage }" end="${noticePage.endPage }">
-		            <li class="${noticePage.pageNum eq num ? 'active' : '' }"><a href="#">${num }</a></li>
+		            <li class="${noticePage.pageNum eq num ? 'active' : '' }">
+                        <a href="#" data-pagenum="${num}">${num }</a>
+                    </li>
 	            </c:forEach>
 	
 	            <!-- 다음 -->
 	            <c:if test="${noticePage.next }">
-	            	<li class="next"><a href="#">다음</a></li>
-	            </c:if>
-	
-	            <!-- 글쓰기 -->
-	            <div class="btn-right">
-	                <button type="button" class="btn btn-default btn-signature1 btn-single" id="regist">글쓰기</button>
-	            </div>
+	            	<li class="next"><a href="#" data-pagenum="${noticePage.endPage + 1}">다음</a></li>
+                </c:if>
 	            
 	        </ul>
+	        <ul class="paging content-notice-box2 hidden">
+	
+	            <!-- 이전 -->
+	            <c:if test="${faqPage.prev }">
+	            	<li class="prev"><a href="#" data-pagenum="${faqPage.startPage - 1}">이전</a></li>
+				</c:if>
+	
+	            <!-- 페이지 -->
+	            <c:forEach var="num" begin="${faqPage.startPage }" end="${faqPage.endPage }">
+		            <li class="${faqPage.pageNum eq num ? 'active' : '' }">
+                        <a href="#" data-pagenum="${num}">${num }</a>
+                    </li>
+	            </c:forEach>
+	
+	            <!-- 다음 -->
+	            <c:if test="${faqPage.next }">
+	            	<li class="next"><a href="#" data-pagenum="${faqPage.endPage + 1}">다음</a></li>
+	            </c:if>
+	
+	        </ul>
+	        <ul class="paging content-notice-box3 hidden">
+	
+	            <!-- 이전 -->
+            	<li class="prev"><a href="#">이전</a></li>
+	
+	            <!-- 페이지 -->
+	            <li class="active"><a href="#">1</a></li>
+	            <li><a href="#">2</a></li>
+	            <li><a href="#">3</a></li>
+	            <li><a href="#">4</a></li>
+	            <li><a href="#">5</a></li>
+	
+	            <!-- 다음 -->
+            	<li class="next"><a href="#">다음</a></li>
+	
+	        </ul>
+
+             <!-- 글쓰기 -->
+             <div class="btn-right">
+                <button type="button" class="btn btn-default btn-signature1 btn-single" id="regist">글쓰기</button>
+            </div>
+
+            <input type="hidden" name="pageNum" value="1">
+            <input type="hidden" name="orderType" value="${orderUtil.orderType }">
+	        
 	    </div>
     </form>
     
@@ -348,6 +390,7 @@
     	
     	$(document).ready( function() {
     		
+            // 글쓰기 등록
 	   		$("#registForm > .btn > #registBtn").click( function() {
 	   			
 	   			$("#registForm > input[name=whereBoard]").attr("value", $(".content-header .active").html() );
@@ -390,10 +433,17 @@
 
                 $("#listForm").submit();
 
-            }); // 대분류 
+            }); // 대분류
+
+            // 페이지네이션 클릭
+            $(".content-page").on("click", "a", function() {
+                event.preventDefault();
+
+                document.pageForm.pageNum.value = event.target.dataset.pagenum;
+			    document.pageForm.submit();
+            });
 	   		
     	}); // ready
-    		
     
     </script>
     
@@ -406,8 +456,6 @@
             if(getCookie("whereboard") == undefined){
                 setCookie("whereboard", "Notice");
             } 
-
-            var active = getCookie("whereboard");
             
             /* 전에 보여지던 게시판 */
             var preActive = document.querySelector("body > div.active");
@@ -416,10 +464,13 @@
                 preActive.classList.add("hidden");
             }
 
-            /* 현재 보여질 헤더, 게시판 */
+            /* 현재 보여질 헤더, 게시판, 페이지네이션 */
+            var active = getCookie("whereboard");
             $("#" + active).addClass("active");
             document.querySelector( document.querySelector( "#" + active).dataset.select ).classList.add("active");
             document.querySelector( document.querySelector( "#" + active).dataset.select ).classList.remove("hidden")
+            document.querySelector( ".content-page > " + document.querySelector( "#" + active).dataset.select ).classList.add("active");
+            document.querySelector( ".content-page > " + document.querySelector( "#" + active).dataset.select  ).classList.remove("hidden");
 
             listOption(); // 처음에 대분류를 화면에 표시할지 메서드 실행
         });
@@ -432,6 +483,10 @@
             preActive.classList.remove("active");
             preActive.classList.add("hidden");
 
+            var prePaging = document.querySelector(".content-page > .active");
+            prePaging.classList.remove("active");
+            prePaging.classList.add("hidden");
+
             $(".content-header > li > .active").removeClass("active");
             $(this).addClass("active");
 
@@ -439,9 +494,18 @@
             currentActive.classList.remove("hidden");
             currentActive.classList.add("active");
 
+            var currentPaging = document.querySelector( ".content-page > " + event.target.dataset.select );
+            currentPaging.classList.remove("hidden");
+            currentPaging.classList.add("active");
+
             $(".post-regist").css("display", "none");
 
             listOption();
+
+            setCookie("whereboard", $(".content-header .active").html());
+
+            document.pageForm.pageNum.value = 1;
+            document.pageForm.submit();
         });
 
         /* 대분류 */
