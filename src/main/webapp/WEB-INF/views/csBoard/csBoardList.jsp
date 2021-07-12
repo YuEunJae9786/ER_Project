@@ -193,125 +193,45 @@
                 </ul>
             </div>
             <div class="content-section">
-                <ul>
-                    <li class="col-xs-2 col-sm-1">1</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" id="a" onclick="contentView()">환불 해주세요</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">사라만</li>
-                    <li class="col-xs-3 col-md-2">2021-02-05</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/swim.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            너 지금 멋지게 <br/>
-
-                            헤엄 치려고 <br/>
-                            
-                            숨 참는 것부터<br/>
-                            
-                            하고 있다고 생각해<br/>
-                        </div>
-                        
-                        <div class="content-view-btn">
-                            <button type="button" id="btn-modify" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
-                            <button type="button" id="btn-remove" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-
-                        <!-- 답변 -->
-                        <div class="col-xs-12 content-reply">
-                            <div class="reply-id">
-                                <span>아이디 : </span>
-                            </div>
-                            <div class="reply-comment">
-                                답변이 길어져도 어떻게 잘 되기 위해서 어디까지 길어져야 확인할 수가 있는거지? 좀 알려줄래요?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                            </div>
-                        </div>
-
-                        <!-- 답변 폼 -->
-                        <form action="" method="post" class="hidden">
-                            <textarea class="regist-reply">답변쓰기</textarea>
-
-                            <div class="btn-right">
-                                <button type="button" class="btn btn-single btn-signature1">등록</button>
-                            </div>
-                        </form>
-                        
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">2</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" onclick="contentView()">와 진짜 화면 하나씩 꾸미는거 생각보다 어렵네</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">이세상사람이아님</li>
-                    <li class="col-xs-3 col-md-2">2030-02-21</li>
-                    <li class="col-xs-2 col-md-1">3</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/unknown.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            앞이 깜깜하고 <br/>
-
-                            앞이 보이지 않을 때가 있죠 <br/>
-                            
-                            오늘이 그랬나요?<br/>
-
-                            그랬다면 당신은 대단한거에요<br/>
-
-                            그 힘든 하루를 또 참아냈으니까<br/>
-                        </div>
-                        <div class="content-view-btn">
-                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-
-                        <!-- 답변 -->
-                        <div class="col-xs-12 content-reply">
-                            <div class="reply-id">
-                                <span></span>
-                            </div>
-                            <div class="reply-comment">
-                            </div>
-                        </div>
-
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">3</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">1:1 질문 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">1:1질문만하는사람</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">4</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">비밀글 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">내존재도비밀이다</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">5</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">일반글 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">내데이터어디감?</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                
+                <c:forEach var="list" items="${qnaList }">
+                	<ul>
+	                    <li class="col-xs-2 col-sm-1">${list.qna_No }</li>
+	                    <li class="col-xs-3 col-md-6">
+	                        <a href="#" id="a" onclick="contentView()">${list.qna_Title }</a>
+	                    </li>
+	                    <li class="col-xs-2 col-md-2">${list.qna_Writer }</li>
+	                    <li class="col-xs-3 col-md-2">${list.qna_Regdate }</li>
+	                    <li class="col-xs-2 col-md-1">${list.qna_View }</li>
+	                    <li class="col-xs-12 content-view hidden">
+	                        <div class="content-view-wrap">${list.qna_Content }</div>
+	                        <div class="content-view-btn">
+	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
+	                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
+	                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
+	                        </div>
+	                        <!-- 답변 -->
+	                        <div class="col-xs-12 content-reply">
+	                            <div class="reply-id">
+	                                <span>아이디 : </span>
+	                            </div>
+	                            <div class="reply-comment">
+                               			답변이 길어져도 어떻게 잘 되기 위해서 어디까지 길어져야 확인할 수가 있는거지? 좀 알려줄래요?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	                            </div>
+	                        </div>
+	                        
+	                        <!-- 답변 폼 -->
+	                        <form action="" method="post" class="hidden">
+	                            <textarea class="regist-reply">답변쓰기</textarea>
+	
+	                            <div class="btn-right">
+	                                <button type="button" class="btn btn-single btn-signature1">등록</button>
+	                            </div>
+	                        </form>
+	                    ​</li>
+                	</ul>
+                </c:forEach>
             </div>
         </div>
-
     </div>
 
     <!-- 페이지네이션 -->
@@ -360,17 +280,21 @@
 	        <ul class="paging content-notice-box3 hidden">
 	
 	            <!-- 이전 -->
-            	<li class="prev"><a href="#">이전</a></li>
+	            <c:if test="${qnaPage.prev }">
+            		<li class="prev"><a href="#">이전</a></li>
+            	</c:if>
 	
 	            <!-- 페이지 -->
-	            <li class="active"><a href="#">1</a></li>
-	            <li><a href="#">2</a></li>
-	            <li><a href="#">3</a></li>
-	            <li><a href="#">4</a></li>
-	            <li><a href="#">5</a></li>
+	            <c:forEach var="num" begin="${qnaPage.startPage }" end="${qnaPage.endPage }">
+		            <li class="${qnaPage.pageNum eq num ? 'active' : '' }">
+                        <a href="#" data-pagenum="${num}">${num }</a>
+                    </li>
+	            </c:forEach>
 	
 	            <!-- 다음 -->
-            	<li class="next"><a href="#">다음</a></li>
+	            <c:if test="${qnaPage.next }">
+            		<li class="next"><a href="#">다음</a></li>
+            	</c:if>
 	
 	        </ul>
 
@@ -381,6 +305,8 @@
 
             <input type="hidden" name="pageNum" value="1">
             <input type="hidden" name="orderType" value="${orderUtil.orderType }">
+            <input type="hidden" name="searchType" value="${orderUtil.searchType }">
+            <input type="hidden" name="searchName" value="${orderUtil.searchName }">
 	        
 	    </div>
     </form>
@@ -504,7 +430,8 @@
 
             setCookie("whereboard", $(".content-header .active").html());
 
-            document.pageForm.pageNum.value = 1;
+            init();
+            
             document.pageForm.submit();
         });
 
@@ -571,6 +498,13 @@
             var currentTarget = event.target.parentElement.nextElementSibling.nextElementSibling.classList;
             currentTarget.toggle("hidden");
         });
+        
+        /* 컨트롤러로 넘어갈 때, 변수 처리 */
+        function init() {
+        	document.pageForm.pageNum.value = 1;
+        	document.pageForm.searchType.value = '';
+        	document.pageForm.searchName.value = '';
+        }
 
     </script>
     

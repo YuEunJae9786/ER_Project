@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
+import com.erproject.command.QnaVO;
 import com.erproject.csboard.mapper.CsBoardMapper;
 import com.erproject.util.Criteria;
 import com.erproject.util.OrderUtil;
@@ -30,6 +31,11 @@ public class CsBoardServiceImpl implements CsBoardService{
 	}
 	
 	@Override
+	public int qnaRegist(QnaVO vo) {
+		return csBoardMapper.qnaRegist(vo);
+	}
+	
+	@Override
 	public int getFaqTotal(OrderUtil orderUtil) {
 		return csBoardMapper.getFaqTotal(orderUtil);
 	}
@@ -37,6 +43,11 @@ public class CsBoardServiceImpl implements CsBoardService{
 	@Override
 	public int getNoticeTotal(OrderUtil orderUtil) {
 		return csBoardMapper.getNoticeTotal(orderUtil);
+	}
+	
+	@Override
+	public int getQnaTotal(OrderUtil orderUtil) {
+		return csBoardMapper.getQnaTotal(orderUtil);
 	}
 	
 	@Override
@@ -68,6 +79,22 @@ public class CsBoardServiceImpl implements CsBoardService{
 		map.put("amount", Integer.toString(cri.getAmount()));
 
 		return csBoardMapper.faqGetList(map);
+	}
+	
+	@Override
+	public List<QnaVO> qnaGetList(OrderUtil orderUtil, Criteria cri) {
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("searchType", orderUtil.getSearchType());
+		map.put("searchName", orderUtil.getSearchName());
+		map.put("orderType", orderUtil.getOrderType());
+		map.put("listOrder", orderUtil.getListOrder());
+		
+		map.put("pageNum", Integer.toString(cri.getPageNum()));
+		map.put("amount", Integer.toString(cri.getAmount()));
+		
+		return csBoardMapper.qnaGetList(map);
 	}
 	
 	
