@@ -22,5 +22,8 @@ public interface CsBoardMapper {
 	public List<NoticeVO> noticeGetList(Map<String, String> map); // 노티스 게시판 글 불러오기
 	public List<FaqVO> faqGetList(Map<String, String> map); // faq 게시판 글 불러오기
 	public List<QnaVO> qnaGetList(Map<String, String> map); // qna 게시판 글 불러오기
+	public int noticeView(int bno); // notice 게시판 조회수 증가
+	public int faqView(int bno); // faq 게시판 조회수 증가
+	public int qnaView(int bno); // qna 게시판 조회수 증가
 	
 }

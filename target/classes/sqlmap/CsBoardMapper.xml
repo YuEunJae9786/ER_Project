@@ -161,5 +161,17 @@
   		]]>
   		
   	</select>
+  	
+  	<update id="noticeView">
+  		UPDATE NOTICE SET NOTICE_VIEW = NOTICE_VIEW + 1 WHERE NOTICE_NO = #{bno}
+  	</update>
+  	
+  	<update id="faqView">
+  		UPDATE FAQ SET FAQ_VIEW = FAQ_VIEW + 1 WHERE FAQ_NO = #{bno}
+  	</update>
+  	
+  	<update id="qnaView">
+  		UPDATE QNA SET QNA_VIEW = QNA_VIEW + 1 WHERE QNA_NO = #{bno}
+  	</update>
   
   </mapper>

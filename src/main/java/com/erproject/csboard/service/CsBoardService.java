@@ -19,5 +19,6 @@ public interface CsBoardService {
 	public List<NoticeVO> noticeGetList(OrderUtil orderUtil, Criteria cri); // 노티스 게시판 글 불러오기
 	public List<FaqVO> faqGetList(OrderUtil orderUtil, Criteria cri); // faq 게시판 글 불러오기
 	public List<QnaVO> qnaGetList(OrderUtil orderUtil, Criteria cri); // qna 게시판 글 불러오기
+	public int countView(String whereboard, int bno); // 조회수 올리기
 
 }

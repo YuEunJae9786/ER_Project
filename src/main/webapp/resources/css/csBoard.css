@@ -82,11 +82,11 @@ a:hover, a:focus {
     height: 150px;
     resize: none;
 
-    transition: height 2s ease-in-out;
+    transition: height 0.5s ease-in-out;
 }
 
 .regist-content:focus {
-    height: 300px;
+    height: 200px;
 }
 
 /* 최신글, 조회순 */
@@ -176,6 +176,7 @@ a:hover, a:focus {
 /* 게시판 상세 */
 .content-section > ul > .content-view {
     border: 1px solid #ccc;
+    border-bottom: 0px;
     box-sizing: border-box;
     height: 0;
     line-height: 0;

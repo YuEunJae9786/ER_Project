@@ -1,12 +1,20 @@
 package com.erproject.controller;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erproject.command.FaqVO;
@@ -114,6 +122,20 @@ public class CsBoardController {
 		}
 		
 		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	조회 수 올리기
+	@ResponseBody
+	@CrossOrigin("*")
+	@PostMapping(value = "/countView")
+	public int countView(@RequestBody Map<String, Object> map) {
+		
+		System.out.println((String)map.get("whereboard"));
+		System.out.println((int)map.get("bno"));
+		
+		int result = csBoardService.countView((String)map.get("whereboard"), (int)map.get("bno"));
+		
+		return result;
 	}
 	
 }
