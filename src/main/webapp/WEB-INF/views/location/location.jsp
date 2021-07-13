@@ -1,54 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-	<div class="here">킥보드 위치 보기</div>
-	<!-- 바디영역 -->
-	<div class="mainBody">
-		<!-- 지도를 표시할 div 입니다 -->
-		<div id="map"
-			style="width: 60%; height: 600px; margin-right: 1%; margin-left: 4%; box-sizing: border-box;"></div>
-		<!-- 지도 js -->
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a"></script>
-		<script>
-			/*
-			http://openapi.seoul.go.kr:8088/(인증키)/xml/TbPublicWifiInfo_GN/1/5/
-			좌표값 ,실제 주소
-			 */
-			function getFetch() {
-				fetch(
-						"http://openapi.seoul.go.kr:8088/4f4975567873657534395075496a44/json/bikeList/1/10/")
-						.then(function(response) {
-							if (response.status != 200) {
-								alert("네트워크상 오류가 발생했습니다. 다시 시도하세요");
-								return;
-							} else {
-								return response.json();
-							}
-						}).then(
-								function(data) {
-									var list = data["rentBikeStatus"]["row"];
-									//console.log(list);
-									for (var i = 0; i < list.length; i++) {
-										position = {
-											title : 'list' + i,
-											latlng : new kakao.maps.LatLng(
-													list[i].stationLatitude,
-													list[i].stationLongitude)
-										}
-
-										addMarker(position);
-
-									}
-									console.log(list[0].stationLatitude);
-								})
-			}
-			(function() {
-				getFetch();
-			})();
-
+<div class="here">킥보드 위치 보기</div>
+<!-- 바디영역 -->
+<div class="mainBody">
+	<!-- 지도를 표시할 div 입니다 -->
+	<div id="map"
+		style="width: 60%; height: 600px; margin-right: 1%; margin-left: 4%; box-sizing: border-box;"></div>
+	<!-- 지도 js -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a"></script>
+	<script>
 			var markers = [];
 
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -59,6 +23,11 @@
 			};
 
 			var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+			//for (var i = 0; i < positions.length; i++) {
+			//
+			//	addMarker(positions[i]);
+			//}
 
 			// 마커를 표시할 위치와 title 객체 배열입니다 
 			// var positions = [
@@ -76,7 +45,6 @@
 			//     },
 			// ];
 			selectedMarker = null;
-
 			// 마커 이미지의 이미지 주소입니다
 			var imageNormal = "https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png";
 			imageClick = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -94,10 +62,7 @@
 			var markerSize = new kakao.maps.Size(24, 35);
 			overMarkerSize = new kakao.maps.Size(36, 42);
 
-			// for (var i = 0; i < positions.length; i ++) {
-
-			//     addMarker(positions[i], markerSize, overMarkerSize);
-			// }
+			//
 
 			// 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다  
 			var normalImage = overMarkerImage(markerSize), overImage = overMarkerImage(overMarkerSize), clickImage = createMarkerImage(markerSize);
@@ -151,6 +116,7 @@
 				markers.push(marker); // 배열에 생성된 마커를 추가합니다
 				return marker;
 			}
+
 			function clickMark(marker) {
 				// 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
 				// 마커의 이미지를 클릭 이미지로 변경합니다
@@ -240,12 +206,12 @@
 				return markerImage;
 			}
 		</script>
-		<!-- 상품 리스트를 표시하는 div입니다. -->
-		<div class="info">
-			<div class="info-header">사용가능한 킥보드</div>
-			<ul id="kick-list" class="kick-list" width="100%">
-				<!-- forEach써서 리스트 목록 나오게설정 -->
-				<c:forEach  var="i" begin="1" end="10">
+	<!-- 상품 리스트를 표시하는 div입니다. -->
+	<div class="info">
+		<div class="info-header">사용가능한 킥보드</div>
+		<ul id="kick-list" class="kick-list">
+			<!-- forEach써서 리스트 목록 나오게설정 -->
+			<c:forEach var="i" begin="1" end="10">
 				<li id="list">
 					<!-- 기본정보 리스트 -->
 					<div id="list${i}" class="kick-info-list">
@@ -270,7 +236,8 @@
 								<div
 									style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
 									<div>좌표 정보</div>
-									<div style="padding: 5px;">좌표 (${list[i-1].stationLatitude},	${list[i-1].stationLongitude})</div>
+									<div style="padding: 5px;">좌표
+										(${list[i-1].stationLatitude}, ${list[i-1].stationLongitude})</div>
 								</div>
 							</div>
 							<img
@@ -278,8 +245,8 @@
 								alt="" class="detail-img">
 						</div>
 						<div class="spec">
-							상세정보 <br> 스팩1.<br> 스팩2.<br> 스팩3.<br>
-							<a>더많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
+							상세정보 <br> 스팩1.<br> 스팩2.<br> 스팩3.<br> <a>더많은
+								정보 보러가기(여기에는 링크를 걸어준다.)</a>
 						</div>
 						<div>
 							<button class="btn btn-default btn-signature1">문의하기</button>
@@ -287,13 +254,72 @@
 						</div>
 					</div>
 				</li>
-				</c:forEach>
-			</ul>
-		</div>
+			</c:forEach>
+		</ul>
 	</div>
-	
-	<script>
+</div>
+
+<script>
 	        $(document).ready(function(data) {
+	        	/*
+				http://openapi.seoul.go.kr:8088/(인증키)/xml/TbPublicWifiInfo_GN/1/5/
+				좌표값 ,실제 주소
+				 */
+				//var positions = [];
+				function getFetch() {
+					fetch(
+							"http://openapi.seoul.go.kr:8088/4f4975567873657534395075496a44/json/bikeList/1/10/")
+							.then(function(response) {
+								if (response.status != 200) {
+									alert("네트워크상 오류가 발생했습니다. 다시 시도하세요");
+									return;
+								} else {
+									return response.json();
+								}
+							}).then(
+									function(bikeList) {
+										var bikeList = bikeList["rentBikeStatus"]["row"];
+										for (var i = 0; i < bikeList.length; i++) {
+
+											position = {
+												title : 'list' + i,
+												latlng : new kakao.maps.LatLng(
+														bikeList[i].stationLatitude,
+														bikeList[i].stationLongitude)
+											}
+											addMarker(position);
+										}
+	
+										return bikeList;
+									}).then(
+										function(bikeList){
+											var date = new Array();
+											for(var i=0; i<bikeList.length;i++){
+												date.push(bikeList[i]);	
+											}
+											
+											$.ajax({
+													type : "POST",
+													url : "setKickAPI",
+													dataType : "json",
+													contentType : "application/json; charset=UTF-8",
+													data : JSON.stringify(
+														date
+									            	),
+													success : function(data) {
+														console.log(data);
+														console.log("success");
+													},
+													error : function(status, error) {
+														console.log(status, error);
+													}
+											})		
+										})
+				}
+	        	
+				;(function() {
+					getFetch();
+				})();
 	            
 	            var size = $("#kick-list").find("li").length;
 				
@@ -301,22 +327,12 @@
 	                (function(i) {
 	                    $('#list'+i).click(function(){
 	                        clickMark(markers[i-1]);
-	
-	                        //if("list"+i==)
-	                        // if($('#detail'+i).css("display") == "none"){   
-	                        //     for(var j=1;j<=size;j++){
-	                        //         if(i==j){
-	                        //             jQuery('#detail'+i).slideDown(50);            
-	                        //         } else {
-	                        //             jQuery('#detail'+j).slideUp(50);
-	                        //         }
-	                        //     }
-	                        // } else {
-	                        //     jQuery('#detail'+i).slideUp(50);
-	                        // }
+
 	                    });
 	                })(i);
 	            }
+
+	           
 	        });
 	        
 	    </script>
