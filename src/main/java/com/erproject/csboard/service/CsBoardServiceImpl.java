@@ -97,6 +97,25 @@ public class CsBoardServiceImpl implements CsBoardService{
 		return csBoardMapper.qnaGetList(map);
 	}
 	
+	@Override
+	public int countView(String whereboard, int bno) {
+		
+		System.out.println(whereboard);
+		
+		int result = 0;
+		
+		if(whereboard.equals("Notice")) {
+			result = csBoardMapper.noticeView(bno);
+		} else if(whereboard.equals("FAQ")) {
+			result = csBoardMapper.faqView(bno);
+		} else if(whereboard.equals("QNA")) {
+			result = csBoardMapper.qnaView(bno);
+		}
+		
+		return result;
+		
+	}
+	
 	
 	
 	

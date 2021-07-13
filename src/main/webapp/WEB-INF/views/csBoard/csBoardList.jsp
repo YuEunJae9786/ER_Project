@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
-
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
 
 	<style>
 		.content-view-wrap {
@@ -120,7 +120,7 @@
 	            	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.notice_No }</li>
 	                    <li class="col-xs-3 col-md-6">
-	                        <a href="#" id="a" onclick="contentView()">${list.notice_Title }</a>
+	                        <a href="#" id="a" onclick="contentView(${list.notice_No})">${list.notice_Title }</a>
 	                    </li>
 	                    <li class="col-xs-2 col-md-2">${list.notice_Writer }</li>
 	                    <li class="col-xs-3 col-md-2">${list.notice_Regdate }</li>
@@ -159,7 +159,7 @@
                 	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.faq_No }</li>
 	                    <li class="col-xs-3 col-md-6">
-	                        <a href="#" id="a" onclick="contentView()">${list.faq_Title }</a>
+	                        <a href="#" id="a" onclick="contentView(${list.faq_No })">${list.faq_Title }</a>
 	                    </li>
 	                    <li class="col-xs-2 col-md-2">${list.faq_Writer }</li>
 	                    <li class="col-xs-3 col-md-2">${list.faq_Regdate }</li>
@@ -197,7 +197,7 @@
                 	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.qna_No }</li>
 	                    <li class="col-xs-3 col-md-6">
-	                        <a href="#" id="a" onclick="contentView()">${list.qna_Title }</a>
+	                        <a href="#" id="a" onclick="contentView(${list.qna_No })">${list.qna_Title }</a>
 	                    </li>
 	                    <li class="col-xs-2 col-md-2">${list.qna_Writer }</li>
 	                    <li class="col-xs-3 col-md-2">${list.qna_Regdate }</li>
@@ -474,7 +474,7 @@
 
         /* 글 상세 */
         var preTarget;
-        function contentView() {
+        function contentView(bno) {
             event.preventDefault();
             
             /* 현재 누른 타겟 */
@@ -489,6 +489,28 @@
             }
 
             preTarget = currentTarget;
+            
+            /* 게시글 조회 수 증가 */
+            var whereboard = $(".content-header .active").html();
+            var changeTarget = event.target.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
+            $.ajax({
+                type: "post",
+                url: "countView",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({"whereboard": whereboard, "bno": bno}),
+                success : function(data) {
+
+                    if(data == 1){
+                        var plus = (changeTarget.innerHTML*1) + 1; // string -> number + 1
+                        changeTarget.innerHTML = plus;
+                    } 
+
+                },
+                error: function(status, error){
+                    console.log(status, error);
+                }
+            });
         }
 
         /* 글 상세 - 답변 */
