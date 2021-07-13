@@ -3,8 +3,13 @@ package com.erproject.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -128,14 +133,49 @@ public class CsBoardController {
 	@ResponseBody
 	@CrossOrigin("*")
 	@PostMapping(value = "/countView")
-	public int countView(@RequestBody Map<String, Object> map) {
+	public int countView(@RequestBody Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println((String)map.get("whereboard"));
-		System.out.println((int)map.get("bno"));
+		Cookie[] cookies = request.getCookies();
 		
-		int result = csBoardService.countView((String)map.get("whereboard"), (int)map.get("bno"));
+		String whereboard = (String)map.get("whereboard");
+		int bno = (int)map.get("bno");
+		
+		if(cookies != null && cookies.length > 0) { // 쿠기가 있는 경우
+			
+			for(int i = 0 ; i < cookies.length; i++) {
+				if(cookies[i].getName().equals("viewCookie")) {
+					if(cookies[i].getValue().equals(whereboard + bno)) {  // 중복
+						return 0; // 같은 글을 클릭했을 경우 조회수를 증가하지 않고 리턴
+					}
+				}
+			}
+			
+		}
+		
+		int result = csBoardService.countView(whereboard , bno);
+		
+		Cookie newCookie = new Cookie("viewCookie", whereboard + bno); // 현재 게시판 + 번호 로 쿠키 저장
+		response.addCookie(newCookie); // 쿠키 저장
+		
 		
 		return result;
+	}
+	
+//	글 삭제
+	@RequestMapping("/delete")
+	public String delete(@RequestParam("whereboard") String whereboard,
+						 @RequestParam("bno") int bno,
+						 RedirectAttributes RA) {
+		
+		int result = csBoardService.delete(whereboard, bno);
+		
+		if( result == 1) {
+			RA.addFlashAttribute("msg", "해당 글이 삭제 되었습니다.");
+		} else {
+			RA.addFlashAttribute("msg", "해당 글 삭제에 실패했습니다. 다시 시도하세요");
+		}
+		
+		return "redirect:/csBoard/csBoardList";
 	}
 	
 }

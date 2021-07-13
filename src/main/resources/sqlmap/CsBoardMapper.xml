@@ -173,5 +173,17 @@
   	<update id="qnaView">
   		UPDATE QNA SET QNA_VIEW = QNA_VIEW + 1 WHERE QNA_NO = #{bno}
   	</update>
+  	
+  	<delete id="noticeDelete">
+  		DELETE FROM NOTICE WHERE NOTICE_NO = #{bno}
+  	</delete>
+  	
+  	<delete id="faqDelete">
+  		DELETE FROM FAQ WHERE FAQ_NO = #{bno}
+  	</delete>
+  	
+  	<delete id="qnaDelete">
+  		DELETE FROM QNA WHERE QNA_NO = #{bno}
+  	</delete>
   
   </mapper>

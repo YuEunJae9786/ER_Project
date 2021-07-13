@@ -20,5 +20,6 @@ public interface CsBoardService {
 	public List<FaqVO> faqGetList(OrderUtil orderUtil, Criteria cri); // faq 게시판 글 불러오기
 	public List<QnaVO> qnaGetList(OrderUtil orderUtil, Criteria cri); // qna 게시판 글 불러오기
 	public int countView(String whereboard, int bno); // 조회수 올리기
+	public int delete(String whereboard, int bno); // 글 삭제
 
 }
