@@ -100,8 +100,6 @@ public class CsBoardServiceImpl implements CsBoardService{
 	@Override
 	public int countView(String whereboard, int bno) {
 		
-		System.out.println(whereboard);
-		
 		int result = 0;
 		
 		if(whereboard.equals("Notice")) {
@@ -114,6 +112,22 @@ public class CsBoardServiceImpl implements CsBoardService{
 		
 		return result;
 		
+	}
+	
+	@Override
+	public int delete(String whereboard, int bno) {
+		
+		int result = 0;
+		
+		if(whereboard.equals("Notice")) {
+			result = csBoardMapper.noticeDelete(bno);
+		} else if(whereboard.equals("FAQ")) {
+			result = csBoardMapper.faqDelete(bno);
+		} else if(whereboard.equals("QNA")) {
+			result = csBoardMapper.qnaDelete(bno);
+		}
+		
+		return result;
 	}
 	
 	

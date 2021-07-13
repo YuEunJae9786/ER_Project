@@ -132,7 +132,7 @@
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
 	                        <div class="content-view-btn">
 	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-	                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
+	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.notice_No});">삭제</button>
 	                        </div>
 	                    ​</li>
 	                </ul>
@@ -171,7 +171,7 @@
 	                        <div class="content-view-wrap">${list.faq_Content }</div>
 	                        <div class="content-view-btn">
 	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-	                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
+	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.faq_No});">삭제</button>
 	                        </div>
 	                    ​</li>
                 	</ul>
@@ -207,7 +207,7 @@
 	                        <div class="content-view-btn">
 	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
 	                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
-	                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
+	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
 	                        </div>
 	                        <!-- 답변 -->
 	                        <div class="col-xs-12 content-reply">
@@ -370,6 +370,15 @@
             });
 	   		
     	}); // ready
+    	
+    	// 글 삭제
+    	function deleteList(bno) {
+    		
+    		var whereBoard = $(".content-header .active").html();
+    		
+    		location.href = "delete?whereboard=" + whereBoard + "&bno=" + bno;
+    		
+    	}
     
     </script>
     

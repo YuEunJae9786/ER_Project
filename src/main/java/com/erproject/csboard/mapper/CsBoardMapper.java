@@ -25,5 +25,8 @@ public interface CsBoardMapper {
 	public int noticeView(int bno); // notice 게시판 조회수 증가
 	public int faqView(int bno); // faq 게시판 조회수 증가
 	public int qnaView(int bno); // qna 게시판 조회수 증가
+	public int noticeDelete(int bno); // notice 게시판 글 삭제
+	public int faqDelete(int bno); // bno 게시판 글 삭제
+	public int qnaDelete(int bno); // qna 게시판 글 삭제
 	
 }
