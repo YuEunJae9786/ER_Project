@@ -17,12 +17,7 @@ public class NoticeVO {
 	private String notice_Regdate; // 등록일
 	private String notice_UpdateDate; // 업데이트 등록일
 	public NoticeVO() {
-<<<<<<< HEAD
-		
-=======
-		super();
-		// TODO Auto-generated constructor stub
->>>>>>> 5d9c37c3e48de6d8f710bae96933053d2e6c9050
+
 	}
 	public NoticeVO(int notice_No, String notice_Writer, String notice_Title, String notice_Content, int notice_View,
 			String notice_Regdate, String notice_UpdateDate) {
@@ -35,15 +30,8 @@ public class NoticeVO {
 		this.notice_Regdate = notice_Regdate;
 		this.notice_UpdateDate = notice_UpdateDate;
 	}
-<<<<<<< HEAD
-	@Override
-	public String toString() {
-		return "NoticeVO [notice_No=" + notice_No + ", notice_Writer=" + notice_Writer + ", notice_Title="
-				+ notice_Title + ", notice_Content=" + notice_Content + ", notice_View=" + notice_View
-				+ ", notice_Regdate=" + notice_Regdate + ", notice_UpdateDate=" + notice_UpdateDate + "]";
-	}
-=======
->>>>>>> 5d9c37c3e48de6d8f710bae96933053d2e6c9050
+
+
 	public int getNotice_No() {
 		return notice_No;
 	}
@@ -86,17 +74,13 @@ public class NoticeVO {
 	public void setNotice_UpdateDate(String notice_UpdateDate) {
 		this.notice_UpdateDate = notice_UpdateDate;
 	}
-<<<<<<< HEAD
-	
-	
-=======
+
 	@Override
 	public String toString() {
 		return "NoticeVO [notice_No=" + notice_No + ", notice_Writer=" + notice_Writer + ", notice_Title="
 				+ notice_Title + ", notice_Content=" + notice_Content + ", notice_View=" + notice_View
 				+ ", notice_Regdate=" + notice_Regdate + ", notice_UpdateDate=" + notice_UpdateDate + "]";
 	}
->>>>>>> 5d9c37c3e48de6d8f710bae96933053d2e6c9050
 	
 	
 	

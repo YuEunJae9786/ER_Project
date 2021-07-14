@@ -4,15 +4,15 @@
 	<header class="header-main">
         <div class="container">
             <div class="head-logo">
-                <a href=""><img src="${pageContext.request.contextPath }/resources/img/logo.png" width="100px" height="80px"></a>
+                <a href="${pageContext.request.contextPath }/"><img src="${pageContext.request.contextPath }/resources/img/logo.png" width="100px" height="80px"></a>
 
 
             </div>
 
             <div class="info-all">
-                <div class="head-info"><a href="">Login</a></div>
+                <div class="head-info"><a href="${pageContext.request.contextPath }/user/userLogin">Login</a></div>
                 <div class="head-info"><a href="${pageContext.request.contextPath }/user/userJoin">Join</a></div>
-                <div class="head-info"><a href="">Mypage</a></div>
+                <div class="head-info"><a href="${pageContext.request.contextPath }/user/userMypage">Mypage</a></div>
             </div>
         </div>
 

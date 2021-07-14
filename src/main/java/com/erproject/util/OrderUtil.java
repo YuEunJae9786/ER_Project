@@ -34,10 +34,6 @@ public class OrderUtil {
 		return "OrderUtil [orderType=" + orderType + "]";
 	}
 	
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> 5d9c37c3e48de6d8f710bae96933053d2e6c9050
+
 	
 }

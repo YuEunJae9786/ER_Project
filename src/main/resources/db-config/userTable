@@ -9,3 +9,9 @@ create table users(
     regdate date default sysdate
 );
 
+-카카오
+create table kakaoUser(
+    kakaoEmail varchar2(50) not null , /*두개로 받아서 저장은 하나로 받기*/
+    kakaoBirt varchar2(50) 
+    
+);

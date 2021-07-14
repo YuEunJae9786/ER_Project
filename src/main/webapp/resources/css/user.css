@@ -30,7 +30,7 @@
 }
 
 .login-body {
-    height: 740px;
+    height: 780px;
     margin-top: 80px;
 }
 /*카카오버튼 로그인*/
@@ -56,11 +56,13 @@
 }
 
 .join-form {
-    height: 900px;
+	
+    height: auto;
     margin-top: 40px;
     margin: 0 auto;
     float: none;
     overflow: hidden;
+   
   }
   .join-group {
       margin-top: 20px;

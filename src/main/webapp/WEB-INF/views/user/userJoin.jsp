@@ -14,16 +14,19 @@
                         <p>회원가입</p>
                     </div>
                     
-                    <form class="join" action="joinBtn" post="method">
+                    <form class="join" action="joinForm" id="joinForm" method="post" >
                     
                         <div class="join-group">
                             <label>ID</label>
                             <div class="j-group">
                                 <input type="text" autocomplete="off" class="form-control j-left" placeholder="4~12 길이의 영소문자를 이용한 아이디를 입력하세요" name=userId id="userId">  
-                                <button class="btn CheckBtn" type="button">Check ID</button>
+                                <button class="btn CheckBtn" type="button" id="idCheck">Check ID</button>
                             </div>
                             <span id="msgId"></span>
                         </div>
+                        
+                        
+                        
 
                         <div class="join-group">
                             <label>Password</label>
@@ -201,26 +204,28 @@
 		//폼검증
 		$("#joinBtn").click(function() {
 
-			if( $("#userId").attr("readonly") != 'readonly' ) { //중복검사를 하지 않은 경우
+			if( $("#userId").attr("readonly") != 'readonly' ) { 
 				alert("아이디 중복검사는 필수 입니다.");
 				$("#userId").focus();
-				return; //함수종료
+				return; //종료~
+				
+				
 			} else if( $("#userPw").val() == '' || ($("#userPw").val() != $("#pwCheck").val() )) {
-				alert("비밀번호를 확인하세요");
+				alert("비밀번호를 확인하세요"); //비번확인
 				$("#userPw").focus();
 				return;
 			} else if( $("#userName").val() == '' ) {
-				alert("이름은 필수입니다");
+				alert("이름은 필수입니다"); //이름확인
 				$("#userName").focus();
 				return;
 				
 			} else if( $("userPhone").val() ==''){
-				alert("전화번호는 필수입니다");
+				alert("전화번호는 필수입니다"); //전번확인
 				$("userPhone").focus();
 				return;
 				
 			} else if($("userEmail1").val()== '') {
-				alert("이메일은 필수입니다.");
+				alert("이메일은 필수입니다."); //이메일확인 
 				$("userEmail1").focus();
 				return;
 				

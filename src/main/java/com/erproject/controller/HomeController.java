@@ -13,24 +13,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		
-		
-	
-		
 		return "home";
 	}
 	
 }
 
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 5d9c37c3e48de6d8f710bae96933053d2e6c9050
