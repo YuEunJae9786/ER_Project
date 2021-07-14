@@ -323,6 +323,7 @@
 	   			
 	   			// 어떤 게시판?
 	   			var whereBoard = $(".content-header .active").html();
+	   			console.log(whereBoard);
 	   			
 	   			if(whereBoard == "Notice"){
 	   				$("#registForm").attr("action","noticeRegist");
