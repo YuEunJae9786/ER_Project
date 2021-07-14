@@ -38,9 +38,11 @@ a:hover, a:focus {
     width: 100%;
 
     font-size: 26px;
+    box-sizing: border-box;
 }
 
 .content-header > li > a:hover {
+    padding-bottom: -2px;
     border-bottom: 2px solid #777;
 }
 
@@ -80,11 +82,11 @@ a:hover, a:focus {
     height: 150px;
     resize: none;
 
-    transition: height 2s ease-in-out;
+    transition: height 0.5s ease-in-out;
 }
 
 .regist-content:focus {
-    height: 300px;
+    height: 200px;
 }
 
 /* 최신글, 조회순 */
@@ -174,6 +176,7 @@ a:hover, a:focus {
 /* 게시판 상세 */
 .content-section > ul > .content-view {
     border: 1px solid #ccc;
+    border-bottom: 0px;
     box-sizing: border-box;
     height: 0;
     line-height: 0;
@@ -234,6 +237,10 @@ a:hover, a:focus {
     margin-bottom: 50px;
 }
 
+.paging {
+    display: inline-block;
+}
+
 .paging > li {
     display:inline-block;
 
@@ -267,10 +274,6 @@ a:hover, a:focus {
 /* 히든 속성 */
 .hidden2 {
     display: none;
-}
-
-/* 엑티브 */
-.active {
 }
 
 /* 전체적인 버튼 디자인 */
