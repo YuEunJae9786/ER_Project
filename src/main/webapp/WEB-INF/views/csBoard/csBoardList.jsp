@@ -19,7 +19,7 @@
     </div>
 
     <!-- 본문 헤더 -->
-    <div class="contain66e6r">
+    <div class="container">
         <ul class="row col-xs-12 content-header">
             <li class="col-xs-4"><a href="#" id="Notice" data-select=".content-notice-box1">Notice</a></li>
             <li class="col-xs-4"><a href="#" id="FAQ" data-select=".content-notice-box2">FAQ</a></li>
