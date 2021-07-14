@@ -1,3 +1,5 @@
+
+@charset "UTF-8";
 /*마이페이지 디자인*/
 
 .mytitle > a{
@@ -57,7 +59,11 @@
     float:right;
     
 }
+
+.mypageBtn1{}
+
 .mypageBtn{
+
     margin-left: 10px;
     width: 80px;
     text-align: center;
@@ -66,6 +72,37 @@
     background-color: cornflowerblue;
     border: none;
    
+}
+
+
+.mypageBtn2{
+    color: white;
+    margin-left: 10px;
+    width: 80px;
+    text-align: center;
+    float: right;
+   background-color:#abbce3;
+    border: none;
+   
+}
+
+
+
+.qnaBtn{
+    color: white;
+    margin-left: 10px;
+    width: 80px;
+    text-align: center;
+    float: right;
+   background-color:cornflowerblue;
+    border: none;
+   
+}
+.qnaBtn:hover{
+    background-color:rgb(171, 188, 227) ;
+    color: white;
+    border: none;
+    
 }
 
 .mypageBtn:hover{
