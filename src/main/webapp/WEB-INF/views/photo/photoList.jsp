@@ -10,7 +10,7 @@
                 <div class="photoList">
     
                     <div class="photo">
-                        <img src="img/kic1.jpeg" alt=""  height="262px">
+                        <img src="${pageContext.request.contextPath }/resources/img/kic1.jpg" alt=""  height="262px">
                     </div>
 
                     <div class="photo-content">
@@ -23,21 +23,7 @@
 
                 <div class="photoList">
                     <div class="photo">
-                        <img src="${pageContext.request.contextPath }/img/kick2.jpeg" alt="" height="262px">
-                    </div>
-
-                    <div class="photo-content">
-                        <div class="info">
-                            <span>킥고잉 2세대</span>
-                            <span>color only 1</span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="photoList">
-                    <div class="photo">
-                        <img src="img/kic1.jpeg" alt="" height="262px">
+                        <img src="${pageContext.request.contextPath }/resources/img/kick2.png" alt="" height="262px">
                     </div>
 
                     <div class="photo-content">
@@ -51,7 +37,21 @@
 
                 <div class="photoList">
                     <div class="photo">
-                        <img src="img/kick2.jpeg" alt="" height="262px">
+                        <img src="${pageContext.request.contextPath }/resources/img/kic1.jpg" alt="" height="262px">
+                    </div>
+
+                    <div class="photo-content">
+                        <div class="info">
+                            <span>킥고잉 2세대</span>
+                            <span>color only 1</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="photoList">
+                    <div class="photo">
+                        <img src="${pageContext.request.contextPath }/resources/img/kick2.png" alt="" height="262px">
                     </div>
 
                     <div class="photo-content">

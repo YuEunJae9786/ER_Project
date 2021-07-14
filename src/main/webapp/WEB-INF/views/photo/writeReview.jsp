@@ -65,25 +65,25 @@
                                                              
                             <div class="form-group">
                                 <label>
-                                    개인정보 수집 및
-                                    이용 동의
+                                   	 개인정보 수집 및
+                                    	이용 동의
                                 </label>
                                         
                                     <td>
                                         <textarea class="form-control" rows="10" name="content">
                                             1. 개인정보의 수집·이용 목적
-                                            서비스 제공 및 계약의 이행, 구매 및 대금결제,
-                                            물품배송 또는 청구지 발송, 회원관리 등을 위한 목적
+                                            	서비스 제공 및 계약의 이행, 구매 및 대금결제,
+                                           		물품배송 또는 청구지 발송, 회원관리 등을 위한 목적
                                                 
                                             2. 수집하려는 개인정보의 항목
-                                            이름, 주소, 연락처, 이메일 등
+                                            	이름, 주소, 연락처, 이메일 등
                                                 
                                             3. 개인정보의 보유 및 이용 기간
-                                            회사는 개인정보 수집 및 이용목적이
-                                            달성된 후에는 예외없이 해당정보를S 파기합니다.
+                                            	회사는 개인정보 수집 및 이용목적이
+                                            	달성된 후에는 예외없이 해당정보를S 파기합니다.
                                         </textarea> 
                                         <br>
-                                            개인정보 수집 및 이용에 동의하십니까?
+                                            	개인정보 수집 및 이용에 동의하십니까?
                                             <input id="privacy_agreement_radio0" name="privacy_agreement_radio" fw-filter="isFill" fw-label="개인정보보호정책" fw-msg="" value="T" type="radio" >
                                             <label for="privacy_agreement_radio0">동의함</label>
                                             

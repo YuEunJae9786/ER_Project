@@ -17,7 +17,6 @@ public class NoticeVO {
 	private String notice_Regdate; // 등록일
 	private String notice_UpdateDate; // 업데이트 등록일
 	
-	
 //	public NoticeVO() {
 //		super();
 //		// TODO Auto-generated constructor stub

@@ -7,6 +7,7 @@
 	<configuration>
 		<typeAliases>
 			<typeAlias type="com.erproject.command.NoticeVO" alias="NoticeVO"/>
-			<typeAlias type="com.erproject.command.FaqVO" alias="FaqVO"/>
+			<typeAlias type="com.erproject.command.ProductReviewVO" alias="ProductReviewVO"/>
+			<typeAlias type="com.erproject.command.ProductInfoVO" alias="ProductInfoVO"/>
 		</typeAliases>
 	</configuration>

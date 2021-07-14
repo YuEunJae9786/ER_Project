@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 public class NoticeImageVO {
 
 //	public NoticeImageVO() {
-		
+//		
 //	}
+	
 	private int ni_No; // 이미지번호
 	private int notice_No; // 글 번호
 	private String ni_Path; // 이미지 경로
