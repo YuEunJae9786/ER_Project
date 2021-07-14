@@ -211,10 +211,10 @@
 		<div class="info-header">사용가능한 킥보드</div>
 		<ul id="kick-list" class="kick-list">
 			<!-- forEach써서 리스트 목록 나오게설정 -->
-			<c:forEach var="i" begin="1" end="10">
+			<c:forEach var="i" items="${getKickList}">
 				<li id="list">
 					<!-- 기본정보 리스트 -->
-					<div id="list${i}" class="kick-info-list">
+					<div id="list${i.getMarkNo}" class="kick-info-list">
 						<div class="mask">
 							<div>모델명</div>
 							<div>회사명</div>
@@ -307,7 +307,7 @@
 														date
 									            	),
 													success : function(data) {
-														console.log(data);
+														var getKickList = data;
 														console.log("success");
 													},
 													error : function(status, error) {
