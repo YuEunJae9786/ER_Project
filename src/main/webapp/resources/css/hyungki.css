@@ -83,6 +83,10 @@
     max-height: 100%;
 }
 
+.productName, .productCompany {
+	margin-bottom: 10px;
+}
+
 /* 상세페이지(중간부분) */
 
 .mid-info {
@@ -140,12 +144,14 @@
 }
 
 .reviewPostBtn {
-    padding-right: 30px;
+    padding-right: 5px;
     text-align: right;
+    float: right;
 }
 .reviewPostBtn > button {
     color: #fff;
     background-color: cornflowerblue;
+    
 }
 
 .reviewMoveWin > a {
@@ -301,3 +307,37 @@
     font-size: 15px;
     font-weight: bold;
 }
+
+/* 페이지네이션 */
+.content-page {
+    text-align: center;
+	
+    margin-top: 10px;
+    margin-bottom: 50px;
+    
+    padding-left: 100px;
+}
+
+.paging > li {
+    display:inline-block;
+
+    border-radius: 100px;
+    border: 1px solid cornflowerblue;
+
+    padding: 5px 10px;
+}
+
+.paging > li > a {
+    color:cornflowerblue;
+    font-weight: 600;
+}
+
+.paging > li.active {
+    background: cornflowerblue;
+}
+
+.paging > li.active > a {
+    color: #fff;
+}
+
+

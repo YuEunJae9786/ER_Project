@@ -10,27 +10,180 @@
   					VALUES(NOTICE_SEQ.NEXTVAL, #{notice_Writer}, #{notice_Title}, #{notice_Content}, #{notice_View})
   	</insert>
   	
-  	<select id="noticeGetList" resultType="NoticeVO">
+  	<insert id="faqRegist">
+  		insert into FAQ(FAQ_NO, FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_MAINCATEGORI)
+  					VALUES(FAQ_SEQ.NEXTVAL, #{faq_Writer}, #{faq_Title}, #{faq_Content}, #{faq_MainCategori})
+  	</insert>
+  	
+  	<insert id="qnaRegist">
+  		insert into QNA(QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW)
+  					VALUES(QNA_SEQ.NEXTVAL, #{qna_Writer}, #{qna_Title}, #{qna_Content}, #{qna_MainCategori}, #{qna_Tow})
+  	</insert>
+  	
+  	<select id="getNoticeTotal" resultType="int">
+  		select count(*) as total from notice where
+  		<if test="searchType == '' or searchType == null">1 = 1</if>
+  		<if test="searchType == 'title'">NOTICE_TITLE LIKE '%'||#{searchName}||'%' </if>
+  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE '%'||#{searchName}||'%'OR NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+  	</select>
+  	
+  	<select id="getFaqTotal" resultType="int">
+  		select count(*) as total from faq where
+  		<if test="searchType == '' or searchType == null">1 = 1</if>
+  		<if test="searchType == 'title'">FAQ_TITLE LIKE '%' ||#{searchName}||'%'</if>
+  		<if test="searchType == 'writer'">FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE '%'||#{searchName}||'%' OR FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
+	</select>
+	
+	<select id="getQnaTotal" resultType="int">
+		select count(*) as total from qna where
+		<if test="searchType == '' or searchType == null">1 = 1</if>
+  		<if test="searchType == 'title'">QNA_TITLE LIKE '%' ||#{searchName}||'%'</if>
+  		<if test="searchType == 'writer'">QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		<if test="searchType == 'tiwri'">QNA_TITLE LIKE '%'||#{searchName}||'%' OR QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
+	</select>
+  	
+  	<select id="noticeGetList" resultType="NoticeVO" parameterType="hashMap">
   		<![CDATA[
-  		select a.notice_No,
-  			   a.notice_Writer,
-  			   a.notice_Title,
-  			   a.notice_Content,
-  			   a.notice_View,
-  			   case when gap <= 60 THEN '방금전'
-  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
-  			   else to_char(notice_regdate, 'YYYY-MM-DD')
-  			   end as notice_Regdate
-  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
-  				from notice 
-  				order by
+  		select *
+  		from ( select ROWNUM RN,
+		  			   a.notice_No,
+		  			   a.notice_Writer,
+		  			   a.notice_Title,
+		  			   a.notice_Content,
+		  			   a.notice_View,
+		  			   case when gap <= 60 THEN '방금전'
+		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
+		  			   else to_char(notice_regdate, 'YYYY-MM-DD')
+		  			   end as notice_Regdate
+		  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
+		  				from notice
+		  				where
+		]]>
+						<if test="searchType == '' or searchType == null">1 = 1</if>
+				  		<if test="searchType == 'title'">NOTICE_TITLE LIKE '%'||#{searchName}||'%' </if>
+				  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+				  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE '%'||#{searchName}||'%'OR NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+		<![CDATA[
+		  				order by
   		]]>
-  			<if test="orderType == 'latestOrder'">notice_no</if>
-  			<if test="orderType == '' or orderType == null">notice_no</if>
-  			<if test="orderType == 'viewOrder'">notice_view</if>
+			  			<if test="orderType == 'latestOrder'">notice_no</if>
+			  			<if test="orderType == '' or orderType == null">notice_no</if>
+			  			<if test="orderType == 'viewOrder'">notice_view</if>
   		<![CDATA[
-  		  desc ) a
+  		  				desc ) a )
+  		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
   		]]>
   	</select>
+  	
+  	<select id="faqGetList" resultType="FaqVO" parameterType="hashMap">
+  		<![CDATA[
+  		select *
+  		from ( select ROWNUM RN,
+  					  a.faq_No,
+		  			   a.faq_Writer,
+		  			   a.faq_Title,
+		  			   a.faq_Content,
+		  			   a.faq_View,
+		  			   case when gap <= 60 THEN '방금전'
+		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
+		  			   else to_char(faq_regdate, 'YYYY-MM-DD')
+		  			   end as faq_Regdate
+		  		from ( select faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap
+		  				from faq
+		  				where
+  		]]>
+			  			<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
+			  			<if test="listOrder == 'product'">faq_maincategori = 'product'</if>
+			  			<if test="listOrder == 'rental'">faq_maincategori = 'rental'</if>
+			  			<if test="listOrder == 'review'">faq_maincategori = 'review'</if>
+			  			<if test="listOrder == '' or listOrder == null">1 = 1</if>
+		<![CDATA[
+			  			AND
+		]]>
+						<if test="searchType == '' or searchType == null">1 = 1</if>
+				  		<if test="searchType == 'title'">FAQ_TITLE LIKE '%' ||#{searchName}||'%'</if>
+				  		<if test="searchType == 'writer'">FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
+				  		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE '%'||#{searchName}||'%' OR FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		<![CDATA[		
+  						order by
+  		]]>
+			  			<if test="orderType == 'latestOrder'">faq_no</if>
+			  			<if test="orderType == '' or orderType == null">faq_no</if>
+			  			<if test="orderType == 'viewOrder'">faq_view</if>
+  		<![CDATA[
+  						desc ) a )
+  		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
+  		]]>
+  	</select>
+  	
+  	<select id="qnaGetList" resultType="QnaVO">
+  		<![CDATA[
+  			select *
+  			from ( select ROWNUM RN,
+		  				   a.qna_No,
+		  				   a.qna_Writer,
+		  				   a.qna_Title,
+		  				   a.qna_Content,
+		  				   a.qna_MainCategori,
+		  				   a.qna_Tow,
+		  				   a.qna_View,
+		  				   case when gap <= 60 THEN '방금전'
+			  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
+			  			   else to_char(qna_regdate, 'YYYY-MM-DD')
+			  			   end as qna_Regdate
+					 from ( select qna_No, qna_Writer, qna_Title, qna_Content, qna_MainCategori, qna_Tow, qna_View, qna_Regdate, trunc( ( sysdate - qna_regdate ) * 24 * 60 ) as gap
+					 		from qna
+					 		where			  			   
+	  	]]>
+			  			<if test="listOrder == 'login'">qna_maincategori = 'login'</if>
+			  			<if test="listOrder == 'product'">qna_maincategori = 'product'</if>
+			  			<if test="listOrder == 'rental'">qna_maincategori = 'rental'</if>
+			  			<if test="listOrder == 'review'">qna_maincategori = 'review'</if>
+			  			<if test="listOrder == '' or listOrder == null">1 = 1</if>
+		<![CDATA[
+			  			AND
+		]]>
+						<if test="searchType == '' or searchType == null">1 = 1</if>
+				  		<if test="searchType == 'title'">QNA_TITLE LIKE '%' ||#{searchName}||'%'</if>
+				  		<if test="searchType == 'writer'">QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
+				  		<if test="searchType == 'tiwri'">QNA_TITLE LIKE '%'||#{searchName}||'%' OR QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		<![CDATA[		
+  						order by
+  		]]>
+			  			<if test="orderType == 'latestOrder'">qna_no</if>
+			  			<if test="orderType == '' or orderType == null">qna_no</if>
+			  			<if test="orderType == 'viewOrder'">qna_view</if>
+  		<![CDATA[
+  						desc ) a )
+  		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
+  		]]>
+  		
+  	</select>
+  	
+  	<update id="noticeView">
+  		UPDATE NOTICE SET NOTICE_VIEW = NOTICE_VIEW + 1 WHERE NOTICE_NO = #{bno}
+  	</update>
+  	
+  	<update id="faqView">
+  		UPDATE FAQ SET FAQ_VIEW = FAQ_VIEW + 1 WHERE FAQ_NO = #{bno}
+  	</update>
+  	
+  	<update id="qnaView">
+  		UPDATE QNA SET QNA_VIEW = QNA_VIEW + 1 WHERE QNA_NO = #{bno}
+  	</update>
+  	
+  	<delete id="noticeDelete">
+  		DELETE FROM NOTICE WHERE NOTICE_NO = #{bno}
+  	</delete>
+  	
+  	<delete id="faqDelete">
+  		DELETE FROM FAQ WHERE FAQ_NO = #{bno}
+  	</delete>
+  	
+  	<delete id="qnaDelete">
+  		DELETE FROM QNA WHERE QNA_NO = #{bno}
+  	</delete>
   
   </mapper>

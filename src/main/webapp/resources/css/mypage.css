@@ -1,5 +1,5 @@
-@charset "UTF-8";
 
+@charset "UTF-8";
 /*마이페이지 디자인*/
 
 .mytitle > a{
@@ -59,7 +59,11 @@
     float:right;
     
 }
-.mypageBtn1{
+
+.mypageBtn1{}
+
+.mypageBtn{
+
     margin-left: 10px;
     width: 80px;
     text-align: center;
@@ -69,6 +73,7 @@
     border: none;
    
 }
+
 
 .mypageBtn2{
     color: white;
@@ -100,6 +105,11 @@
     
 }
 
+.mypageBtn:hover{
+    border: none;
+    background-color:rgb(171, 188, 227);
+    color: white;
+}
 
 .checkBox{
     width: 30px;

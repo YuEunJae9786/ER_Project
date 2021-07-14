@@ -4,9 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
+<<<<<<< HEAD
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
 </head>
+=======
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
+>>>>>>> master
 
 <style>
 	.content-view-wrap {
@@ -89,14 +94,14 @@
 	            
 	        <!-- 검색 -->
 	        <div class="search">
-	            <select>
-	                <option>제목</option>
-	                <option>작성자</option>
-	                <option>제목+작성자</option>
+	            <select name="searchType">
+	                <option value="title">제목</option>
+	                <option value="writer">작성자</option>
+	                <option value="tiwri">제목+작성자</option>
 	            </select>
 	
-	            <input type="text" placeholder="검색내용">
-	            <button type="button" class="btn btn-default btn-single btn-signature1">검색</button>
+	            <input type="text" name="searchName" placeholder="검색내용">
+	            <button type="submit" class="btn btn-default btn-single btn-signature1">검색</button>
 	        </div>
 	        
     	</form>
@@ -119,7 +124,7 @@
 	            	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.notice_No }</li>
 	                    <li class="col-xs-3 col-md-6">
-	                        <a href="#" id="a" onclick="contentView()">${list.notice_Title }</a>
+	                        <a href="#" id="a" onclick="contentView(${list.notice_No})">${list.notice_Title }</a>
 	                    </li>
 	                    <li class="col-xs-2 col-md-2">${list.notice_Writer }</li>
 	                    <li class="col-xs-3 col-md-2">${list.notice_Regdate }</li>
@@ -131,7 +136,7 @@
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
 	                        <div class="content-view-btn">
 	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-	                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
+	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.notice_No});">삭제</button>
 	                        </div>
 	                    ​</li>
 	                </ul>
@@ -154,6 +159,7 @@
                 </ul>
             </div>
             <div class="content-section">
+<<<<<<< HEAD
                 <ul>
                     <li class="col-xs-2 col-sm-1">1</li>
                     <li class="col-xs-3 col-md-6">
@@ -240,6 +246,29 @@
                     <li class="col-xs-2 col-md-1">1</li>
                 </ul>
                 
+=======
+               <c:forEach var="list" items="${faqList }">
+                	<ul>
+	                    <li class="col-xs-2 col-sm-1">${list.faq_No }</li>
+	                    <li class="col-xs-3 col-md-6">
+	                        <a href="#" id="a" onclick="contentView(${list.faq_No })">${list.faq_Title }</a>
+	                    </li>
+	                    <li class="col-xs-2 col-md-2">${list.faq_Writer }</li>
+	                    <li class="col-xs-3 col-md-2">${list.faq_Regdate }</li>
+	                    <li class="col-xs-2 col-md-1">${list.faq_View }</li>
+	                    <li class="col-xs-12 content-view hidden">
+	                        <div class="content-view-img">
+	                            <img src="${pageContext.request.contextPath }/resources/img/cat.png" alt="이미지">
+	                        </div>
+	                        <div class="content-view-wrap">${list.faq_Content }</div>
+	                        <div class="content-view-btn">
+	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
+	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.faq_No});">삭제</button>
+	                        </div>
+	                    ​</li>
+                	</ul>
+                </c:forEach>
+>>>>>>> master
             </div>
         </div>
 
@@ -258,157 +287,130 @@
                 </ul>
             </div>
             <div class="content-section">
-                <ul>
-                    <li class="col-xs-2 col-sm-1">1</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" id="a" onclick="contentView()">환불 해주세요</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">사라만</li>
-                    <li class="col-xs-3 col-md-2">2021-02-05</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/swim.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            너 지금 멋지게 <br/>
-
-                            헤엄 치려고 <br/>
-                            
-                            숨 참는 것부터<br/>
-                            
-                            하고 있다고 생각해<br/>
-                        </div>
-                        
-                        <div class="content-view-btn">
-                            <button type="button" id="btn-modify" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
-                            <button type="button" id="btn-remove" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-
-                        <!-- 답변 -->
-                        <div class="col-xs-12 content-reply">
-                            <div class="reply-id">
-                                <span>아이디 : </span>
-                            </div>
-                            <div class="reply-comment">
-                                답변이 길어져도 어떻게 잘 되기 위해서 어디까지 길어져야 확인할 수가 있는거지? 좀 알려줄래요?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                            </div>
-                        </div>
-
-                        <!-- 답변 폼 -->
-                        <form action="" method="post" class="hidden">
-                            <textarea class="regist-reply">답변쓰기</textarea>
-
-                            <div class="btn-right">
-                                <button type="button" class="btn btn-single btn-signature1">등록</button>
-                            </div>
-                        </form>
-                        
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">2</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" onclick="contentView()">와 진짜 화면 하나씩 꾸미는거 생각보다 어렵네</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">이세상사람이아님</li>
-                    <li class="col-xs-3 col-md-2">2030-02-21</li>
-                    <li class="col-xs-2 col-md-1">3</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/unknown.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            앞이 깜깜하고 <br/>
-
-                            앞이 보이지 않을 때가 있죠 <br/>
-                            
-                            오늘이 그랬나요?<br/>
-
-                            그랬다면 당신은 대단한거에요<br/>
-
-                            그 힘든 하루를 또 참아냈으니까<br/>
-                        </div>
-                        <div class="content-view-btn">
-                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-
-                        <!-- 답변 -->
-                        <div class="col-xs-12 content-reply">
-                            <div class="reply-id">
-                                <span></span>
-                            </div>
-                            <div class="reply-comment">
-                            </div>
-                        </div>
-
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">3</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">1:1 질문 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">1:1질문만하는사람</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">4</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">비밀글 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">내존재도비밀이다</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">5</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">일반글 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">내데이터어디감?</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                
+                <c:forEach var="list" items="${qnaList }">
+                	<ul>
+	                    <li class="col-xs-2 col-sm-1">${list.qna_No }</li>
+	                    <li class="col-xs-3 col-md-6">
+	                        <a href="#" id="a" onclick="contentView(${list.qna_No })">${list.qna_Title }</a>
+	                    </li>
+	                    <li class="col-xs-2 col-md-2">${list.qna_Writer }</li>
+	                    <li class="col-xs-3 col-md-2">${list.qna_Regdate }</li>
+	                    <li class="col-xs-2 col-md-1">${list.qna_View }</li>
+	                    <li class="col-xs-12 content-view hidden">
+	                        <div class="content-view-wrap">${list.qna_Content }</div>
+	                        <div class="content-view-btn">
+	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
+	                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
+	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
+	                        </div>
+	                        <!-- 답변 -->
+	                        <div class="col-xs-12 content-reply">
+	                            <div class="reply-id">
+	                                <span>아이디 : </span>
+	                            </div>
+	                            <div class="reply-comment">
+                               			답변이 길어져도 어떻게 잘 되기 위해서 어디까지 길어져야 확인할 수가 있는거지? 좀 알려줄래요?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	                            </div>
+	                        </div>
+	                        
+	                        <!-- 답변 폼 -->
+	                        <form action="" method="post" class="hidden">
+	                            <textarea class="regist-reply">답변쓰기</textarea>
+	
+	                            <div class="btn-right">
+	                                <button type="button" class="btn btn-single btn-signature1">등록</button>
+	                            </div>
+	                        </form>
+	                    ​</li>
+                	</ul>
+                </c:forEach>
             </div>
         </div>
-
     </div>
 
     <!-- 페이지네이션 -->
-    <div class="container content-page">
-        <ul class="paging">
+    <form action="csBoardList" name="pageForm" method="post">
+	    <div class="container content-page">
+	        <ul class="paging content-notice-box1 hidden">
+	
+	            <!-- 이전 -->
+	            <c:if test="${noticePage.prev }">
+	            	<li class="prev"><a href="#" data-pagenum="${noticePage.startPage - 1}">이전</a></li>
+				</c:if>
+	
+	            <!-- 페이지 -->
+	            <c:forEach var="num" begin="${noticePage.startPage }" end="${noticePage.endPage }">
+		            <li class="${noticePage.pageNum eq num ? 'active' : '' }">
+                        <a href="#" data-pagenum="${num}">${num }</a>
+                    </li>
+	            </c:forEach>
+	
+	            <!-- 다음 -->
+	            <c:if test="${noticePage.next }">
+	            	<li class="next"><a href="#" data-pagenum="${noticePage.endPage + 1}">다음</a></li>
+                </c:if>
+	            
+	        </ul>
+	        <ul class="paging content-notice-box2 hidden">
+	
+	            <!-- 이전 -->
+	            <c:if test="${faqPage.prev }">
+	            	<li class="prev"><a href="#" data-pagenum="${faqPage.startPage - 1}">이전</a></li>
+				</c:if>
+	
+	            <!-- 페이지 -->
+	            <c:forEach var="num" begin="${faqPage.startPage }" end="${faqPage.endPage }">
+		            <li class="${faqPage.pageNum eq num ? 'active' : '' }">
+                        <a href="#" data-pagenum="${num}">${num }</a>
+                    </li>
+	            </c:forEach>
+	
+	            <!-- 다음 -->
+	            <c:if test="${faqPage.next }">
+	            	<li class="next"><a href="#" data-pagenum="${faqPage.endPage + 1}">다음</a></li>
+	            </c:if>
+	
+	        </ul>
+	        <ul class="paging content-notice-box3 hidden">
+	
+	            <!-- 이전 -->
+	            <c:if test="${qnaPage.prev }">
+            		<li class="prev"><a href="#">이전</a></li>
+            	</c:if>
+	
+	            <!-- 페이지 -->
+	            <c:forEach var="num" begin="${qnaPage.startPage }" end="${qnaPage.endPage }">
+		            <li class="${qnaPage.pageNum eq num ? 'active' : '' }">
+                        <a href="#" data-pagenum="${num}">${num }</a>
+                    </li>
+	            </c:forEach>
+	
+	            <!-- 다음 -->
+	            <c:if test="${qnaPage.next }">
+            		<li class="next"><a href="#">다음</a></li>
+            	</c:if>
+	
+	        </ul>
 
-            <!-- 이전 -->
-            <li class="prev"><a href="#">이전</a></li>
-
-            <!-- 페이지 -->
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-
-            <!-- 다음 -->
-            <li class="next"><a href="#">다음</a></li>
-
-            <!-- 글쓰기 -->
-            <div class="btn-right">
+             <!-- 글쓰기 -->
+             <div class="btn-right">
                 <button type="button" class="btn btn-default btn-signature1 btn-single" id="regist">글쓰기</button>
             </div>
-            
-        </ul>
-    </div>
+
+            <input type="hidden" name="pageNum" value="1">
+            <input type="hidden" name="orderType" value="${orderUtil.orderType }">
+            <input type="hidden" name="searchType" value="${orderUtil.searchType }">
+            <input type="hidden" name="searchName" value="${orderUtil.searchName }">
+	        
+	    </div>
+    </form>
     
     <!-- 컨트롤러 이동 스크립트 -->
     <script>
     	
     	$(document).ready( function() {
     		
+            // 글쓰기 등록
 	   		$("#registForm > .btn > #registBtn").click( function() {
 	   			
 	   			$("#registForm > input[name=whereBoard]").attr("value", $(".content-header .active").html() );
@@ -439,16 +441,74 @@
 	   			
 	   			$("#listForm").submit();
 	   			
+<<<<<<< HEAD
 	   		}); // change
+=======
+	   		}); // 게시판 순서
+	   		
+	   		// 대분류
+	   		$(".list-mainCategori > select").change( function() {
+                
+                var whereBoard = $(".content-header .active").html();
+                setCookie("whereboard", whereBoard);
+
+                $("#listForm").submit();
+
+            }); // 대분류
+
+            // 페이지네이션 클릭
+            $(".content-page").on("click", "a", function() {
+                event.preventDefault();
+
+                document.pageForm.pageNum.value = event.target.dataset.pagenum;
+			    document.pageForm.submit();
+            });
+>>>>>>> master
 	   		
     	}); // ready
+    	
+    	// 글 삭제
+    	function deleteList(bno) {
     		
+    		var whereBoard = $(".content-header .active").html();
+    		
+    		location.href = "delete?whereboard=" + whereBoard + "&bno=" + bno;
+    		
+    	}
     
     </script>
     
     <!-- 동적 작동 -->
     <script>
 
+<<<<<<< HEAD
+=======
+        /* 쿠키를 통해 현재 게시판 탐색 */
+        $(document).ready( function() {
+            
+            if(getCookie("whereboard") == undefined){
+                setCookie("whereboard", "Notice");
+            } 
+            
+            /* 전에 보여지던 게시판 */
+            var preActive = document.querySelector("body > div.active");
+            if(preActive != null){
+                preActive.classList.remove("active");
+                preActive.classList.add("hidden");
+            }
+
+            /* 현재 보여질 헤더, 게시판, 페이지네이션 */
+            var active = getCookie("whereboard");
+            $("#" + active).addClass("active");
+            document.querySelector( document.querySelector( "#" + active).dataset.select ).classList.add("active");
+            document.querySelector( document.querySelector( "#" + active).dataset.select ).classList.remove("hidden")
+            document.querySelector( ".content-page > " + document.querySelector( "#" + active).dataset.select ).classList.add("active");
+            document.querySelector( ".content-page > " + document.querySelector( "#" + active).dataset.select  ).classList.remove("hidden");
+
+            listOption(); // 처음에 대분류를 화면에 표시할지 메서드 실행
+        });
+
+>>>>>>> master
         /* 헤더 active */
         $(".content-header").on("click", "a", function () {
             event.preventDefault();
@@ -457,6 +517,10 @@
             preActive.classList.remove("active");
             preActive.classList.add("hidden");
 
+            var prePaging = document.querySelector(".content-page > .active");
+            prePaging.classList.remove("active");
+            prePaging.classList.add("hidden");
+
             $(".content-header > li > .active").removeClass("active");
             $(this).addClass("active");
 
@@ -464,8 +528,22 @@
             currentActive.classList.remove("hidden");
             currentActive.classList.add("active");
 
+            var currentPaging = document.querySelector( ".content-page > " + event.target.dataset.select );
+            currentPaging.classList.remove("hidden");
+            currentPaging.classList.add("active");
+
             $(".post-regist").css("display", "none");
 
+<<<<<<< HEAD
+=======
+            listOption();
+
+            setCookie("whereboard", $(".content-header .active").html());
+
+            init();
+            
+            document.pageForm.submit();
+>>>>>>> master
         });
 
         /* 글쓰기 hidden */
@@ -497,7 +575,7 @@
 
         /* 글 상세 */
         var preTarget;
-        function contentView() {
+        function contentView(bno) {
             event.preventDefault();
             
             /* 현재 누른 타겟 */
@@ -512,6 +590,28 @@
             }
 
             preTarget = currentTarget;
+            
+            /* 게시글 조회 수 증가 */
+            var whereboard = $(".content-header .active").html();
+            var changeTarget = event.target.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
+            $.ajax({
+                type: "post",
+                url: "countView",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({"whereboard": whereboard, "bno": bno}),
+                success : function(data) {
+
+                    if(data == 1){
+                        var plus = (changeTarget.innerHTML*1) + 1; // string -> number + 1
+                        changeTarget.innerHTML = plus;
+                    } 
+
+                },
+                error: function(status, error){
+                    console.log(status, error);
+                }
+            });
         }
 
         /* 글 상세 - 답변 */
@@ -521,6 +621,13 @@
             var currentTarget = event.target.parentElement.nextElementSibling.nextElementSibling.classList;
             currentTarget.toggle("hidden");
         });
+        
+        /* 컨트롤러로 넘어갈 때, 변수 처리 */
+        function init() {
+        	document.pageForm.pageNum.value = 1;
+        	document.pageForm.searchType.value = '';
+        	document.pageForm.searchName.value = '';
+        }
 
     </script>
     

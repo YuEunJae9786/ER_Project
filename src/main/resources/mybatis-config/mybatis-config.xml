@@ -9,5 +9,10 @@
 			<typeAlias type="com.erproject.command.NoticeVO" alias="NoticeVO"/>
 			<typeAlias type="com.erproject.command.NoticeImageVO" alias="NoticeImageVO"/>
 			<typeAlias type="com.erproject.command.UserVO" alias="UserVO"/>
+			<typeAlias type="com.erproject.command.ProductReviewVO" alias="ProductReviewVO"/>
+			<typeAlias type="com.erproject.command.ProductInfoVO" alias="ProductInfoVO"/>
+			<typeAlias type="com.erproject.command.FaqVO" alias="FaqVO"/>
+			<typeAlias type="com.erproject.command.QnaVO" alias="QnaVO"/>
+
 		</typeAliases>
 	</configuration>
