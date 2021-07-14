@@ -13,7 +13,7 @@ import com.erproject.csboard.service.PhotoListService;
 import com.erproject.util.Criteria;
 
 @Controller
-@RequestMapping("/photoList")
+@RequestMapping("/photo")
 public class PhotoListController {
 	
 	
@@ -22,17 +22,18 @@ public class PhotoListController {
 //	private PhotoListService photoListService;
 //	
 	
-	@RequestMapping("/freeList")
-	public void photoList(Model model, Criteria cri) {
+//	@RequestMapping("/freeList")
+//	public void photoList(Model model, Criteria cri) {
+//		
+////		ArrayList<PhotoListVO> list = photoListService.getList(cri);
+////		int total = photoListService.getTotal(cri);
+//		
+//	}
+	
+	@RequestMapping("/photoList")
+	public void photoList() {
 		
-//		ArrayList<PhotoListVO> list = photoListService.getList(cri);
-//		int total = photoListService.getTotal(cri);
-		
-	} 
-
-	
-	
-	
+	}
 	
 	@RequestMapping("/writeReview")
 	public void writeReview() {
