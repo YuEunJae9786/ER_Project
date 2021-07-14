@@ -28,8 +28,7 @@
 							</tr>
 							<tr>
 								<td class="t-title">별점주기</td>
-								<td><select class="sel-star form-control"
-									style="width: 200px;">
+								<td><select class="sel-star form-control" style="width: 200px;">
 										<option value="fiveGrade">★★★★★(5점)</option>
 										<option value="fourGrade">★★★★(4점)</option>
 										<option value="threeGrade">★★★(3점)</option>

@@ -130,8 +130,4 @@ public class CsBoardServiceImpl implements CsBoardService{
 		return result;
 	}
 	
-	
-	
-	
-	
 }
