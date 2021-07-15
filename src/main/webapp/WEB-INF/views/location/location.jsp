@@ -271,8 +271,9 @@
 							return response.json();
 						}
 					}).then(function(data) {
+						console.log(data);
 						var list = data["rentBikeStatus"]["row"];
-						//console.log(list);
+						console.log(list[0]);
 						for (var i = 0; i < list.length; i++) {
 							position = {
 								title : 'list' + i,
@@ -282,9 +283,8 @@
 								)
 							}
 							addMarker(position);
-							
-							return list;
 						}
+						return list;
 					}).then(function(list) {
 					            $.ajax({
 					                type : "post", //요청방식
