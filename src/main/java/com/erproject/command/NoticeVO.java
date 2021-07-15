@@ -1,5 +1,7 @@
 package com.erproject.command;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,15 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoticeVO {
 
-	private int notice_No; // 湲�踰덊샇
-	private String notice_Writer; // �옉�꽦�옄
-	private String notice_Title; // �젣紐�
-	private String notice_Content; // �궡�슜
-	private int notice_View = 0; // 議고쉶�닔
-	private String notice_Regdate; // �벑濡앹씪
-	private String notice_UpdateDate; // �뾽�뜲�씠�듃 �벑濡앹씪
-
+	private int notice_No; // 게시판 글번호
+	private String notice_Writer; // 작성자
+	private String notice_Title; // 제목
+	private String notice_Content; // 내용
+	private int notice_View = 0; // 조회수
+	private String notice_Regdate; // 등록일
+	private String notice_UpdateDate; // 수정일
 	
-	
+	private List<NoticeImageVO> noticeImageList; 
 	
 }
