@@ -372,7 +372,6 @@
                         $("#file").val(""); // 태그
                         $(".fileDiv").css("display", "none"); // 안보이도록 처리
 
-                        console.log("성공");
 					},
 					error: function(status, error){
 						console.log(status, error);

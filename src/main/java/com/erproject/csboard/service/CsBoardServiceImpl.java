@@ -169,7 +169,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 			if(whereboard.equals("Notice")) {
 				
 				NoticeImageVO vo = new NoticeImageVO();
-				vo.setNotice_No(csBoardMapper.getNoticeCurrent() );
+				vo.setNotice_No(csBoardMapper.getNoticeCurrent() + 1 );
 				vo.setNi_Path(uploadPath);
 				vo.setNi_Name(fileName);
 				
@@ -177,7 +177,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 			} else if(whereboard.equals("FAQ")) {
 				
 				FaqImageVO vo = new FaqImageVO();
-				vo.setFaq_No(csBoardMapper.getFaqCurrent() );
+				vo.setFaq_No(csBoardMapper.getFaqCurrent() + 1);
 				vo.setFi_Path(uploadPath);
 				vo.setFi_Name(fileName);
 				
