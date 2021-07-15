@@ -166,8 +166,6 @@ public class CsBoardServiceImpl implements CsBoardService{
 			File saveFile = new File(uploadPath + "\\" + fileName);
 			file.transferTo(saveFile); // 파일쓰기
 			
-			uploadPath = uploadPath.replaceAll("\\", "/");
-			
 			if(whereboard.equals("Notice")) {
 				
 				NoticeImageVO vo = new NoticeImageVO();

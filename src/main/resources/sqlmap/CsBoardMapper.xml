@@ -89,30 +89,35 @@
   		<result property="notice_Content" column="NOTICE_CONTENT" />
   		<result property="notice_View" column="NOTICE_VIEW" />
   		<result property="notice_Regdate" column="NOTICE_REGDATE" />
-  		<collection property="noticeImageList" resultMap="imageList" />
+  		<collection property="noticeImageList" resultMap="noticeImage" />
   	</resultMap>
   	
-  	<resultMap type="NoticeImageVO" id="imageList">
+  	<resultMap type="NoticeImageVO" id="noticeImage">
   		<result property="ni_No" column="NI_NO" />
   		<result property="ni_Path" column="NI_PATH" />
   		<result property="ni_Name" column="NI_NAME" />
   	</resultMap>
   	
-  	<select id="faqGetList" resultType="FaqVO" parameterType="hashMap">
+  	<select id="faqGetList" resultMap="FaqInfo" parameterType="hashMap">
   		<![CDATA[
   		select *
   		from ( select ROWNUM RN,
-  					  a.faq_No,
-		  			   a.faq_Writer,
-		  			   a.faq_Title,
-		  			   a.faq_Content,
-		  			   a.faq_View,
+  					  faq_No,
+		  			  faq_Writer,
+		  			  faq_Title,
+		  			  faq_Content,
+		  			  faq_View,
 		  			   case when gap <= 60 THEN '방금전'
 		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
 		  			   else to_char(faq_regdate, 'YYYY-MM-DD')
-		  			   end as faq_Regdate
-		  		from ( select faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap
-		  				from faq
+		  			   end as faq_Regdate,
+		  			  fi_no,
+		  			  fi_path,
+		  			  fi_name
+		  		from ( select f.faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap,
+		  					  fi_no, fi_path, fi_name
+		  				from faq f left outer join faq_image i
+		  				on f.faq_no = i.faq_no
 		  				where
   		]]>
 			  			<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
@@ -138,6 +143,22 @@
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
   		]]>
   	</select>
+  	
+  	<resultMap type="FaqVO" id="FaqInfo">
+  		<result property="faq_No" column="FAQ_NO" /> 
+  		<result property="faq_Writer" column="FAQ_WRITER" />
+  		<result property="faq_Title" column="FAQ_TITLE" />
+  		<result property="faq_Content" column="FAQ_CONTENT" />
+  		<result property="faq_View" column="FAQ_VIEW" />
+  		<result property="faq_Regdate" column="FAQ_REGDATE" />
+  		<collection property="faqImageList" resultMap="faqImage" />
+  	</resultMap>
+  	
+  	<resultMap type="FaqImageVO" id="faqImage">
+  		<result property="fi_No" column="FI_NO" />
+  		<result property="fi_Path" column="FI_PATH" />
+  		<result property="fi_Name" column="FI_NAME" />
+  	</resultMap>
   	
   	<select id="qnaGetList" resultType="QnaVO">
   		<![CDATA[

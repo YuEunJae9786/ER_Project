@@ -20,6 +20,6 @@ public class FaqVO {
 	private String faq_Regdate;
 	private String faq_UpdateDate;
 	
-	private List<FaqImageVO> faqImage;
+	private List<FaqImageVO> faqImageList;
 	
 }

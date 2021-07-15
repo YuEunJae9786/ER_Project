@@ -133,7 +133,7 @@
 	                    <li class="col-xs-12 content-view hidden">
 	                    	<c:forEach var="imageList" items="${list.noticeImageList }">
 		                        <div class="content-view-img">
-		                            <img src="${imageList.ni_Path}/${imageList.ni_Name}" alt="이미지">
+		                            <img src="/noticeImageFilePath/${imageList.ni_Name}" alt="이미지">
 		                        </div>
 	                        </c:forEach>
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
@@ -172,9 +172,11 @@
 	                    <li class="col-xs-3 col-md-2">${list.faq_Regdate }</li>
 	                    <li class="col-xs-2 col-md-1">${list.faq_View }</li>
 	                    <li class="col-xs-12 content-view hidden">
-	                        <div class="content-view-img">
-	                            <img src="${pageContext.request.contextPath }/resources/img/cat.png" alt="이미지">
-	                        </div>
+		                    <c:forEach var="imageList" items="${list.faqImageList }">
+		                        <div class="content-view-img">
+		                            <img src="/faqImageFilePath/${imageList.fi_Name}" alt="이미지">
+		                        </div>
+		                    </c:forEach>
 	                        <div class="content-view-wrap">${list.faq_Content }</div>
 	                        <div class="content-view-btn">
 	                            <button type="button" class="btn btn-default btn-signature1">수정</button>

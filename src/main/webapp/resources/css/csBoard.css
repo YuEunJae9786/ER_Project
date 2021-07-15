@@ -71,6 +71,7 @@ a:hover, a:focus {
     border: none;
     border-radius: 5px;
     padding: 5px 3px;
+    font-size: 15px;
 }
 
 .post-regist input#file {
