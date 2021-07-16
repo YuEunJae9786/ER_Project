@@ -271,7 +271,6 @@
 							return response.json();
 						}
 					}).then(function(data) {
-						console.log(data);
 						var list = data["rentBikeStatus"]["row"];
 						console.log(list[0]);
 						for (var i = 0; i < list.length; i++) {
@@ -292,7 +291,7 @@
 					                dataType : "json", //요청 데이터 형식
 					                contentType : "application/json",//보내는 데이터에 대한 타입
 					                data : JSON.stringify( list ),
-					                success : function(data) {//성공시 돌려받을 콜백
+					                success : function(kickInfo) {//성공시 돌려받을 콜백
 					                    console.log("success");
 					                },
 					                error : function(status, error) {//실패시 결과를 돌려받을 콜백
