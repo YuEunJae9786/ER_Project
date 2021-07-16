@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/map.css">
     <div class="here">킥보드 위치 보기</div>
     <!-- 바디영역 -->
     <div class="mainBody">
@@ -61,6 +61,16 @@
 
         //     addMarker(positions[i], markerSize, overMarkerSize);
         // }
+        for (var i = 0; i < list.length; i++) {
+							position = {
+								title : 'list' + i,
+								latlng : new kakao.maps.LatLng(
+									list[i].stationLatitude,
+									list[i].stationLongitude
+								)
+							}
+							addMarker(position);
+						}
         
         // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다  
         var normalImage = overMarkerImage(markerSize),
@@ -232,7 +242,7 @@
                                 </div>
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
                                      <div>좌표 정보</div>
-                                     <div style="padding: 5px;">좌표 (xxx.xxxx, yyy.yyyy)</div>
+                                     <div style="padding: 5px;">좌표 (${kickInfos[i].location_x}, yyy.yyyy)</div>
                                 </div>
                             </div>
                             <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png" alt="" class="detail-img">  
@@ -261,49 +271,9 @@
 			http://openapi.seoul.go.kr:8088/(인증키)/xml/TbPublicWifiInfo_GN/1/5/
 			좌표값 ,실제 주소
 			*/
-			function getFetch() {
-				fetch("http://openapi.seoul.go.kr:8088/4f4975567873657534395075496a44/json/bikeList/1/10/")
-					.then(function(response) {
-						if (response.status != 200) {
-							alert("네트워크상 오류가 발생했습니다. 다시 시도하세요");
-							return;
-						} else {
-							return response.json();
-						}
-					}).then(function(data) {
-						var list = data["rentBikeStatus"]["row"];
-						console.log(list[0]);
-						for (var i = 0; i < list.length; i++) {
-							position = {
-								title : 'list' + i,
-								latlng : new kakao.maps.LatLng(
-									list[i].stationLatitude,
-									list[i].stationLongitude
-								)
-							}
-							addMarker(position);
-						}
-						return list;
-					}).then(function(list) {
-					            $.ajax({
-					                type : "post", //요청방식
-					                url : "getMarkInfo",
-					                dataType : "json", //요청 데이터 형식
-					                contentType : "application/json",//보내는 데이터에 대한 타입
-					                data : JSON.stringify( list ),
-					                success : function(kickInfo) {//성공시 돌려받을 콜백
-					                    console.log("success");
-					                },
-					                error : function(status, error) {//실패시 결과를 돌려받을 콜백
-					                    console.log(status, error);
-					                }
-					            })
-					        }	    		
-					)
-			}
-			(function() {
-				getFetch();
-			})();
+			var kickInfos;
+			
+			
 	
 			var size = $("#kick-list").find("li").length;
 	

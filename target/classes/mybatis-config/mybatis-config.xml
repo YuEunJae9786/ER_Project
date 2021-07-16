@@ -13,6 +13,7 @@
 			<typeAlias type="com.erproject.command.ProductInfoVO" alias="ProductInfoVO"/>
 			<typeAlias type="com.erproject.command.FaqVO" alias="FaqVO"/>
 			<typeAlias type="com.erproject.command.QnaVO" alias="QnaVO"/>
+			<typeAlias type="com.erproject.command.KickListVO" alias="KickListVO"/>
 
 		</typeAliases>
 	</configuration>

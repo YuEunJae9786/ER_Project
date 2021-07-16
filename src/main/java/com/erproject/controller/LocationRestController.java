@@ -3,6 +3,8 @@ package com.erproject.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erproject.command.KickListVO;
 import com.erproject.command.LiveInfoVO;
+import com.erproject.location.service.LocationService;
 
 @RestController
 @RequestMapping("/location")
 public class LocationRestController {
 	
-	@PostMapping("/getMarkInfo")
+	@Autowired
+	@Qualifier("locationService")
+	private LocationService locationService;
+	
+	@RequestMapping("/locationAdmin")
+	public void locationAdmin() {
+
+	};
+	
+	@PostMapping("/setMarkInfo")
 	public @ResponseBody List<KickListVO> markInfo(@RequestBody List<LiveInfoVO> vo) {
-		System.out.println(vo.toString());
 		
 		List<KickListVO> kickInfo = new ArrayList<KickListVO>();
 		KickListVO kickList = new KickListVO();
@@ -32,6 +43,7 @@ public class LocationRestController {
 			
 			kickInfo.add(kickList);
 		}
+		
 		return kickInfo;
 	}
 }

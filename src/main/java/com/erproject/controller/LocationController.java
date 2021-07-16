@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LocationController {
 	
 	@RequestMapping("/location")
-	public void locationHome() {
+	public void location() {
 		
 	};
 	
