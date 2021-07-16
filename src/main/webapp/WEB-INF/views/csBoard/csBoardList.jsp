@@ -29,7 +29,7 @@
 
     <!-- 글등록 -->
     <div class="container post-regist hidden2">
-        <form action="noticeRegist" method="post" id="registForm">
+        <form action="noticeRegist" method="post" id="registForm" enctype="multipart/form-data">
         
         	<!-- 컨트롤러에 같이 넘겨줘야 하는 데이터 -->
         	<input type="hidden" id="boardWriter" name="" value="master123">
@@ -52,16 +52,15 @@
             
             <!-- 이미지 업로드 미리보기 -->
             <div class="fileDiv">
-				<img id="fileImg" src="">
 			</div>
         	
             <!-- 내용 -->
             <label>내용</label><br/>
             <textarea id="boardContent" name="" class="regist-content" placeholder="내용을 입력하세요"></textarea><br/>
 
-            <div class="btn">
-            	<label for="file" class="file">이미지 업로드</label>
-                <input type="file" id="file" name="file" class="btn btn-default btn-upload ">
+            <div class="imageBtn">
+            	<label for="file0" class="file" >이미지 업로드</label>
+                <input type="file" id="file0" name="file[0]" class="btn btn-default btn-upload ">
                 <button type="button" id="registBtn" class="btn btn-default btn-signature2">등록</button>
             </div>
 
@@ -326,7 +325,7 @@
     	$(document).ready( function() {
     		
             // 글쓰기 등록
-	   		$("#registForm > .btn > #registBtn").click( function() {
+	   		$("#registBtn").click( function() {
 	   			
 	   			$("#registForm > input[name=whereBoard]").attr("value", $(".content-header .active").html() );
 	   			
@@ -345,39 +344,19 @@
 	   				$("#registForm textarea[id=boardContent]").attr("name", "faq_Content");
 	   			}
 
-	   			setCookie("whereboard", whereBoard);
-	   			$("#registForm").submit();
-	   			
                 /* 파일 업로드 */
-                var file = $("#file").val();
+                var file = $("#file0").val();
                 file = file.slice(file.lastIndexOf(".", file.length) + 1 , file.length); // 파일 확장자
 				
-				if(file != 'png' && file != 'jpg' && file != 'bmp'){
+				if(file != 'png' && file != 'jpg' && file != 'bmp' && file != ''){
 					alert("이미지 파일형태만 등록가능 합니다(jpg, png, bmp)");
 					return;
 				} 
 
-                var formData = new FormData();
-                formData.append("whereboard", whereBoard);
-                formData.append("file", $("#file")[0].files[0]);
-
-                $.ajax({
-					type: "post",
-					url: "imageUpload",
-					processData: false, // 키=값 으로 전송되는 것을 막는 옵션
-					contentType: false, // default 멀티파트 폼데이터 형식으로 지정
-					data: formData,
-					success: function(data){
-						
-                        $("#file").val(""); // 태그
-                        $(".fileDiv").css("display", "none"); // 안보이도록 처리
-
-					},
-					error: function(status, error){
-						console.log(status, error);
-						alert("서버 문제가 발생했습니다. 관리자에게 문의하세요.");
-					}
-				});
+                console.log("실행됌");
+                
+                setCookie("whereboard", whereBoard);
+	   			$("#registForm").submit();
 	   			
 	   		}); // click
 	   		
@@ -598,28 +577,35 @@
     
     <script>
 		//자바 스크립트 파일 미리보기 기능
+        var obj = {count: 0};
+        $("#registBtn").click(function() {
+            obj.count = 0;
+        })
 		function readURL(input) {
         	if (input.files && input.files[0]) {
         		
             	var reader = new FileReader(); //비동기처리를 위한 파읽을 읽는 자바스크립트 객체
             	//readAsDataURL 메서드는 컨텐츠를 특정 Blob 이나 File에서 읽어 오는 역할 (MDN참조)
 	        	reader.readAsDataURL(input.files[0]); 
-            	//파일업로드시 화면에 숨겨져있는 클래스fileDiv를 보이게한다
-	            $(".fileDiv").css("display", "block");
-            	
+            	$(".fileDiv").append("<img class='fileImg[" + obj.count + "]'  src=''>");
+                
             	reader.onload = function(event) { //읽기 동작이 성공적으로 완료 되었을 때 실행되는 익명함수
-                	$('#fileImg').attr("src", event.target.result); 
-                	console.log(event.target); //event.target은 이벤트로 선택된 요소를 의미
+                	$("img[class='fileImg[" + obj.count + "]']").attr("src", event.target.result); 
+		            $("#file" + obj.count)[0].files = input.files;
+                    obj.count++;
+		            $("#registForm .imageBtn").append("<input type='file' id='file" + obj.count + "' name='file[" + obj.count + "]' class='btn btn-default btn-upload '>");
+                    $("label[class='file']").attr("for", "file" + obj.count);
 	        	}
         	}
 	    }
-		$("#file").change(function() {
-	        readURL(this); //this는 #file자신 태그를 의미
-	        
-	    });
+        
+        $(".imageBtn").on("change", "input[type='file']", function() {
+            readURL(this); //this는 #file자신 태그를 의미
+        });
+		
 	</script>
 
-    <!-- 쿠기 -->
+    <!-- 쿠키 -->
     <script>
     	function setCookie(cookieName, cookieValue) {
     		var date = new Date();
