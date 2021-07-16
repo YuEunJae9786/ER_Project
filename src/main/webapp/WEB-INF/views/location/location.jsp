@@ -2,15 +2,109 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/map.css">
+	
+	<!-- 개인 디자인 css -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/map.css">
+	<!-- 지도 js -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a"></script>
+    
     <div class="here">킥보드 위치 보기</div>
     <!-- 바디영역 -->
     <div class="mainBody">
         <!-- 지도를 표시할 div 입니다 -->
         <div id="map" style="width:60%;height:600px; margin-right: 1%; margin-left: 4%; box-sizing: border-box;"></div>
-            <!-- 지도 js -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a"></script>
-    <script>
+
+    <!-- 상품 리스트를 표시하는 div입니다. -->
+    <div class="info">
+        <div class="info-header">사용가능한 킥보드</div>
+            <ul id="kick-list" class="kick-list">
+                <!-- forEach써서 리스트 목록 나오게설정 -->
+                <c:forEach var="list" items="${kickList }">
+                <li id="list${list.markNo+1}">
+                    <!-- 기본정보 리스트 -->
+                    <div id="list${list.markNo+1}" class="kick-info-list">
+                        <div class="mask">
+                            <div>모델명</div>
+                            <div>회사명</div>
+                            <div>좌표 정보</div>
+                            <div>상세보기</div>
+                        </div>
+                        <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"alt="" class="kick-img">  
+                    </div>
+                    <!-- 상세정보 -->
+                    <div id="detail${list.markNo+1}" class="kick-info-detail">
+                        <div class="detail-fix">
+                            <div class="detail-info">
+                                <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                                    <div>모델명 : 디비에서 꺼내오자</div>
+                                    <div>회사명 : 디비에서 꺼내오자</div>
+                                </div>
+                                <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                                     <div>좌표 정보</div>
+                                     <div style="padding: 5px;">좌표 (${kickList[i].location_x}, yyy.yyyy)</div>
+                                </div>
+                            </div>
+                            <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png" alt="" class="detail-img">  
+                        </div>
+                        <div class="spec">
+							상세정보 <br>
+							스팩1.<br>
+							스팩2.<br>
+							스팩3.<br>
+                            <a>더 많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
+                        </div>
+                        <div>
+                            <button class="btn btn-default btn-signature1">문의하기</button>
+                            <button class="btn btn-default btn-signature2">예약하기</button>
+                        </div>                           
+                    </div>           
+                </li>
+                </c:forEach>                
+            </ul>
+        </div>
+	</div>
+	
+	<script>
+	
+	$.ajax({
+		type : "get", //요청방식
+		url : "getMarkInfo",
+		dataType : "json", //요청 데이터 형식
+		contentType : "application/json",//보내는 데이터에 대한 타입
+		//data : JSON.stringify(data),
+		success : function(kickInfo) {//성공시 돌려받을 콜백
+			console.log(kickInfo.length);
+			var kickList = kickInfo;
+		},
+		error : function(status, error) {//실패시 결과를 돌려받을 콜백
+			console.log(status,
+			error);
+		}
+	})
+		$(document).ready(function(data) {
+			console.log(data);
+			
+			        for (var i = 0; i < kickList.length; i++) {
+						position = {
+							title : 'list' + i,
+							latlng : new kakao.maps.LatLng(
+								kickList[i].location_x,
+								kickList[i].location_y
+							)
+						}
+						addMarker(position);
+					}		
+			
+			var size = $("#kick-list").find("li").length;
+			
+			for (var i = 1; i <= size; i++) {
+				(function(i) {
+					$('#list' + i).click(function() {
+						clickMark(markers[i - 1]);	
+					});
+				})(i);
+			}
+		
         
         var markers = [];
         
@@ -61,16 +155,6 @@
 
         //     addMarker(positions[i], markerSize, overMarkerSize);
         // }
-        for (var i = 0; i < list.length; i++) {
-							position = {
-								title : 'list' + i,
-								latlng : new kakao.maps.LatLng(
-									list[i].stationLatitude,
-									list[i].stationLongitude
-								)
-							}
-							addMarker(position);
-						}
         
         // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다  
         var normalImage = overMarkerImage(markerSize),
@@ -214,75 +298,6 @@
     
             return markerImage;
         }
-    </script>
-    <!-- 상품 리스트를 표시하는 div입니다. -->
-    <div class="info">
-        <div class="info-header">사용가능한 킥보드</div>
-            <ul id="kick-list" class="kick-list">
-                <!-- forEach써서 리스트 목록 나오게설정 -->
-                <c:forEach var="i" begin="0" end="9">
-                <li id="list${i+1}">
-                    <!-- 기본정보 리스트 -->
-                    <div id="list${i+1}" class="kick-info-list">
-                        <div class="mask">
-                            <div>모델명</div>
-                            <div>회사명</div>
-                            <div>좌표 정보</div>
-                            <div>상세보기</div>
-                        </div>
-                        <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"alt="" class="kick-img">  
-                    </div>
-                    <!-- 상세정보 -->
-                    <div id="detail${i+1}" class="kick-info-detail">
-                        <div class="detail-fix">
-                            <div class="detail-info">
-                                <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-                                    <div>모델명 : 디비에서 꺼내오자</div>
-                                    <div>회사명 : 디비에서 꺼내오자</div>
-                                </div>
-                                <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-                                     <div>좌표 정보</div>
-                                     <div style="padding: 5px;">좌표 (${kickInfos[i].location_x}, yyy.yyyy)</div>
-                                </div>
-                            </div>
-                            <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png" alt="" class="detail-img">  
-                        </div>
-                        <div class="spec">
-							상세정보 <br>
-							스팩1.<br>
-							스팩2.<br>
-							스팩3.<br>
-                            <a>더 많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
-                        </div>
-                        <div>
-                            <button class="btn btn-default btn-signature1">문의하기</button>
-                            <button class="btn btn-default btn-signature2">예약하기</button>
-                        </div>                           
-                    </div>           
-                </li>
-                </c:forEach>                
-            </ul>
-        </div>
-	</div>
-	
-	<script>
-		$(document).ready(function(data) {
-			/*
-			http://openapi.seoul.go.kr:8088/(인증키)/xml/TbPublicWifiInfo_GN/1/5/
-			좌표값 ,실제 주소
-			*/
-			var kickInfos;
-			
-			
-	
-			var size = $("#kick-list").find("li").length;
-	
-			for (var i = 1; i <= size; i++) {
-				(function(i) {
-					$('#list' + i).click(function() {
-						clickMark(markers[i - 1]);	
-					});
-				})(i);
-			}
+		
 		});
-	</script>
+    </script>

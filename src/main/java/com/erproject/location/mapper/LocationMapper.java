@@ -8,5 +8,6 @@ import com.erproject.command.KickListVO;
 
 @Mapper
 public interface LocationMapper {
-	public List<KickListVO> setMarkInfo(List<KickListVO> vo);
+	public int setMarkInfo(KickListVO vo);
+	public List<KickListVO> getKickInfo();
 }

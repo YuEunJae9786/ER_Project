@@ -15,9 +15,15 @@ public class LocationServiceImpl implements LocationService{
 	private LocationMapper locationMapper;
 	
 	@Override
-	public List<KickListVO> setMarkInfo(List<KickListVO> vo) {
+	public int setMarkInfo(KickListVO vo) {
 		// TODO Auto-generated method stub
 		return locationMapper.setMarkInfo(vo);
+	}
+
+	@Override
+	public List<KickListVO> getKickInfo() {
+		// TODO Auto-generated method stub
+		return locationMapper.getKickInfo();
 	}
 	
 }
