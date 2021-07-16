@@ -46,7 +46,10 @@
   	
   	<select id="noticeGetList" resultMap="NoticeInfo" parameterType="hashMap">
   		<![CDATA[
-  		select *
+  		select a.*,
+  			   ni_no,
+  			   ni_path,
+  			   ni_name
   		from ( select ROWNUM RN,
 		  			   notice_No,
 		  			   notice_Writer,
@@ -56,14 +59,9 @@
 		  			   case when gap <= 60 THEN '방금전'
 		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
 		  			   else to_char(notice_regdate, 'YYYY-MM-DD')
-		  			   end as notice_Regdate,
-		  			   ni_no,
-		  			   ni_path,
-		  			   ni_name
-		  		 from ( select n.notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap,
-		  		 				i.ni_no, ni_path, ni_name
-		  				from notice n left outer join notice_image i
-		  				on n.notice_no = i.notice_no
+		  			   end as notice_Regdate
+		  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
+		  				from notice
 		  				where
 		]]>
 						<if test="searchType == '' or searchType == null">1 = 1</if>
@@ -77,7 +75,8 @@
 			  			<if test="orderType == '' or orderType == null">notice_no</if>
 			  			<if test="orderType == 'viewOrder'">notice_view</if>
   		<![CDATA[
-  		  				desc ) )
+  		  				desc ) ) a left outer join notice_image i
+  		  				on a.notice_no = i.notice_no
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
   		]]>
   	</select>
@@ -100,7 +99,10 @@
   	
   	<select id="faqGetList" resultMap="FaqInfo" parameterType="hashMap">
   		<![CDATA[
-  		select *
+  		select a.*,
+  			   fi_no,
+  			   fi_path,
+  			   fi_name
   		from ( select ROWNUM RN,
   					  faq_No,
 		  			  faq_Writer,
@@ -110,14 +112,9 @@
 		  			   case when gap <= 60 THEN '방금전'
 		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
 		  			   else to_char(faq_regdate, 'YYYY-MM-DD')
-		  			   end as faq_Regdate,
-		  			  fi_no,
-		  			  fi_path,
-		  			  fi_name
-		  		from ( select f.faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap,
-		  					  fi_no, fi_path, fi_name
-		  				from faq f left outer join faq_image i
-		  				on f.faq_no = i.faq_no
+		  			   end as faq_Regdate
+		  		from ( select faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap
+		  				from faq 
 		  				where
   		]]>
 			  			<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
@@ -135,11 +132,12 @@
   		<![CDATA[		
   						order by
   		]]>
-			  			<if test="orderType == 'latestOrder'">faq_no</if>
 			  			<if test="orderType == '' or orderType == null">faq_no</if>
+			  			<if test="orderType == 'latestOrder'">faq_no</if>
 			  			<if test="orderType == 'viewOrder'">faq_view</if>
   		<![CDATA[
-  						desc ) a )
+  						desc ) ) a left outer join faq_image i
+  						on a.faq_no = i.faq_no
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
   		]]>
   	</select>

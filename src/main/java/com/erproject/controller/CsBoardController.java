@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erproject.command.FaqVO;
@@ -79,8 +77,6 @@ public class CsBoardController {
 	public String noticeRegist(NoticeVO vo, 
 							   RedirectAttributes RA) {
 		
-		System.out.println(vo.toString());
-		
 		int result = csBoardService.noticeRegist(vo);
 		
 		if( result == 1) {
@@ -96,8 +92,6 @@ public class CsBoardController {
 	@RequestMapping("/faqRegist")
 	public String faqRegist(FaqVO vo,
 							RedirectAttributes RA) {
-		
-		System.out.println(vo.toString());
 		
 		int result = csBoardService.faqRegist(vo);
 		
@@ -177,18 +171,5 @@ public class CsBoardController {
 		return "redirect:/csBoard/csBoardList";
 	}
 	
-//	이미지 업로드
-	@ResponseBody
-	@CrossOrigin("*")
-	@RequestMapping(value= "/imageUpload", method = RequestMethod.POST)
-	public void imageUpload(@RequestParam("file") MultipartFile file,
-							  @RequestParam("whereboard") String whereboard) {
-		
-		System.out.println(whereboard);
-		System.out.println(file);
-		
-		csBoardService.imageUpload(whereboard, file);
-		
-	}
 	
 }
