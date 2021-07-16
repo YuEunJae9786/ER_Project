@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
 import com.erproject.command.QnaVO;
 import com.erproject.csboard.service.CsBoardService;
@@ -67,7 +67,6 @@ public class CsBoardController {
 //		정렬 순서 기억
 		model.addAttribute("orderUtil", orderUtil);
 
-		
 	}
 	
 	@RequestMapping("/qnaRegist")
@@ -95,7 +94,18 @@ public class CsBoardController {
 	
 //	FAQ 게시판 글 등록
 	@RequestMapping("/faqRegist")
-	public String faqRegist() {
+	public String faqRegist(FaqVO vo,
+							RedirectAttributes RA) {
+		
+		System.out.println(vo.toString());
+		
+		int result = csBoardService.faqRegist(vo);
+		
+		if( result == 1) {
+			RA.addFlashAttribute("msg", "글이 등록 되었습니다.");
+		} else {
+			RA.addFlashAttribute("msg", "글 등록에 실패했습니다. 다시 시도하세요");
+		}
 		
 		return "redirect:/csBoard/csBoardList";
 	}
@@ -165,6 +175,20 @@ public class CsBoardController {
 		}
 		
 		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	이미지 업로드
+	@ResponseBody
+	@CrossOrigin("*")
+	@RequestMapping(value= "/imageUpload", method = RequestMethod.POST)
+	public void imageUpload(@RequestParam("file") MultipartFile file,
+							  @RequestParam("whereboard") String whereboard) {
+		
+		System.out.println(whereboard);
+		System.out.println(file);
+		
+		csBoardService.imageUpload(whereboard, file);
+		
 	}
 	
 }
