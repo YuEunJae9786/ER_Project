@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -169,6 +171,17 @@ public class CsBoardController {
 		}
 		
 		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	이미지 조회해서 가져오기
+	@ResponseBody
+	@RequestMapping("view/{filePath}/{fileName:.+}")
+	public ResponseEntity<byte[]> view(@PathVariable("filePath") String filePath,
+									   @PathVariable("fileName") String fileName) {
+		
+		ResponseEntity<byte[]> result = null;
+		
+		return result;
 	}
 	
 	
