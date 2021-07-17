@@ -4,18 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/service")
+@RequestMapping("/servicePage")
 public class ServicePageController {
 
-	
-	
-	
 	@RequestMapping("/servicePage")
 	public void servicePage() {
-		
-		
-		
-		
 		
 	}
 	

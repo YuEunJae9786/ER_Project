@@ -16,7 +16,7 @@
 
 	<!-- 위에 선언된 타일즈템플릿을 상속 -->
 	<!-- name속성은 controller에서 연결할 이름 -->
-		
+
 	<definition name="*" extends="templateDefault">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
@@ -29,5 +29,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
 
+
+	
 	
 </tiles-definitions>
