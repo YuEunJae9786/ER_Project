@@ -2,8 +2,6 @@ package com.erproject.csboard.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
 import com.erproject.command.QnaVO;
