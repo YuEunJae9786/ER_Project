@@ -2,8 +2,6 @@ package com.erproject.command;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +20,5 @@ public class NoticeVO {
 	private String notice_UpdateDate; // 수정일
 	
 	private List<NoticeImageVO> noticeImageList; 
-	
-	private List<MultipartFile> file;
 	
 }

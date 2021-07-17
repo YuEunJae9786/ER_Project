@@ -17,12 +17,6 @@
 	<!-- 위에 선언된 타일즈템플릿을 상속 -->
 	<!-- name속성은 controller에서 연결할 이름 -->
 
-
-	<definition name="servicePage" extends="templateService">
-		<put-attribute name="body" value="/WEB-INF/views/servicePage/servicePage.jsp" />
-	</definition>
-
-
 	<definition name="*" extends="templateDefault">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
@@ -37,6 +31,5 @@
 
 
 	
-
 	
 </tiles-definitions>

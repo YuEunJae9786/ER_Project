@@ -74,7 +74,7 @@ a:hover, a:focus {
     font-size: 15px;
 }
 
-.post-regist input[type=file] {
+.post-regist input#file {
 	position: absolute;
 	width: 1px;
     height: 1px;
@@ -86,7 +86,7 @@ a:hover, a:focus {
     
 }
 
-.post-regist > form > .imageBtn {
+.post-regist > form > .btn {
     float: right;
 }
 
