@@ -132,7 +132,7 @@
 	                    <li class="col-xs-12 content-view hidden">
 	                    	<c:forEach var="imageList" items="${list.noticeImageList }">
 		                        <div class="content-view-img">
-		                            <img src="/noticeImageFilePath/${imageList.ni_Name}" alt="이미지">
+		                            <img src="view/Notice/${imageList.ni_Name}" alt="이미지">
 		                        </div>
 	                        </c:forEach>
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
@@ -173,7 +173,7 @@
 	                    <li class="col-xs-12 content-view hidden">
 		                    <c:forEach var="imageList" items="${list.faqImageList }">
 		                        <div class="content-view-img">
-		                            <img src="/faqImageFilePath/${imageList.fi_Name}" alt="이미지">
+		                            <img src="view/FAQ/${imageList.fi_Name}" alt="이미지">
 		                        </div>
 		                    </c:forEach>
 	                        <div class="content-view-wrap">${list.faq_Content }</div>

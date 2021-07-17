@@ -1,6 +1,9 @@
 package com.erproject.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.erproject.command.APP_CONSTANT;
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
 import com.erproject.command.QnaVO;
@@ -175,11 +182,25 @@ public class CsBoardController {
 	
 //	이미지 조회해서 가져오기
 	@ResponseBody
-	@RequestMapping("view/{filePath}/{fileName:.+}")
-	public ResponseEntity<byte[]> view(@PathVariable("filePath") String filePath,
+	@RequestMapping("view/{fileLoca}/{fileName:.+}")
+	public ResponseEntity<byte[]> view(@PathVariable("fileLoca") String fileLoca,
 									   @PathVariable("fileName") String fileName) {
 		
 		ResponseEntity<byte[]> result = null;
+		
+		try {
+//			파일데이터를 바이트데이터로 변환해서 반환
+			File file = new File(APP_CONSTANT.UPLOAD_PATH + "\\" + fileLoca + "\\" + fileName);
+			
+//			반환할 헤더객체
+			HttpHeaders header = new HttpHeaders(); //
+			header.add("Content-type", Files.probeContentType(file.toPath() ));
+			
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		return result;
 	}
