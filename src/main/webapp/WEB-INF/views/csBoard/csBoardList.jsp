@@ -95,9 +95,10 @@
 	        <!-- 검색 -->
 	        <div class="search">
 	            <select name="searchType">
-	                <option value="title">제목</option>
-	                <option value="writer">작성자</option>
-	                <option value="tiwri">제목+작성자</option>
+                    <option value=''>검색타입</option>
+	                <option value="title" >제목</option>
+	                <option value="writer" >작성자</option>
+	                <option value="tiwri" >제목+작성자</option>
 	            </select>
 	
 	            <input type="text" name="searchName" placeholder="검색내용">

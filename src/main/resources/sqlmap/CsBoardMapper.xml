@@ -71,13 +71,14 @@
 		<![CDATA[
 		  				order by
   		]]>
-			  			<if test="orderType == 'latestOrder'">notice_no</if>
 			  			<if test="orderType == '' or orderType == null">notice_no</if>
+			  			<if test="orderType == 'latestOrder'">notice_no</if>
 			  			<if test="orderType == 'viewOrder'">notice_view</if>
   		<![CDATA[
   		  				desc ) ) a left outer join notice_image i
   		  				on a.notice_no = i.notice_no
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
+  		ORDER BY RN ASC
   		]]>
   	</select>
   	
@@ -139,6 +140,7 @@
   						desc ) ) a left outer join faq_image i
   						on a.faq_no = i.faq_no
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
+  		ORDER BY RN ASC
   		]]>
   	</select>
   	
