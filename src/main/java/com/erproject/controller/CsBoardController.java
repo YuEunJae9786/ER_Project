@@ -50,6 +50,8 @@ public class CsBoardController {
 						Criteria cri,
 						Model model) {
 		
+		System.out.println(orderUtil.toString());
+		
 //		노티스 게시판 페이징 만들기
 		PageVO noticePage = new PageVO(cri, csBoardService.getNoticeTotal(orderUtil));
 //		faq 게시판 페이징 만들기
