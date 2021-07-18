@@ -36,8 +36,8 @@ public class LocationRestController {
 			kickList.setMarkNo(i);
 			kickList.setPCode(vo.get(i).getStationId());
 			kickList.setCCode(vo.get(i).getStationName());
-			kickList.setLocation_x(vo.get(i).getStationLatitude());
-			kickList.setLocation_y(vo.get(i).getStationLongitude());
+			kickList.setLocation_x(Double.parseDouble(vo.get(i).getStationLatitude()));
+			kickList.setLocation_y(Double.parseDouble(vo.get(i).getStationLongitude()));
 			
 			kickInfo.add(kickList);
 
@@ -57,6 +57,7 @@ public class LocationRestController {
 	public @ResponseBody List<KickListVO> getMarkInfo() {
 		
 		List<KickListVO> kickInfo = locationService.getKickInfo();
+		System.out.println(kickInfo.get(0).getLocation_x());
 		
 		return kickInfo;
 	}

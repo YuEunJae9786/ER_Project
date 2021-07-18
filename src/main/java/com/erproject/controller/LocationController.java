@@ -23,7 +23,7 @@ public class LocationController {
 	public String location(Model model) {
 		List<KickListVO> kickList = locationService.getKickInfo();
 		
-		model.addAttribute("list",kickList);
+		model.addAttribute("kickList",kickList);
 		
 		return "location/location";
 	};

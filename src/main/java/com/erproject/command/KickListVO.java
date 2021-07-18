@@ -11,7 +11,7 @@ public class KickListVO {
 	private int markNo;
 	private String pCode;
 	private String cCode;
-	private String location_x;
-	private String location_y;
+	private Double location_x;
+	private Double location_y;
 	private String isRental;
 }

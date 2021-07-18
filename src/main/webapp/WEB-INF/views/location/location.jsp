@@ -19,10 +19,10 @@
         <div class="info-header">사용가능한 킥보드</div>
             <ul id="kick-list" class="kick-list">
                 <!-- forEach써서 리스트 목록 나오게설정 -->
-                <c:forEach var="list" items="${kickList }">
-                <li id="list${list.markNo+1}">
+                <c:forEach var="kickInfo" items="${kickList}">
+                <li id="list${kickInfo.markNo}">
                     <!-- 기본정보 리스트 -->
-                    <div id="list${list.markNo+1}" class="kick-info-list">
+                    <div id="list${kickInfo.markNo}" class="kick-info-list">
                         <div class="mask">
                             <div>모델명</div>
                             <div>회사명</div>
@@ -32,7 +32,7 @@
                         <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"alt="" class="kick-img">  
                     </div>
                     <!-- 상세정보 -->
-                    <div id="detail${list.markNo+1}" class="kick-info-detail">
+                    <div id="detail${kickInfo.markNo}" class="kick-info-detail">
                         <div class="detail-fix">
                             <div class="detail-info">
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
@@ -41,7 +41,7 @@
                                 </div>
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
                                      <div>좌표 정보</div>
-                                     <div style="padding: 5px;">좌표 (${kickList[i].location_x}, yyy.yyyy)</div>
+                                     <div style="padding: 5px;">좌표 (${kickInfo.location_x}, ${kickInfo.location_y})</div>
                                 </div>
                             </div>
                             <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png" alt="" class="detail-img">  
@@ -66,6 +66,8 @@
 	
 	<script>
 	
+	$(document).ready(function(data) {
+
 	$.ajax({
 		type : "get", //요청방식
 		url : "getMarkInfo",
@@ -73,108 +75,76 @@
 		contentType : "application/json",//보내는 데이터에 대한 타입
 		//data : JSON.stringify(data),
 		success : function(kickInfo) {//성공시 돌려받을 콜백
-			console.log(kickInfo.length);
-			var kickList = kickInfo;
+			
+	        var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+            mapOption = { 
+            	center: new kakao.maps.LatLng(37.54920197, 126.92320251), // 지도의 중심좌표
+            	level: 5 // 지도의 확대 레벨
+        	};
+        
+        	var originMap = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        		selectedMarker = null;
+			console.log("first map : "+ originMap);
+			
+			var markers = [];
+	        for (var i = 0; i < kickInfo.length; i++) {
+				position = {
+					title : 'list' + i,
+					latlng : new kakao.maps.LatLng(
+						kickInfo[i].location_x,
+						kickInfo[i].location_y
+					)
+				}
+				var marker = addMarker(position, originMap);
+				markers[i]=marker;  // 배열에 생성된 마커를 추가합니다
+				
+				//markers[i] = position;
+			}
+			
+			var size = $("#kick-list").find("li").length;
+			
+			for (var i = 0; i < size; i++) {
+				(function(i) {
+					$('#list' + i).click(function() {
+						clickMark(markers[i]);	
+					});
+				})(i);
+			}
+
+		
 		},
 		error : function(status, error) {//실패시 결과를 돌려받을 콜백
 			console.log(status,
 			error);
 		}
-	})
-		$(document).ready(function(data) {
-			console.log(data);
-			
-			        for (var i = 0; i < kickList.length; i++) {
-						position = {
-							title : 'list' + i,
-							latlng : new kakao.maps.LatLng(
-								kickList[i].location_x,
-								kickList[i].location_y
-							)
-						}
-						addMarker(position);
-					}		
-			
-			var size = $("#kick-list").find("li").length;
-			
-			for (var i = 1; i <= size; i++) {
-				(function(i) {
-					$('#list' + i).click(function() {
-						clickMark(markers[i - 1]);	
-					});
-				})(i);
-			}
-		
-        
-        var markers = [];
-        
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-            mapOption = { 
-            center: new kakao.maps.LatLng(37.54920197, 126.92320251), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨
-        };
-        
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-        
-        // 마커를 표시할 위치와 title 객체 배열입니다 
-        // var positions = [
-        //     {
-        //         title: 'list1', 
-        //         latlng: new kakao.maps.LatLng(37.499607, 127.030437)
-        //     },
-        //     {
-        //         title: 'list2', 
-        //         latlng: new kakao.maps.LatLng(37.498464, 127.028678)
-        //     },
-        //     {
-        //         title: 'list3', 
-        //         latlng: new kakao.maps.LatLng(37.497268, 127.027321)
-        //     },
-        // ];
-            selectedMarker = null;
-        
-        // 마커 이미지의 이미지 주소입니다
-        var imageNormal ="https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png";
-            imageClick = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-          
-        //var makerMap = new Map();
-        //마커를 생성합니다
-        //var marker = new kakao.maps.Marker({
-        //         map: map, // 마커를 표시할 지도
-        //         position: positions.latlng, // 마커를 표시할 위치
-        //         title : positions.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-        //         image : normalImage // 마커 이미지 
-        //     });
-        
-        // 마커 이미지의 이미지 크기 입니다
-        var markerSize = new kakao.maps.Size(24, 35);
-            overMarkerSize = new kakao.maps.Size(36, 42);
+	});
+    // 마커 이미지의 이미지 주소입니다
+    var imageNormal ="https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png";
+        imageClick = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+    
+    // 마커 이미지의 이미지 크기 입니다
+    var markerSize = new kakao.maps.Size(24, 35);
+        overMarkerSize = new kakao.maps.Size(36, 42);
 
-        // for (var i = 0; i < positions.length; i ++) {
-            
-
-        //     addMarker(positions[i], markerSize, overMarkerSize);
-        // }
-        
-        // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다  
-        var normalImage = overMarkerImage(markerSize),
-            overImage = overMarkerImage(overMarkerSize),
-            clickImage = createMarkerImage(markerSize);
-        //var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-        
-        function addMarker(position) {
+    // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다  
+    var normalImage = overMarkerImage(markerSize),
+        overImage = overMarkerImage(overMarkerSize),
+        clickImage = createMarkerImage(markerSize);
+    //var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
+           
+	
+    function addMarker(position, originMap) {
             normalImage = overMarkerImage(markerSize),
             overImage = overMarkerImage(overMarkerSize),
             clickImage = createMarkerImage(markerSize);
-            
             // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
             var marker = new kakao.maps.Marker({
-                map: map, // 마커를 표시할 지도
+                map: originMap, // 마커를 표시할 지도
                 position: position.latlng, // 마커를 표시할 위치
                 title : position.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image : normalImage // 마커 이미지 
             });
-
+			
             // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
             //marker.normalImage = normalImage;
 
@@ -204,7 +174,7 @@
                 //getKickList(marker.Fb);                
             });
             //console.log(marker);
-            markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+            //markers.push(marker);  // 배열에 생성된 마커를 추가합니다
             return marker;
         }
         function clickMark(marker) {
@@ -233,13 +203,15 @@
             
 
         }
+        /*
         function clickList(list) {
             
             var size = $("#kick-list").find("li").length;
+            console.log(size);
             var leng = list.substring(4, list.length);
-            
+            console.log(leng);
             if($('#detail'+leng).css("display") == "none"){   
-                for(var j=1;j<=size;j++){
+                for(var j=0;j<size;j++){
                     if(leng==j){
                         jQuery('#detail'+j).slideDown(50);
                         if(selectedMarker==normalImage) {
@@ -263,21 +235,21 @@
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
             //selectedMarker = marker;
         }
+        */
         function getKickList(list){         
             //maker.Fb = list + i
             var size = $("#kick-list").find("li").length;
             var leng = list.substring(4, list.length);
-            var l= ++leng;
-            if($('#detail'+l).css("display") == "none"){   
-                for(var j=1;j<=size;j++){
-                    if(l==j){
+            if($('#detail'+leng).css("display") == "none"){   
+                for(var j=0;j<size;j++){
+                    if(leng==j){
                         jQuery('#detail'+j).slideDown(50);
                     } else {
                         jQuery('#detail'+j).slideUp(50);
                     }
                 }
             } else {
-                jQuery('#detail'+l).slideUp(50);
+                jQuery('#detail'+leng).slideUp(50);
             }
         }
         
@@ -298,6 +270,6 @@
     
             return markerImage;
         }
-		
-		});
+	})
+
     </script>
