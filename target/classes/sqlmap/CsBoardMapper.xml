@@ -44,21 +44,26 @@
   		<if test="searchType == 'tiwri'">QNA_TITLE LIKE '%'||#{searchName}||'%' OR QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
 	</select>
   	
-  	<select id="noticeGetList" resultType="NoticeVO" parameterType="hashMap">
+  	<select id="noticeGetList" resultMap="NoticeInfo" parameterType="hashMap">
   		<![CDATA[
   		select *
   		from ( select ROWNUM RN,
-		  			   a.notice_No,
-		  			   a.notice_Writer,
-		  			   a.notice_Title,
-		  			   a.notice_Content,
-		  			   a.notice_View,
+		  			   notice_No,
+		  			   notice_Writer,
+		  			   notice_Title,
+		  			   notice_Content,
+		  			   notice_View,
 		  			   case when gap <= 60 THEN '방금전'
 		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
 		  			   else to_char(notice_regdate, 'YYYY-MM-DD')
-		  			   end as notice_Regdate
-		  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
-		  				from notice
+		  			   end as notice_Regdate,
+		  			   ni_no,
+		  			   ni_path,
+		  			   ni_name
+		  		 from ( select n.notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap,
+		  		 				i.ni_no, ni_path, ni_name
+		  				from notice n left outer join notice_image i
+		  				on n.notice_no = i.notice_no
 		  				where
 		]]>
 						<if test="searchType == '' or searchType == null">1 = 1</if>
@@ -72,26 +77,47 @@
 			  			<if test="orderType == '' or orderType == null">notice_no</if>
 			  			<if test="orderType == 'viewOrder'">notice_view</if>
   		<![CDATA[
-  		  				desc ) a )
+  		  				desc ) )
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
   		]]>
   	</select>
   	
-  	<select id="faqGetList" resultType="FaqVO" parameterType="hashMap">
+  	<resultMap type="NoticeVO" id="NoticeInfo">
+  		<result property="notice_No" column="NOTICE_NO" /> 
+  		<result property="notice_Writer" column="NOTICE_WRITER" />
+  		<result property="notice_Title" column="NOTICE_TITLE" />
+  		<result property="notice_Content" column="NOTICE_CONTENT" />
+  		<result property="notice_View" column="NOTICE_VIEW" />
+  		<result property="notice_Regdate" column="NOTICE_REGDATE" />
+  		<collection property="noticeImageList" resultMap="noticeImage" />
+  	</resultMap>
+  	
+  	<resultMap type="NoticeImageVO" id="noticeImage">
+  		<result property="ni_No" column="NI_NO" />
+  		<result property="ni_Path" column="NI_PATH" />
+  		<result property="ni_Name" column="NI_NAME" />
+  	</resultMap>
+  	
+  	<select id="faqGetList" resultMap="FaqInfo" parameterType="hashMap">
   		<![CDATA[
   		select *
   		from ( select ROWNUM RN,
-  					  a.faq_No,
-		  			   a.faq_Writer,
-		  			   a.faq_Title,
-		  			   a.faq_Content,
-		  			   a.faq_View,
+  					  faq_No,
+		  			  faq_Writer,
+		  			  faq_Title,
+		  			  faq_Content,
+		  			  faq_View,
 		  			   case when gap <= 60 THEN '방금전'
 		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
 		  			   else to_char(faq_regdate, 'YYYY-MM-DD')
-		  			   end as faq_Regdate
-		  		from ( select faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap
-		  				from faq
+		  			   end as faq_Regdate,
+		  			  fi_no,
+		  			  fi_path,
+		  			  fi_name
+		  		from ( select f.faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap,
+		  					  fi_no, fi_path, fi_name
+		  				from faq f left outer join faq_image i
+		  				on f.faq_no = i.faq_no
 		  				where
   		]]>
 			  			<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
@@ -117,6 +143,22 @@
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
   		]]>
   	</select>
+  	
+  	<resultMap type="FaqVO" id="FaqInfo">
+  		<result property="faq_No" column="FAQ_NO" /> 
+  		<result property="faq_Writer" column="FAQ_WRITER" />
+  		<result property="faq_Title" column="FAQ_TITLE" />
+  		<result property="faq_Content" column="FAQ_CONTENT" />
+  		<result property="faq_View" column="FAQ_VIEW" />
+  		<result property="faq_Regdate" column="FAQ_REGDATE" />
+  		<collection property="faqImageList" resultMap="faqImage" />
+  	</resultMap>
+  	
+  	<resultMap type="FaqImageVO" id="faqImage">
+  		<result property="fi_No" column="FI_NO" />
+  		<result property="fi_Path" column="FI_PATH" />
+  		<result property="fi_Name" column="FI_NAME" />
+  	</resultMap>
   	
   	<select id="qnaGetList" resultType="QnaVO">
   		<![CDATA[
@@ -185,5 +227,31 @@
   	<delete id="qnaDelete">
   		DELETE FROM QNA WHERE QNA_NO = #{bno}
   	</delete>
+  	
+  	<select id="getNoticeCurrent" resultType="int">
+  		SELECT NOTICE_NO
+  		FROM ( SELECT ROWNUM RN,
+  					  NOTICE_NO
+  				FROM NOTICE
+  				ORDER BY NOTICE_NO DESC)
+  		WHERE RN = 1
+  	</select>
+  	
+  	<select id="getFaqCurrent" resultType="int">
+  		SELECT FAQ_NO
+  		FROM ( SELECT ROWNUM RN,
+  					  FAQ_NO
+  				FROM FAQ
+  				ORDER BY FAQ_NO DESC)
+  		WHERE RN = 1
+  	</select>
+  	
+  	<insert id="noticeImageUpload">
+  		INSERT INTO NOTICE_IMAGE VALUES(NOTICE_IMAGE_SEQ.NEXTVAL, #{notice_No}, #{ni_Path}, #{ni_Name})
+  	</insert>
+  	
+  	<insert id="faqImageUpload">
+  		INSERT INTO FAQ_IMAGE VALUES(FAQ_IMAGE_SEQ.NEXTVAL, #{faq_No}, #{fi_Path}, #{fi_Name})
+  	</insert>
   
   </mapper>
