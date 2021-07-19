@@ -34,8 +34,8 @@
                         <div class="detail-fix">
                             <div class="detail-info">
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-                                    <div>모델명 : 디비에서 꺼내오자</div>
-                                    <div>회사명 : 디비에서 꺼내오자</div>
+                                    <div>모델명 : ${kickInfo.location_y}</div>
+                                    <div>회사명 : ${kickInfo.location_x}</div>
                                 </div>
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
                                      <div>좌표 정보</div>
@@ -193,40 +193,14 @@
                 }
             }
             getKickList(marker.Fb);
+            hideKickList(marker.Fb)
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
             selectedMarker = marker;
             
         }
-/*         function clickList(list) {
-            
-            var size = $("#kick-list").find("li").length;
-            var leng = list.substring(4, list.length);
-            
-            if($('#detail'+leng).css("display") == "none"){   
-                for(var j=0;j<size;j++){
-                    if(leng==j){
-                        jQuery('#detail'+j).slideDown(50);
-                        if(selectedMarker==normalImage) {
-                            selectedMarker.setImage(clickImage);
-                        }
-                    } else {
-                        jQuery('#detail'+j).slideUp(50);
-                        if(selectedMarker==clickImage){
-                            selectedMarker.setImage(normalImage);
-                        }
 
-                    }
-                }
-            } else {
-                jQuery('#detail'+leng).slideUp(50);
-                if(selectedMarker==clickImage){
-                            selectedMarker.setImage(normalImage);
-                        }
-        		}
-            } */
-
-            // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-            //selectedMarker = marker;
+	    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+        //selectedMarker = marker;
         function getKickList(list){         
             //maker.Fb = list + i
             var size = $("#kick-list").find("li").length;
@@ -242,6 +216,24 @@
                 }
             } else {
                 jQuery('#detail'+leng).slideUp(50);
+            }
+        }
+        
+        function hideKickList(list){
+            var size = $("#kick-list").find("li").length;
+            var leng = list.substring(4, list.length);
+   
+            for(var j=0;j<size;j++){
+            	
+                if(leng==j){
+                    jQuery('#list'+j).slideDown(50);
+                } else {
+                	if($('#list'+j).css("display") == "none"){
+                		jQuery('#list'+j).slideDown(50);
+                	} else{                		
+                    	jQuery('#list'+j).slideUp(50);
+                	}
+                }
             }
         }
         

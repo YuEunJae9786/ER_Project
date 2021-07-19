@@ -22,7 +22,7 @@ public class LocationController {
 	@RequestMapping("/location")
 	public String location(Model model) {
 		List<KickListVO> kickList = locationService.getKickInfo();
-		
+		System.out.println(kickList.get(0).getCCode());
 		model.addAttribute("kickList",kickList);
 		
 		return "location/location";
