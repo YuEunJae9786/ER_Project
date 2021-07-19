@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.erproject.command.APP_CONSTANT;
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
+import com.erproject.command.QnaAnswerVO;
 import com.erproject.command.QnaVO;
 import com.erproject.csboard.service.CsBoardService;
 import com.erproject.util.Criteria;
@@ -83,6 +84,11 @@ public class CsBoardController {
 		
 	}
 	
+	@RequestMapping("/csBoardUpdate")
+	public void csBoardUpdate() {
+		
+	}
+	
 //	notice 게시판 글 등록
 	@RequestMapping("/noticeRegist")
 	public String noticeRegist(NoticeVO vo, 
@@ -128,6 +134,22 @@ public class CsBoardController {
 			RA.addFlashAttribute("msg", "글이 등록 되었습니다.");
 		} else {
 			RA.addFlashAttribute("msg", "글 등록에 실패했습니다. 다시 시도하세요");
+		}
+		
+		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	QnA 게시판 답변 글 등록
+	@RequestMapping("/replyRegist")
+	public String replayRegist(QnaAnswerVO vo,
+							   RedirectAttributes RA) {
+		
+		int result = csBoardService.qnaAnswerRegist(vo);
+		
+		if( result == 1) {
+			RA.addFlashAttribute("msg", "답변이 등록 되었습니다.");
+		} else {
+			RA.addFlashAttribute("msg", "답변 등록에 실패했습니다. 다시 시도하세요");
 		}
 		
 		return "redirect:/csBoard/csBoardList";

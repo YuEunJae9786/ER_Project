@@ -15,6 +15,7 @@ import com.erproject.command.FaqImageVO;
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeImageVO;
 import com.erproject.command.NoticeVO;
+import com.erproject.command.QnaAnswerVO;
 import com.erproject.command.QnaVO;
 import com.erproject.csboard.mapper.CsBoardMapper;
 import com.erproject.util.Criteria;
@@ -28,6 +29,8 @@ public class CsBoardServiceImpl implements CsBoardService{
 	
 	@Override
 	public int noticeRegist(NoticeVO vo) {
+		
+		int result = csBoardMapper.noticeRegist(vo);
 		
 		try {
 			
@@ -61,8 +64,8 @@ public class CsBoardServiceImpl implements CsBoardService{
 			file.transferTo(saveFile); // 파일쓰기
 			
 			NoticeImageVO imageVo = new NoticeImageVO();
-			imageVo.setNotice_No(csBoardMapper.getNoticeCurrent() + 1 );
-			imageVo.setNi_Path(uploadPath);
+			imageVo.setNotice_No(csBoardMapper.getNoticeCurrent());
+			imageVo.setNi_Path("Notice");
 			imageVo.setNi_Name(fileName);
 			
 			csBoardMapper.noticeImageUpload(imageVo);
@@ -72,11 +75,13 @@ public class CsBoardServiceImpl implements CsBoardService{
 			e.printStackTrace();
 		}
 
-		return csBoardMapper.noticeRegist(vo);
+		return result;
 	}
 	
 	@Override
 	public int faqRegist(FaqVO vo) {
+		
+		int result = csBoardMapper.faqRegist(vo);
 		
 		try {
 			
@@ -110,8 +115,8 @@ public class CsBoardServiceImpl implements CsBoardService{
 			file.transferTo(saveFile); // 파일쓰기
 			
 			FaqImageVO imageVo = new FaqImageVO();
-			imageVo.setFaq_No(csBoardMapper.getFaqCurrent() + 1 );
-			imageVo.setFi_Path(uploadPath);
+			imageVo.setFaq_No(csBoardMapper.getFaqCurrent());
+			imageVo.setFi_Path("FAQ");
 			imageVo.setFi_Name(fileName);
 			
 			csBoardMapper.faqImageUpload(imageVo);
@@ -121,12 +126,17 @@ public class CsBoardServiceImpl implements CsBoardService{
 			e.printStackTrace();
 		}
 		
-		return csBoardMapper.faqRegist(vo);
+		return result;
 	}
 	
 	@Override
 	public int qnaRegist(QnaVO vo) {
 		return csBoardMapper.qnaRegist(vo);
+	}
+	
+	@Override
+	public int qnaAnswerRegist(QnaAnswerVO vo) {
+		return csBoardMapper.qnaAnswerRegist(vo);
 	}
 	
 	@Override
@@ -214,10 +224,13 @@ public class CsBoardServiceImpl implements CsBoardService{
 		int result = 0;
 		
 		if(whereboard.equals("Notice")) {
+			csBoardMapper.noticeImageDelete(bno);
 			result = csBoardMapper.noticeDelete(bno);
 		} else if(whereboard.equals("FAQ")) {
+			csBoardMapper.faqImageDelete(bno);
 			result = csBoardMapper.faqDelete(bno);
 		} else if(whereboard.equals("QNA")) {
+			csBoardMapper.qnaAnswerDelete(bno);
 			result = csBoardMapper.qnaDelete(bno);
 		}
 		

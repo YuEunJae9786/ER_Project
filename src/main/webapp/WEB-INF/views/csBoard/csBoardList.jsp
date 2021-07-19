@@ -8,7 +8,7 @@
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
 
 	<style>
-		.content-view-wrap {
+		.content-view-wrap, .reply-comment {
 		    white-space: pre-wrap;
 		}
 	</style>
@@ -133,7 +133,7 @@
 	                    <li class="col-xs-12 content-view hidden">
 	                    	<c:forEach var="imageList" items="${list.noticeImageList }">
 		                        <div class="content-view-img">
-		                            <img src="view/Notice/${imageList.ni_Name}" alt="이미지">
+		                            <img src="view/${imageList.ni_Path }/${imageList.ni_Name}" alt="이미지">
 		                        </div>
 	                        </c:forEach>
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
@@ -174,7 +174,7 @@
 	                    <li class="col-xs-12 content-view hidden">
 		                    <c:forEach var="imageList" items="${list.faqImageList }">
 		                        <div class="content-view-img">
-		                            <img src="view/FAQ/${imageList.fi_Name}" alt="이미지">
+		                            <img src="view/${imageList.fi_Path }/${imageList.fi_Name}" alt="이미지">
 		                        </div>
 		                    </c:forEach>
 	                        <div class="content-view-wrap">${list.faq_Content }</div>
@@ -219,22 +219,25 @@
 	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
 	                        </div>
 	                        <!-- 답변 -->
-	                        <div class="col-xs-12 content-reply">
-	                            <div class="reply-id">
-	                                <span>아이디 : </span>
-	                            </div>
-	                            <div class="reply-comment">
-                               			답변이 길어져도 어떻게 잘 되기 위해서 어디까지 길어져야 확인할 수가 있는거지? 좀 알려줄래요?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	                            </div>
-	                        </div>
+	                        <c:forEach items="${list.qnaAnswerList }" var="answerList">
+		                        <div class="col-xs-12 content-reply">
+		                            <div class="reply-id">
+		                                <span>${answerList.qa_Writer } : </span>
+		                            </div>
+		                            <div class="reply-comment">${answerList.qa_Content }</div>
+		                        </div>
+	                        </c:forEach>
 	                        
 	                        <!-- 답변 폼 -->
-	                        <form action="" method="post" class="hidden">
-	                            <textarea class="regist-reply">답변쓰기</textarea>
+	                        <form action="replyRegist" method="post" class="hidden">
+	                            <textarea class="regist-reply" name="qa_Content" placeholder="답변쓰기"></textarea>
 	
 	                            <div class="btn-right">
-	                                <button type="button" class="btn btn-single btn-signature1">등록</button>
+	                                <button type="submit" class="btn btn-single btn-signature1">등록</button>
 	                            </div>
+	                            
+	                            <input type="hidden" name="qna_No" value="${list.qna_No }">
+	                            <input type="hidden" name="qa_Writer" value="master123">
 	                        </form>
 	                    ​</li>
                 	</ul>
@@ -542,7 +545,8 @@
         $(".content-notice-box3").on("click", "button", function() {
             if(  $(this).attr("id") != 'btn-reply' ) return;
 
-            var currentTarget = event.target.parentElement.nextElementSibling.nextElementSibling.classList;
+            var currentTarget = event.target.parentElement.nextElementSibling.classList;
+            console.log(currentTarget);
             currentTarget.toggle("hidden");
         });
         
@@ -572,6 +576,7 @@
     
     </script>
     
+    <!-- 이미지 업로드 처리 -->
     <script>
 		//자바 스크립트 파일 미리보기 기능
         var obj = {count: 0};
