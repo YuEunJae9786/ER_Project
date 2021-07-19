@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
-<link rel="stylesheet" href="../../../resources/css/qnaRegist.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/qnaRegist.css">
 
 
 <!-- 글 등록 폼 -->
