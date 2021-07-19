@@ -6,7 +6,7 @@
 }
 
 .sect-main {
-    margin: 100px auto 0 auto;
+    margin: 50px auto 0 auto;
 }
 
 .top-text {
@@ -114,7 +114,7 @@
 
 /* 탭영역 sticky */
 .tabs-basic {
-    position: sticky; top: 80px; z-index: 100;
+    position: sticky; top: 0px; z-index: 100;
     background-color: #fff;
     overflow: hidden;
     height: 55px;
@@ -139,9 +139,10 @@
 }
 
 .reviewStar, .reviewWriter, .reivewDate {
-    margin-right: 10px;
     float: left;
 }
+
+.reviewWriter {margin-left: 10px; margin-right: 10px;}
 
 .reviewPostBtn {
     padding-right: 5px;
@@ -184,6 +185,11 @@
     color: #fff;
     background-color: rgb(171, 188, 227);
 }
+
+.modi-wrap {
+	text-align: center;
+}
+
 .reviewModiSaveBtn {
     color: #fff;
     background-color: cornflowerblue;
@@ -192,6 +198,11 @@
 .reviewModiDelBtn {
     color: #fff;
     background-color: rgb(171, 188, 227);
+}
+
+.reviewModiListBtn {
+    color: #fff;
+    background-color: cornflowerblue;
 }
 
 /*=======댓글========*/
@@ -340,4 +351,6 @@
     color: #fff;
 }
 
-
+.boardTitle > h3, .boardTotalGrade > h3 {
+	font-weight: bold;
+}

@@ -32,12 +32,11 @@
 								<td class="t-title">별점주기</td>
 								<td><select class="sel-star form-control" name="star"
 									style="width: 200px;">
-										<option value="★★★★★">★★★★★(5점)</option>
-										<option value="★★★★☆">★★★★☆(4점)</option>
-										<option value="★★★☆☆">★★★☆☆(3점)</option>
-										<option value="★★☆☆☆">★★☆☆☆(2점)</option>
-										<option value="★☆☆☆☆">★☆☆☆☆(1점)</option>
-										<option value="☆☆☆☆☆">☆☆☆☆☆(0점)</option>
+										<option value="5">★★★★★(5점)</option>
+										<option value="4">★★★★☆(4점)</option>
+										<option value="3">★★★☆☆(3점)</option>
+										<option value="2">★★☆☆☆(2점)</option>
+										<option value="1">★☆☆☆☆(1점)</option>
 								</select></td>
 							</tr>
 							<tr>

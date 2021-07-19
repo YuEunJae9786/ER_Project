@@ -74,7 +74,7 @@
 				<ul class="tabs-basic">
 					<li class="bt1"><a>킥보드 소개</a></li>
 					<li class="bt2"><a>관련링크</a></li>
-					<li class="bt3"><a>후기 (${list.size() })</a></li>
+					<li class="bt3"><a>후기 (${total })</a></li>
 					<li class="bt4"><a>문의하기</a></li>
 					<li class="bt5"><a>대여하기</a></li>
 				</ul>
@@ -133,7 +133,7 @@
 							</div>
 							<div class="boardTotalGrade">
 								<h3>
-									??(...) / 5 <small>(${list.size() }개 후기)</small>
+									${starAvg } / 5 <small>(${total }개 후기)</small>
 								</h3>
 								<hr>
 							</div>
@@ -145,15 +145,30 @@
 									<div class="reviewMoveWin">
 										<a href="productReviewSave?rno=${vo.rno }">
 											<div class="textHeader">
-												<div class="reviewStar">${vo.star }</div>
+												
+												<!-- 별점을 별 갯수 만큼 반복문 돌려주기 -->
+												<c:forEach var="starNum" begin="1" end="${vo.star }">
+												<div class="reviewStar">★</div>
+												</c:forEach>
+												
 												<div class="reviewWriter">${vo.writer }</div>
-												<div class="reviewDate">${vo.regdate }</div>
+												<div class="reviewDate"><fmt:formatDate value="${vo.regdate }" pattern="yyyy.MM.dd"/></div>
 											</div>
 											<div class="reviewTextArea">
-												${vo.content }
-												<hr />
+												${vo.title }
 											</div>
 										</a>
+										<div class="" id="" style="margin-top: 45px;">
+											<!-- 도움 카운트가 1이상이면 보여줌 -->
+											<strong><span>5</span></strong>명에게 도움 됨
+											<!-- 도움 카운트가 0이면 보여줌 -->
+											<strong style="display: none;">이 후기가 도움이 되었나요?</strong>
+											
+											<!-- 각 버튼 비동기 처리 -->
+											<button class="btn btn-default btn-xs helpUpBtn" id="helpUpBtn" style="margin-left: 10px; color: #fff; background-color: cornflowerblue;">도움이 돼요</button>
+											<button class="btn btn-default btn-xs helpDownBtn" style="margin-left: 5px; color: #fff; background-color: rgb(171, 188, 227);">도움 안 돼요</button>
+										</div>
+										<hr />
 									</div>
 									</c:forEach>
 									<!-- 여기까지 반복문 돌려서 후기를 쌓기 -->
@@ -165,23 +180,30 @@
         						<ul class="paging">
 
             						<!-- 이전 -->
-            						<li class="prev"><a href="#">이전</a></li>
+            						<c:if test="${pageVO.prev }">
+            						<li class="prev"><a href="productMain?pageNum=${pageVO.startPage - 1 }&amount=${pageVO.amount }&pnScroll=true">이전</a></li>
+            						</c:if>
 
 						            <!-- 페이지 -->
-						            <li class="active"><a href="#">1</a></li>
-						            <li><a href="#">2</a></li>
-						            <li><a href="#">3</a></li>
-						            <li><a href="#">4</a></li>
-						            <li><a href="#">5</a></li>
+						            <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
+						            <li class="${pageVO.pageNum eq num ? 'active' : '' }">
+						            	<a href="productMain?pageNum=${num }&amount=${pageVO.amount }&pnScroll=true">${num }</a>
+						            </li>
+						            </c:forEach>
 
 						            <!-- 다음 -->
-						            <li class="next"><a href="#">다음</a></li>
+						            <c:if test="${pageVO.next }">
+						            <li class="next"><a href="productMain?pageNum=${pageVO.endPage + 1 }&amount=${pageVO.amount }&pnScroll=true">다음</a></li>
+						            </c:if>
+
 
 						            <!-- 후기쓰기 -->
+						            <c:if test="${sessionScope.userVO != null }">
 						            <div class="reviewPostBtn">
 						                <button type="button" class="btn" 
-						                	onclick="location.href='productReviewRegist?pcode=${info.pcode }' ">후기 쓰기</button>
+						                	onclick="location.href='productReviewCheck?userId=${sessionScope.userVO.userId }' ">후기 쓰기</button>
 						            </div>
+						            </c:if>
 
 						        </ul>
 						    </div>
@@ -263,19 +285,19 @@
         var bt5 = document.querySelector(".bt5");
 
         bt1.addEventListener("click", function() {
-            window.scrollTo({top: box1.offsetTop - 170, behavior: "smooth"})
+            window.scrollTo({top: box1.offsetTop - 100, behavior: "smooth"})
         })
         bt2.addEventListener("click", function() {
-            window.scrollTo({top: box2.offsetTop - 170, behavior: "smooth"})
+            window.scrollTo({top: box2.offsetTop - 100, behavior: "smooth"})
         })
         bt3.addEventListener("click", function() {
-            window.scrollTo({top: box3.offsetTop - 170, behavior: "smooth"})
+            window.scrollTo({top: box3.offsetTop - 100, behavior: "smooth"})
         })
         bt4.addEventListener("click", function() {
-            window.scrollTo({top: box4.offsetTop - 170, behavior: "smooth"})
+            window.scrollTo({top: box4.offsetTop - 100, behavior: "smooth"})
         })
         bt5.addEventListener("click", function() {
-            window.scrollTo({top: box5.offsetTop - 170, behavior: "smooth"})
+            window.scrollTo({top: box5.offsetTop - 100, behavior: "smooth"})
         })
 
     </script>
@@ -283,6 +305,11 @@
     <script>
     
     	window.onload = function() {
+    		
+    		/* 페이지네이션 버튼을 클릭하여 후기 리스트를 볼 경우에는 바로 후기 페이지 위치로 이동합니다. */
+    		if('${pageVO.cri.pnScroll}' == 'true') {
+    			window.scrollTo({top: box3.offsetTop - 100});
+    		}
     		
     		if(history.state == '') return;
     		
@@ -295,6 +322,7 @@
 				console.log(history.state);
 			
     		}
+    		
     	}
     	
     </script>
@@ -306,5 +334,14 @@
             window.scrollTo({top: topBox.offsetTop, behavior: "smooth"})
         })
     </script>
+    
+    <!-- helpCheck 비동기 처리 -->
+    <script>
+    
+    	
+    
+    
+    </script>
+    
     
     
