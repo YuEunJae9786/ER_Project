@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class KickListVO {
 	private int markNo;
-	private String PCode;
-	private String CCode;
-	private String Location_x;
-	private String Location_y;
-	private String IsRental;
+	private String pCode;
+	private String cCode;
+	private Double location_x;
+	private Double location_y;
+	private String isRental;
 }
