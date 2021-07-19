@@ -64,6 +64,20 @@ a:hover, a:focus {
     text-align: left;
 }
 
+/* 이미지 미리보기 */
+.fileDiv > .imageFile {
+	display: inline-block;
+	position: relative;
+}
+
+.fileDiv > .imageFile > .imgDeleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5%;
+    height: 5%;
+}
+
 .post-regist .file {
     text-align: center;
     color: white;

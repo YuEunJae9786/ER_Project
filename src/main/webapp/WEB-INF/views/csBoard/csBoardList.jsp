@@ -348,12 +348,12 @@
 	   				$("#registForm textarea[id=boardContent]").attr("name", "faq_Content");
 	   			}
 
-                var file = $("#file0").val();
+                /* var file = $("#file0").val();
                 file = file.slice(file.lastIndexOf(".", file.length) + 1 , file.length); // 파일 확장자
                 
                 if(file != 'png' && file != 'jpg' && file != 'bmp' && file != ''){
                     $("#file0").val('');
-                } 
+                }  */
                 
                 setCookie("whereboard", whereBoard);
 	   			$("#registForm").submit();
@@ -604,7 +604,12 @@
                     //readAsDataURL 메서드는 컨텐츠를 특정 Blob 이나 File에서 읽어 오는 역할 (MDN참조)
                     reader.readAsDataURL(input.files[0]); 
                     
-                    $(".fileDiv").append("<img class='fileImg[" + obj.count + "]'  src=''>");
+                    $(".fileDiv").append(
+                    		"<div class='imageFile'>" +
+                    		"<img class='fileImg[" + obj.count + "]'  src=''>" +
+                    		"<button type='button' class='imgDeleteBtn' data-info='file" + obj.count + "'>x</button>" +
+                    		"</div>"
+                    		);
                     
                     reader.onload = function(event) { //읽기 동작이 성공적으로 완료 되었을 때 실행되는 익명함수
                         $("img[class='fileImg[" + obj.count + "]']").attr("src", event.target.result); 
@@ -621,6 +626,12 @@
 
             readURL(this); //this는 #file자신 태그를 의미
         });
+
+        $(".fileDiv").on("click", "button[class='imgDeleteBtn']", function() {
+
+            event.target.parentElement.classList.add("hidden");
+            $("#" + event.target.dataset.info).remove();
+        })
 		
 	</script>
 
