@@ -57,7 +57,6 @@ public class LocationRestController {
 	public @ResponseBody List<KickListVO> getMarkInfo() {
 		
 		List<KickListVO> kickInfo = locationService.getKickInfo();
-		System.out.println(kickInfo.get(0).getCCode());
 		
 		return kickInfo;
 	}

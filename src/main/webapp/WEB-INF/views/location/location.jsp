@@ -3,8 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <!-- 지도 js -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a"></script>
-    
+    <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a"></script> -->
+    <!-- services 라이브러리 불러오기 -->
+	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a&libraries=services"></script> -->
+    <!-- 클러스터 라이브러리 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4306199893f86fa673fc035ff7b9639a&libraries=clusterer"></script>
+ 
     <div class="here">킥보드 위치 보기</div>
     <!-- 바디영역 -->
     <div class="mainBody">
@@ -79,6 +83,13 @@
 	                   
 	                var originMap = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	                    selectedMarker = null;
+	                
+	                var clusterer = new kakao.maps.MarkerClusterer({
+	                    map: originMap, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+	                    averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+	                    minLevel: 7, // 클러스터 할 최소 지도 레벨
+	                    disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+	                });
 	                var markers = [];
 	                
 					for (var i = 0; i < kickInfo.length; i++) {
@@ -102,7 +113,7 @@
 							});
 						})(i);
 					}
-
+					clusterer.addMarkers(markers);
 	                console.log("success");
 	            },
 	            error : function(status, error) {//실패시 결과를 돌려받을 콜백
@@ -192,8 +203,8 @@
                     marker.setImage(clickImage);
                 }
             }
-            getKickList(marker.Fb);
             hideKickList(marker.Fb)
+            getKickList(marker.Fb);
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
             selectedMarker = marker;
             
@@ -223,17 +234,28 @@
             var size = $("#kick-list").find("li").length;
             var leng = list.substring(4, list.length);
    
-            for(var j=0;j<size;j++){
-            	
-                if(leng==j){
-                    jQuery('#list'+j).slideDown(50);
-                } else {
-                	if($('#list'+j).css("display") == "none"){
-                		jQuery('#list'+j).slideDown(50);
-                	} else{                		
-                    	jQuery('#list'+j).slideUp(50);
-                	}
-                }
+            if($('#list'+leng).css("display") != "none"){   
+            	 for(var j=0;j<size;j++){
+                     if(leng==j){
+                         jQuery('#list'+j).slideDown(50);
+                     } else {        
+                     	if($('#list'+j).css("display") == "none"){
+                     		jQuery('#list'+j).slideDown(50);
+                     	} else{                		
+                         	jQuery('#list'+j).slideUp(50);
+                     	}
+                     }
+                 }
+            } else {
+            	for(var j=0;j<size;j++){
+            		if(leng==j){
+                        jQuery('#list'+j).slideDown(50);
+                    } else {
+                    	if($('#list'+j).css("display") != "none"){
+                        	jQuery('#list'+j).slideUp(50);
+                    	}
+                    }		
+            	}
             }
         }
         
