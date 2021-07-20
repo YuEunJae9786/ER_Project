@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.erproject.command.CsUpdateVO;
 import com.erproject.command.FaqImageVO;
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeImageVO;
@@ -39,5 +40,16 @@ public interface CsBoardMapper {
 	public int getFaqCurrent(); // qna 게시판 현재 글 번호
 	public void noticeImageUpload(NoticeImageVO vo); // notice 게시판 이미지 업로드
 	public void faqImageUpload(FaqImageVO vo); // faq 게시판 이미지 업로드
+	
+	public CsUpdateVO getNoticeUpdateList(int bno); // Notice 수정할 리스트
+	public CsUpdateVO getFaqUpdateList(int bno); // Faq 수정할 리스트
+	public CsUpdateVO getQnaUpdateList(int bno); // QnA 수정할 리스트
+	
+	public int noticeImageUpdate(Map<String, String> map); // Notice 이미지 수정
+	public int faqImageUpdate(Map<String, String> map); // Notice 이미지 수정
+	
+	public int noticeUpdate(CsUpdateVO vo); // Notice 수정 요청
+	public int faqUpdate(CsUpdateVO vo); // faq 수정 요청
+	public int qnaUpdate(CsUpdateVO vo); // QnA 수정 요청
 	
 }

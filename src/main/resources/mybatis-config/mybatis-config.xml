@@ -15,5 +15,6 @@
 			<typeAlias type="com.erproject.command.FaqImageVO" alias="FaqImageVO"/>
 			<typeAlias type="com.erproject.command.QnaVO" alias="QnaVO"/>
 			<typeAlias type="com.erproject.command.QnaAnswerVO" alias="QnaAnswerVO"/>
+			<typeAlias type="com.erproject.command.CsUpdateVO" alias="CsUpdateVO"/>
 		</typeAliases>
 	</configuration>

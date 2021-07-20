@@ -138,7 +138,7 @@
 	                        </c:forEach>
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
 	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
+	                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.notice_No}'">수정</button>
 	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.notice_No});">삭제</button>
 	                        </div>
 	                    ​</li>
@@ -179,7 +179,7 @@
 		                    </c:forEach>
 	                        <div class="content-view-wrap">${list.faq_Content }</div>
 	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
+	                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.faq_No}'">수정</button>
 	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.faq_No});">삭제</button>
 	                        </div>
 	                    ​</li>
@@ -214,7 +214,7 @@
 	                    <li class="col-xs-12 content-view hidden">
 	                        <div class="content-view-wrap">${list.qna_Content }</div>
 	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
+	                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.qna_No}'">수정</button>
 	                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
 	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
 	                        </div>
@@ -319,6 +319,7 @@
             <input type="hidden" name="orderType" value="${orderUtil.orderType }">
             <input type="hidden" name="searchType" value="${orderUtil.searchType }">
             <input type="hidden" name="searchName" value="${orderUtil.searchName }">
+            <input type="hidden" name="listOrder" value="${orderUtil.listOrder }">
 	        
 	    </div>
     </form>
@@ -555,6 +556,7 @@
         	document.pageForm.pageNum.value = 1;
         	document.pageForm.searchType.value = '';
         	document.pageForm.searchName.value = '';
+        	document.pageForm.listOrder.value = '';
         }
 
     </script>
@@ -594,12 +596,13 @@
                 
                 if(file != 'png' && file != 'jpg' && file != 'bmp'){
                     alert("이미지 파일형태만 등록가능 합니다(jpg, png, bmp)");
+                    $("#file" + obj.count).val('');
                     return;
                 } else if (file == '' || file == null){
                     alert("이미지 파일형태만 등록가능 합니다(jpg, png, bmp)");
+                    $("#file" + obj.count).val('');
                     return;
                 } else {
-					console.log(3);
                     var reader = new FileReader(); //비동기처리를 위한 파읽을 읽는 자바스크립트 객체
                     //readAsDataURL 메서드는 컨텐츠를 특정 Blob 이나 File에서 읽어 오는 역할 (MDN참조)
                     reader.readAsDataURL(input.files[0]); 
