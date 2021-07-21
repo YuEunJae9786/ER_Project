@@ -38,6 +38,7 @@
                         <div class="detail-fix">
                             <div class="detail-info">
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                                    <!-- String 타입의 pcode와 ccode를 넣었을 때 vo를 찾지못하는 에러 발생 확인 -->
                                     <div>모델명 : ${kickInfo.location_y}</div>
                                     <div>회사명 : ${kickInfo.location_x}</div>
                                 </div>
@@ -103,17 +104,17 @@
 						var marker = addMarker(position, originMap);
 			            markers[i] = marker;  // 배열에 생성된 마커를 추가합니다
 					}	    		
-		            console.log(markers[0])
 					var size = $("#kick-list").find("li").length;
 					
 					for (var i = 0; i < size; i++) {
 						(function(i) {
 							$('#list' + i).click(function() {
-								clickMark(markers[i]);	
+								clickMark(markers[i]);
 							});
 						})(i);
 					}
 					clusterer.addMarkers(markers);
+					clickClusterer(clusterer, originMap);
 	                console.log("success");
 	            },
 	            error : function(status, error) {//실패시 결과를 돌려받을 콜백
@@ -138,7 +139,29 @@
 	        overImage = overMarkerImage(overMarkerSize),
 	        clickImage = createMarkerImage(markerSize);
 	    //var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-        
+      	
+	    function clickClusterer(clusterer, originMap){	
+			/*kakao.maps.event.addListener( clusterer, 'clusterover', function( cluster ) {
+	    		var styles = [{
+	    	        width : '83px', height : '83px'
+	    	    }];
+
+	    		clusterer.setStyles(styles);
+	    	});
+	    	
+	    	kakao.maps.event.addListener( clusterer, 'clusterout', function( cluster ) {
+	    		clusterer.setGridSize(60);
+	    	}); */
+	    	
+			kakao.maps.event.addListener( clusterer, 'clusterclick', function( cluster ) {
+				// 현재 지도 레벨에서 1레벨 확대한 레벨
+		        var level = originMap.getLevel()-1;
+
+		        // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+		        originMap.setLevel(level, {anchor: cluster.getCenter()});
+			});
+	    }
+	    
         function addMarker(position, originMap) {
             normalImage = overMarkerImage(markerSize),
             overImage = overMarkerImage(overMarkerSize),

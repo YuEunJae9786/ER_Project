@@ -10,7 +10,7 @@
 	
 	<script type="text/javascript">
 		$("#insertBtn").click(function getFetch() {
-			fetch("http://openapi.seoul.go.kr:8088/4f4975567873657534395075496a44/json/bikeList/1/10/")
+			fetch("http://openapi.seoul.go.kr:8088/4f4975567873657534395075496a44/json/bikeList/1/100/")
 				.then(function(response) {
 					if (response.status != 200) {
 						alert("네트워크상 오류가 발생했습니다. 다시 시도하세요");
