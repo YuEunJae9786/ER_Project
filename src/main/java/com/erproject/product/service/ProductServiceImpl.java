@@ -90,4 +90,27 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.productReviewCheck(userId);
 	}
 
+	@Override
+	public int helpCountUp(ProductReviewVO vo) {
+		
+		return productMapper.helpCountUp(vo);
+	}
+
+	@Override
+	public int helpCountSelect(ProductReviewVO vo) {
+		
+		return productMapper.helpCountSelect(vo);
+	}
+	
+	@Override
+	public int helpCountDown(ProductReviewVO vo) {
+		
+		int result = productMapper.helpCountSelect(vo);
+		if(result == 0) {
+			return productMapper.helpCountDownNo(vo);
+		}
+		return productMapper.helpCountDown(vo);		
+	}
+
+
 }

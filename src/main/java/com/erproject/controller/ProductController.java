@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erproject.command.ProductInfoVO;
@@ -147,6 +151,35 @@ public class ProductController {
 		}
 		
 		return "redirect:/product/productMain";
+	}
+	
+	// 도움 카운트 컨트롤러
+	@ResponseBody
+	@CrossOrigin("*")
+	@PostMapping(value = "/helpCountUp")
+	public int helpCountUp(@RequestBody ProductReviewVO vo) {
+		
+//		System.out.println(vo.toString());
+		int result = productService.helpCountUp(vo);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@CrossOrigin("*")
+	@PostMapping(value = "/helpCountDown")
+	public int helpCountDown(@RequestBody ProductReviewVO vo) {
+		
+		System.out.println(vo.toString());
+		int result = productService.helpCountDown(vo);
+		
+		return result;
+	}
+	
+	// 제품 목록 페이지 화면처리
+	@RequestMapping("/kangarooProductList")
+	public void kangarooProductList() {
+		
 	}
 
 }

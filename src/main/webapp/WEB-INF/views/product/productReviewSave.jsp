@@ -18,7 +18,7 @@
                         <form action="reviewUpdate" method="post">
                             <div>
                                 <label>작성 날짜:  </label>
-                                <fmt:formatDate value="${vo.regdate }" pattern="yyyy년 MM월 dd일"/>
+                                <fmt:formatDate value="${vo.updatedate }" pattern="yyyy년 MM월 dd일"/>
                             </div>   
                             <div class="form-group">
                                 <label>번호</label>
@@ -50,10 +50,11 @@
 							<div class="modi-wrap">
 								<c:if test="${sessionScope.userVO.userId == vo.writer }">
                             	<button type="submit" class="btn btn-default reviewModiSaveBtn">저장</button>
+                            	<button type="button" class="btn btn-default reviewModiListBtn" onclick="location.href='productMain?pnScroll=true'">목록</button>
                             	<button type="button" class="btn btn-default reviewModiDelBtn" onclick="location.href='reviewDelete?rno=${vo.rno}' " >삭제</button>
                     			</c:if>
                     			<c:if test="${sessionScope.userVO.userId != vo.writer }">
-                    			<button type="button" class="btn btn-default reviewModiListBtn" onclick="history.go(-1)">목록</button>
+                    			<button type="button" class="btn btn-default reviewModiListBtn" onclick="location.href='productMain?pnScroll=true'">목록</button>
                     			</c:if>
 							</div>
                     

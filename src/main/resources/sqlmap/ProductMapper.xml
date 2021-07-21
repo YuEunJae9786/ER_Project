@@ -6,8 +6,8 @@
   <mapper namespace="com.erproject.product.mapper.ProductMapper">
   
   	<insert id="reviewRegist">
-  		insert into PRODUCTREVIEW(RNO, WRITER, TITLE, STAR, CONTENT, PCODE)
-  					VALUES(PRODUCTREVIEW_SEQ.NEXTVAL, #{writer}, #{title}, #{star}, #{content}, #{pcode})
+  		insert into PRODUCTREVIEW(RNO, WRITER, TITLE, STAR, CONTENT, PCODE, HELPCOUNT)
+  					VALUES(PRODUCTREVIEW_SEQ.NEXTVAL, #{writer}, #{title}, #{star}, #{content}, #{pcode}, #{helpcount})
   	</insert>
   	
   	<select id="reviewGetList" resultType="ProductReviewVO">
@@ -55,5 +55,21 @@
   	<select id="productReviewCheck" resultType="int">
   		select count(*) from productreview where writer = #{userId}
   	</select>
+  	
+  	<update id="helpCountUp">
+  		update productreview set helpcount = helpcount + 1 where pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</update>
+  	
+  	<select id="helpCountSelect" resultType="int">
+  		select helpcount from productreview where pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</select>
+  	
+  	<update id="helpCountDown">
+  		update productreview set helpcount = helpcount - 1 where pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</update>
+  	
+  	<update id="helpCountDownNo">
+  		update productreview set helpcount = helpcount - 0 where pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</update>
   
   </mapper>

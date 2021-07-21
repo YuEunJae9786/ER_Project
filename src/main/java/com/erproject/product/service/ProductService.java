@@ -33,5 +33,16 @@ public interface ProductService {
 	
 	// 후기 중복 확인 메서드
 	public int productReviewCheck(String userId);
+	
+	// 도움 카운트 플러스 메서드
+	public int helpCountUp(ProductReviewVO vo);
+	
+	// 도움 카운트 조회 메서드
+	public int helpCountSelect(ProductReviewVO vo);
+	
+	// 도움 카운트 마이너스 메서드
+	public int helpCountDown(ProductReviewVO vo);
+	
+	
 		
 }

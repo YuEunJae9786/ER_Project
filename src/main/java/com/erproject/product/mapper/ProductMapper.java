@@ -31,4 +31,16 @@ public interface ProductMapper {
 	// 후기 중복 확인 메서드
 	public int productReviewCheck(String userId);
 	
+	// 도움 카운트 플러스 메서드
+	public int helpCountUp(@Param("vo") ProductReviewVO vo);
+	
+	// 도움 카운트 조회 메서드
+	public int helpCountSelect(@Param("vo") ProductReviewVO vo);
+	
+	// 도움 카운트 마이너스 메서드
+	public int helpCountDown(@Param("vo") ProductReviewVO vo);
+	
+	// 도움 카운트 마이너스 하지않음 메서드
+	public int helpCountDownNo(@Param("vo") ProductReviewVO vo);
+	
 }

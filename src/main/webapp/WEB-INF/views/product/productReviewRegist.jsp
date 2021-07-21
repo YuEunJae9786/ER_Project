@@ -16,6 +16,7 @@
 				<form action="registForm" method="post">
 					<!-- 같이 넘겨줘야할 데이터입니다. -->
 					<input type="hidden" id="pcode" name="pcode" value="${pcode }">
+					<input type="hidden" id="helpcount" name="helpcount" value=0>
 					<table class="table">
 						<tbody class="t-control">
 							<tr>
@@ -50,7 +51,7 @@
 					<div class="titlefoot">
 						<button type="submit" class="btn btn-default reviewRegistBtn">등록</button>
 						<button type="button" class="btn btn-default reviewListBtn"
-							onclick="history.go(-1)">목록</button>
+							onclick="location.href='productMain?pnScroll=true'">목록</button>
 					</div>
 				</form>
 

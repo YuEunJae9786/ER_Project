@@ -150,23 +150,34 @@
 												<c:forEach var="starNum" begin="1" end="${vo.star }">
 												<div class="reviewStar">★</div>
 												</c:forEach>
+												<c:choose>
+													<c:when test="${vo.star == 4 }">
+														<div style="float: left;">☆</div>
+													</c:when>
+													<c:when test="${vo.star == 3 }">
+														<div style="float: left;">☆☆</div>
+													</c:when><c:when test="${vo.star == 2 }">
+														<div style="float: left;">☆☆☆</div>
+													</c:when><c:when test="${vo.star == 1 }">
+														<div style="float: left;">☆☆☆☆</div>
+													</c:when>
+												</c:choose>
 												
 												<div class="reviewWriter">${vo.writer }</div>
-												<div class="reviewDate"><fmt:formatDate value="${vo.regdate }" pattern="yyyy.MM.dd"/></div>
+												<div class="reviewDate"><fmt:formatDate value="${vo.updatedate }" pattern="yyyy.MM.dd"/></div>
 											</div>
 											<div class="reviewTextArea">
 												${vo.title }
 											</div>
 										</a>
-										<div class="" id="" style="margin-top: 45px;">
-											<!-- 도움 카운트가 1이상이면 보여줌 -->
-											<strong><span>5</span></strong>명에게 도움 됨
-											<!-- 도움 카운트가 0이면 보여줌 -->
+										<div class="helpCheck" id="helpCheck" style="margin-top: 45px;">
+											<strong><span>${vo.helpcount }</span>명에게 도움 됨!</strong>
+											<!-- 도움 카운트가 0이면 보여주려고 합니다... -->
 											<strong style="display: none;">이 후기가 도움이 되었나요?</strong>
 											
 											<!-- 각 버튼 비동기 처리 -->
-											<button class="btn btn-default btn-xs helpUpBtn" id="helpUpBtn" style="margin-left: 10px; color: #fff; background-color: cornflowerblue;">도움이 돼요</button>
-											<button class="btn btn-default btn-xs helpDownBtn" style="margin-left: 5px; color: #fff; background-color: rgb(171, 188, 227);">도움 안 돼요</button>
+											<button class="btn btn-default btn-xs helpUpBtn" value="${vo.rno }" style="margin-left: 10px; color: #fff; background-color: cornflowerblue;">도움이 돼요</button>
+											<button class="btn btn-default btn-xs helpDownBtn" value="${vo.rno }" style="margin-left: 5px; color: #fff; background-color: rgb(171, 188, 227);">도움 안 돼요</button>
 										</div>
 										<hr />
 									</div>
@@ -337,9 +348,118 @@
     
     <!-- helpCheck 비동기 처리 -->
     <script>
-    
+    	$(document).ready(function() {
+    		var parent = document.querySelector(".reviewTextWrap");
+    		var pcode = "${info.pcode}";
+    		
+    		parent.onclick = () => {
+    			if(event.target.nodeName !== 'BUTTON') return;
+    			
+				if(event.target.classList.contains("helpUpBtn")) {
+					var rno = event.target.value;
+					/* console.log(rno);
+					console.log(pcode);
+					console.log(event.target.parentElement);
+					console.log(event.target.parentElement.nextElementSibling);
+					
+					console.log(event.target.parentElement.firstChild);
+					console.log(event.target.parentElement.firstChild.nextElementSibling);
+					console.log(event.target.parentElement.firstChild.nextElementSibling.firstChild);
+					console.log(event.target.parentElement.firstChild.nextElementSibling.firstChild.innerHTML); */
+					var changeTarget = event.target.parentElement.firstChild.nextElementSibling.firstChild;
+					var helpCount = event.target.parentElement.firstChild.nextElementSibling.firstChild.innerHTML;
+					
+					/* console.log(event.target.parentElement.firstChild.nextElementSibling.nextSibling.nextElementSibling); */
+					var changeCss = event.target.parentElement.firstChild.nextElementSibling.nextSibling.nextElementSibling; // 아래 스트롱 문구
+					
+					var changeCss2 = event.target.parentElement.firstChild.nextElementSibling; // 위에 스트롱 문구
+					
+					$.ajax({
+	    				type : "post",
+	    				url : "helpCountUp",
+	    				dataType: "json",
+	    				contentType: "application/json; charset=UTF-8",
+	    				data : JSON.stringify({"rno": rno, "pcode": pcode}),
+	    				success : function(data) {
+	    					if(data == 1) { //성공
+	    						var plus = (changeTarget.innerHTML*1) + 1;
+	    						changeTarget.innerHTML = plus;
+	    						if(helpCount == 0) {
+	    							changeCss.style.display = "none";
+	    							changeCss2.style.display = "inline-block";
+	    							
+	    						}
+	    					}  else { //실패
+	    						alert("등록에 실패했습니다. 다시 시도하세요");
+	    					}
+	    					
+	    				},
+	    				error : function(status, error) {
+	    					alert("등록 실패입니다. 잠시 후에 다시 시도하세요");
+	    				}
+	    			});
+					
+				}
+				
+    			
+				if(event.target.classList.contains("helpDownBtn")) {
+					var rno = event.target.value;
+					var changeTarget = event.target.parentElement.firstChild.nextElementSibling.firstChild;
+					var helpCount = event.target.parentElement.firstChild.nextElementSibling.firstChild.innerHTML;
+					
+					var changeCss = event.target.parentElement.firstChild.nextElementSibling.nextSibling.nextElementSibling; // 아래 스트롱 문구
+					
+					var changeCss2 = event.target.parentElement.firstChild.nextElementSibling; // 위에 스트롱 문구
+					
+					$.ajax({
+	    				type : "post",
+	    				url : "helpCountDown",
+	    				dataType: "json",
+	    				contentType: "application/json; charset=UTF-8",
+	    				data : JSON.stringify({"rno": rno, "pcode": pcode}),
+	    				success : function(data) {
+	    					if(data == 1) { //성공
+	    						
+	    						if(helpCount == 0) {
+	    							changeCss2.style.display = "none";
+	    							changeCss.style.display = "inline-block";
+	    							
+	    							return;
+	    						}
+	    						var plus = (changeTarget.innerHTML*1) - 1;
+	    						changeTarget.innerHTML = plus;
+	    						
+	    					}  else { //실패
+	    						alert("등록에 실패했습니다. 다시 시도하세요");
+	    					}
+	    					
+	    				},
+	    				error : function(status, error) {
+	    					alert("등록 실패입니다. 잠시 후에 다시 시도하세요");
+	    				}
+	    			});
+					
+				}
+    			
+    			
+    			
+    			
+    			
+    		} 
+    		
+    	})
     	
-    
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	/* $(".reviewTextWrap").on("click", "button", function() {
+    		console.log(event.target);
+    		console.log(event.target.value);
+    	}) */
     
     </script>
     
