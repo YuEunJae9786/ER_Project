@@ -52,6 +52,12 @@ public class LocationRestController {
 		
 		return kickInfo;
 	}
+	@GetMapping("updateMarkInfo")
+	public @ResponseBody List<KickListVO> updateMarkInfo() {
+		List<KickListVO> updateKickInfo = locationService.getUpdateKickInfo();
+		
+		return updateKickInfo;
+	}
 	
 	@GetMapping("getMarkInfo")
 	public @ResponseBody List<KickListVO> getMarkInfo() {

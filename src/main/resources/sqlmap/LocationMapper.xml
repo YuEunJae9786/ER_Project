@@ -14,4 +14,6 @@
   		select * from kickList
   	</select>
   	
+  	
+  	
   </mapper>

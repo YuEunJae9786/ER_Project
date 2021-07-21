@@ -21,6 +21,12 @@ public class LocationServiceImpl implements LocationService{
 	}
 
 	@Override
+	public List<KickListVO> updateKickInfo() {
+		// TODO Auto-generated method stub
+		return locationMapper.updateKickInfo();
+	}
+
+	@Override
 	public List<KickListVO> getKickInfo() {
 		// TODO Auto-generated method stub
 		return locationMapper.getKickInfo();
