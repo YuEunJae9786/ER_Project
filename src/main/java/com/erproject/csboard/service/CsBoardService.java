@@ -25,6 +25,6 @@ public interface CsBoardService {
 	public List<QnaVO> qnaGetList(OrderUtil orderUtil, Criteria cri); // qna 게시판 글 불러오기
 	public int countView(String whereboard, int bno); // 조회수 올리기
 	public int delete(String whereboard, int bno); // 글 삭제
-	public CsUpdateVO getUpdateList(String whereBoard, int bno); // Notice 수정할 리스트
-	public int updateList(String whereBoard, CsUpdateVO vo);
+	public CsUpdateVO getUpdateList(String whereBoard, int bno); // 수정할 리스트 가져오기
+	public int updateList(String whereBoard, CsUpdateVO vo); // 게시판 수정
 }

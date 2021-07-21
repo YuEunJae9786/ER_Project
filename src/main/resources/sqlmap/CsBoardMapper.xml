@@ -25,6 +25,10 @@
   					VALUES(QNA_ANSWER_SEQ.NEXTVAL, #{qna_No}, #{qa_Writer}, #{qa_Content})
   	</insert>
   	
+  	<update id="qnaAnswerUpdate">
+  		UPDATE QNA SET QNA_ISANSWER = 'Y' WHERE QNA_NO = #{bno}
+  	</update>
+  	
   	<select id="getNoticeTotal" resultType="int">
   		select count(*) as total from notice where
   		<if test="searchType == '' or searchType == null">1 = 1</if>

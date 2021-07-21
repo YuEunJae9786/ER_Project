@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/cookie.js"></script>
 
 	<style>
 		.content-view-wrap, .reply-comment {
@@ -32,7 +33,7 @@
         <form action="noticeRegist" method="post" id="registForm" enctype="multipart/form-data">
         
         	<!-- 컨트롤러에 같이 넘겨줘야 하는 데이터 -->
-        	<input type="hidden" id="boardWriter" name="" value="master123">
+        	<input type="hidden" id="boardWriter" name="" value="${userVO.userId }">
         	
         	<div class="categori" id="boardCategori">
 	        	<label>대분류</label><br/>
@@ -137,10 +138,12 @@
 		                        </div>
 	                        </c:forEach>
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
-	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.notice_No}'">수정</button>
-	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.notice_No});">삭제</button>
-	                        </div>
+	                        <c:if test="${userVO.userId eq 'master123' }">
+		                        <div class="content-view-btn">
+		                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.notice_No}'">수정</button>
+		                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.notice_No});">삭제</button>
+		                        </div>
+	                        </c:if>
 	                    ​</li>
 	                </ul>
            		</c:forEach>
@@ -178,10 +181,12 @@
 		                        </div>
 		                    </c:forEach>
 	                        <div class="content-view-wrap">${list.faq_Content }</div>
-	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.faq_No}'">수정</button>
-	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.faq_No});">삭제</button>
-	                        </div>
+	                        <c:if test="${userVO.userId eq 'master123' }">
+		                        <div class="content-view-btn">
+		                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.faq_No}'">수정</button>
+		                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.faq_No});">삭제</button>
+		                        </div>
+	                        </c:if>
 	                    ​</li>
                 	</ul>
                 </c:forEach>
@@ -206,7 +211,14 @@
                 	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.qna_No }</li>
 	                    <li class="col-xs-3 col-md-6">
-	                        <a href="#" id="a" onclick="contentView(${list.qna_No })">${list.qna_Title }</a>
+	                        <a href="#" id="a" onclick="contentView(${list.qna_No }, '${list.qna_Writer }', '${list.qna_Tow }')">
+	                         	<c:if test="${list.qna_Tow eq 'secret' }">
+			                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+									  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+									</svg>
+								</c:if>
+	                        	${list.qna_Title }
+	                        </a>
 	                    </li>
 	                    <li class="col-xs-2 col-md-2">${list.qna_Writer }</li>
 	                    <li class="col-xs-3 col-md-2">${list.qna_Regdate }</li>
@@ -214,9 +226,15 @@
 	                    <li class="col-xs-12 content-view hidden">
 	                        <div class="content-view-wrap">${list.qna_Content }</div>
 	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.qna_No}'">수정</button>
-	                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
-	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
+	                        	<c:if test="${userVO.userId eq list.qna_Writer }">
+		                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.qna_No}'">수정</button>
+		                        </c:if>
+		                        <c:if test="${userVO.userId eq 'master123' }">
+		                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
+		                         </c:if>
+		                         <c:if test="${userVO.userId eq list.qna_Writer or userVO.userId eq 'master123' }">
+		                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
+		                        </c:if>
 	                        </div>
 	                        <!-- 답변 -->
 	                        <c:forEach items="${list.qnaAnswerList }" var="answerList">
@@ -310,11 +328,11 @@
 	
 	        </ul>
 
-             <!-- 글쓰기 -->
-             <div class="btn-right">
+            <!-- 글쓰기 -->
+            <div class="btn-right">
                 <button type="button" class="btn btn-default btn-signature1 btn-single" id="regist">글쓰기</button>
             </div>
-
+            
             <input type="hidden" name="pageNum" value="1">
             <input type="hidden" name="orderType" value="${orderUtil.orderType }">
             <input type="hidden" name="searchType" value="${orderUtil.searchType }">
@@ -349,13 +367,6 @@
 	   				$("#registForm textarea[id=boardContent]").attr("name", "faq_Content");
 	   			}
 
-                /* var file = $("#file0").val();
-                file = file.slice(file.lastIndexOf(".", file.length) + 1 , file.length); // 파일 확장자
-                
-                if(file != 'png' && file != 'jpg' && file != 'bmp' && file != ''){
-                    $("#file0").val('');
-                }  */
-                
                 setCookie("whereboard", whereBoard);
 	   			$("#registForm").submit();
 	   			
@@ -428,6 +439,7 @@
             document.querySelector( ".content-page > " + document.querySelector( "#" + active).dataset.select  ).classList.remove("hidden");
 
             listOption(); // 처음에 대분류를 화면에 표시할지 메서드 실행
+            registBtn(); // 글쓰기 버튼 표시 여부
         });
 
         /* 헤더 active */
@@ -455,11 +467,13 @@
 
             $(".post-regist").css("display", "none");
 
-            listOption();
+            listOption(); // 대분류 보여줄지 말지
 
             setCookie("whereboard", $(".content-header .active").html());
 
-            init();
+            init(); // 설정되어있던 pageNum 등 초기화
+            
+            registBtn(); // 글쓰기 버튼 표시 여부
             
             document.pageForm.submit();
         });
@@ -472,9 +486,38 @@
                 $(".list-mainCategori").css("display", "inline-block");
             }
         }
-            
-
-        /* 글쓰기 hidden */
+        
+        /* 글쓰기버튼 hidden 처리 */
+        function registBtn() {
+        	
+        	var user = "${userVO.userId}";
+        	var whereboard = getCookie("whereboard");
+        	
+        	if(whereboard == 'Notice' || whereboard == 'FAQ'){
+        		
+        		if(user != 'master123'){
+        			if($("#regist").hasClass("hidden") == false){
+	        			$("#regist").addClass("hidden");
+        			}
+        		} else {
+        			$("#regist").removeClass("hidden");
+        		}
+        		
+        	} else if(whereboard == 'QNA'){
+        		
+        		if(user == '' || user == 'master123'){
+        			if($("#regist").hasClass("hidden") == false){
+	        			$("#regist").addClass("hidden");
+        			}
+        		} else {
+        			$("#regist").removeClass("hidden");
+        		}
+        		
+        	}
+        	
+        }
+        
+        /* 글등록 hidden */
         $("#regist").click( function() {
             
             /* QNA 게시판에서 글쓰기를 누를경우 페이지 이동 */
@@ -503,8 +546,21 @@
 
         /* 글 상세 */
         var preTarget;
-        function contentView(bno) {
+        function contentView(bno, writer, tow) {
             event.preventDefault();
+            
+            // 비밀글 체크
+            if(getCookie("whereboard") == 'QNA'){
+            	if(tow == 'secret'){
+            		
+	  	      	    var user = "${userVO.userId}";
+	            
+	    	        if(user != writer && user != 'master123'){
+	    	        	alert("비밀글은 본인만 열람 가능합니다.");
+	    	        	return;
+	    	        }
+            	}
+            }
             
             /* 현재 누른 타겟 */
             var currentTarget = event.target.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.classList;
@@ -637,29 +693,4 @@
         })
 		
 	</script>
-
-    <!-- 쿠키 -->
-    <script>
-    	function setCookie(cookieName, cookieValue) {
-    		var date = new Date();
-    		date.setDate(date.getDate() + 1);
-
-            var willCookie = "";
-            willCookie += cookieName + "=" + cookieValue + ";";
-            willCookie += "expires=" + date;
-
-            document.cookie = willCookie;
-    	}
-
-        function getCookie(cookieName){
-
-            var cookies = document.cookie.split(";");
-
-            for(var i in cookies){
-                if(cookies[i].indexOf(cookieName) != -1){
-                    return cookies[i].replace(" ", "").replace(cookieName + "=", "");
-                }
-            }
-        }
-    </script>
     

@@ -145,7 +145,16 @@ public class CsBoardServiceImpl implements CsBoardService{
 	
 	@Override
 	public int qnaAnswerRegist(QnaAnswerVO vo) {
-		return csBoardMapper.qnaAnswerRegist(vo);
+		
+		int result = csBoardMapper.qnaAnswerRegist(vo); // qna게시판 답변 등록
+		
+		if(result == 1) {
+			csBoardMapper.qnaAnswerUpdate(vo.getQna_No()); // qna 글 답변 등록 성공시, qna 테이블 ISANSWER Y 변경
+		} else {
+			
+		}
+		
+		return result;
 	}
 	
 	@Override
@@ -297,72 +306,74 @@ public class CsBoardServiceImpl implements CsBoardService{
 					csBoardMapper.faqImageUpdate(map);
 				}
 			}
+		}
 			
-			// 추가된 이미지 로컬 저장 + 데이터베이스 저장
-			try {
+			
+		// 추가된 이미지 로컬 저장 + 데이터베이스 저장
+		try {
+			
+			for(int i = 0 ; i < vo.getFile().size() ; i++) {
 				
-				for(int i = 0 ; i < vo.getFile().size() ; i++) {
-					
-					File folder = null; // 폴더 생성위치
-					
-					if(whereBoard.equals("Notice")) {
-						folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "Notice");
-					} else if (whereBoard.equals("FAQ")) {
-						folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "FAQ");
-					}
-					
-					if(!folder.exists()) { // 해당 경로에 폴더가 없다면
-						folder.mkdir(); // 폴더 생성
-					}
-					
-					MultipartFile file = vo.getFile().get(i);
-					
-					if(file == null) continue;
-					
-					// 파일명
-					String fileRealName = file.getOriginalFilename();
-					// 사이즈
-					Long size = file.getSize();
-					
-					// 저장된 전체경로
-					String uploadPath = folder.getPath(); // 폴더명을 포함한 경로
-					
-					// 확장자
-					if(fileRealName.lastIndexOf(".") != -1) {
-						String fileExtention = fileRealName.substring( fileRealName.lastIndexOf(".") , fileRealName.length() );
-						UUID uuid = UUID.randomUUID();
-						String uuids = uuid.toString().replaceAll("-", "");
-						
-						// 업로드 파일명
-						String fileName = uuids + fileExtention;
-						
-						File saveFile = new File(uploadPath + "\\" + fileName);
-						file.transferTo(saveFile); // 파일쓰기
-						
-						if(whereBoard.equals("Notice")) {
-							NoticeImageVO imageVO = new NoticeImageVO();
-							imageVO.setNotice_No(Integer.parseInt(vo.getNo()));
-							imageVO.setNi_Path("Notice");
-							imageVO.setNi_Name(fileName);
-							
-							csBoardMapper.noticeImageUpload(imageVO);
-						} else if (whereBoard.equals("FAQ")) {
-							FaqImageVO imageVO = new FaqImageVO();
-							imageVO.setFaq_No(Integer.parseInt(vo.getNo()));
-							imageVO.setFi_Path("FAQ");
-							imageVO.setFi_Name(fileName);
-							
-							csBoardMapper.faqImageUpload(imageVO);
-						}
-						
-					}
+				File folder = null; // 폴더 생성위치
+				
+				if(whereBoard.equals("Notice")) {
+					folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "Notice");
+				} else if (whereBoard.equals("FAQ")) {
+					folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "FAQ");
 				}
 				
-			} catch (Exception e) {
-				e.printStackTrace();
-				return 0;
+				if(!folder.exists()) { // 해당 경로에 폴더가 없다면
+					folder.mkdir(); // 폴더 생성
+				}
+				
+				MultipartFile file = vo.getFile().get(i);
+				
+				if(file == null) continue;
+				
+				// 파일명
+				String fileRealName = file.getOriginalFilename();
+				// 사이즈
+				Long size = file.getSize();
+				
+				// 저장된 전체경로
+				String uploadPath = folder.getPath(); // 폴더명을 포함한 경로
+				
+				// 확장자
+				if(fileRealName.lastIndexOf(".") != -1) {
+					String fileExtention = fileRealName.substring( fileRealName.lastIndexOf(".") , fileRealName.length() );
+					UUID uuid = UUID.randomUUID();
+					String uuids = uuid.toString().replaceAll("-", "");
+					
+					// 업로드 파일명
+					String fileName = uuids + fileExtention;
+					
+					File saveFile = new File(uploadPath + "\\" + fileName);
+					file.transferTo(saveFile); // 파일쓰기
+					
+					if(whereBoard.equals("Notice")) {
+						NoticeImageVO imageVO = new NoticeImageVO();
+						imageVO.setNotice_No(Integer.parseInt(vo.getNo()));
+						imageVO.setNi_Path("Notice");
+						imageVO.setNi_Name(fileName);
+						
+						csBoardMapper.noticeImageUpload(imageVO);
+					} else if (whereBoard.equals("FAQ")) {
+						FaqImageVO imageVO = new FaqImageVO();
+						imageVO.setFaq_No(Integer.parseInt(vo.getNo()));
+						imageVO.setFi_Path("FAQ");
+						imageVO.setFi_Name(fileName);
+						
+						csBoardMapper.faqImageUpload(imageVO);
+					}
+					
+				}
 			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
+		
 		
 		
 		// 게시판 수정
