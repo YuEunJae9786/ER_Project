@@ -56,7 +56,7 @@
   		select count(*) from productreview where writer = #{userId}
   	</select>
   	
-  	<update id="helpCountUp">
+  	<!-- <update id="helpCountUp">
   		update productreview set helpcount = helpcount + 1 where pcode = #{vo.pcode} and rno = #{vo.rno}
   	</update>
   	
@@ -70,6 +70,30 @@
   	
   	<update id="helpCountDownNo">
   		update productreview set helpcount = helpcount - 0 where pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</update> -->
+  
+  	<select id="helpSelect" resultType="ProductHelpVO">
+  		select * from reviewhelp where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</select>
+  	
+  	<insert id="helpInsert">
+  		insert into reviewhelp(userid, rno, pcode) values(#{vo.userId}, #{vo.rno}, #{vo.pcode})
+  	</insert>
+  
+  	<update id="helpUpdateOne">
+  		update reviewhelp set helpcount = 1 where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</update>
+  	
+  	<update id="helpUpdateZero">
+  		update reviewhelp set helpcount = 0 where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</update>
+  	
+  	<select id="helpTotal" resultType="int">
+  		select helpcount from reviewhelp where pcode = #{vo.pcode} and rno = #{vo.rno}
+  	</select>
+  	
+  	<update id="updateTotal">
+  		update productreview set helpcount = #{total} where pcode = #{vo.pcode} and rno = #{vo.rno}
   	</update>
   
   </mapper>

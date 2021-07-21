@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.erproject.command.ProductHelpVO;
 import com.erproject.command.ProductInfoVO;
 import com.erproject.command.ProductReviewVO;
 import com.erproject.product.service.ProductService;
@@ -154,32 +155,73 @@ public class ProductController {
 	}
 	
 	// 도움 카운트 컨트롤러
-	@ResponseBody
-	@CrossOrigin("*")
-	@PostMapping(value = "/helpCountUp")
-	public int helpCountUp(@RequestBody ProductReviewVO vo) {
-		
+//	@ResponseBody
+//	@CrossOrigin("*")
+//	@PostMapping(value = "/helpCountUp")
+//	public int helpCountUp(@RequestBody ProductReviewVO vo) {
+//		
+////		System.out.println(vo.toString());
+//		int result = productService.helpCountUp(vo);
+//		
+//		return result;
+//	}
+//	
+//	@ResponseBody
+//	@CrossOrigin("*")
+//	@PostMapping(value = "/helpCountDown")
+//	public int helpCountDown(@RequestBody ProductReviewVO vo) {
+//		
 //		System.out.println(vo.toString());
-		int result = productService.helpCountUp(vo);
-		
-		return result;
-	}
-	
-	@ResponseBody
-	@CrossOrigin("*")
-	@PostMapping(value = "/helpCountDown")
-	public int helpCountDown(@RequestBody ProductReviewVO vo) {
-		
-		System.out.println(vo.toString());
-		int result = productService.helpCountDown(vo);
-		
-		return result;
-	}
+//		int result = productService.helpCountDown(vo);
+//		
+//		return result;
+//	}
 	
 	// 제품 목록 페이지 화면처리
 	@RequestMapping("/kangarooProductList")
 	public void kangarooProductList() {
 		
+	}
+	
+	ProductHelpVO helpVO;
+	@ResponseBody
+	@CrossOrigin("*")
+	@PostMapping(value = "/helpCountChange")
+	public int helpCountUp(@RequestBody ProductHelpVO vo) {
+		
+		helpVO = productService.helpSelect(vo);
+		
+		int result = 1;
+		if(helpVO == null) {
+//			System.out.println("insert로 넣어줘야함");
+			result = productService.helpInsert(vo);
+		} else {
+			System.out.println("헬프카운트가 0인지 1인지 확인하고 또 나눠줌..... 아.. 이렇게 하는게 맞는거야?");
+			if(helpVO.getHelpcount() == 1) {
+//				System.out.println("0으로 바꿔줍시다");
+				result = productService.helpUpdateZero(vo);
+				result = 0;
+			} else {
+//				System.out.println("1로 바꿔줍시다");
+				result = productService.helpUpdateOne(vo);
+			}
+		}
+		
+		ArrayList<Integer> helpCount = productService.helpTotal(vo);
+		System.out.println(helpCount.toString());
+		int total = 0;
+		for(int i : helpCount) {
+			total += i;
+		}
+		// total을 ProductReviewVO의 helpcount로 update시켜줍니다.
+		int result2 = productService.updateTotal(vo, total);
+		if(result2 == 1) {
+			System.out.println("리뷰vo로 업데이트 성공");
+		} else {
+			System.out.println("리뷰vo로 업데이트 실패");
+		}
+		
+		return result;
 	}
 
 }

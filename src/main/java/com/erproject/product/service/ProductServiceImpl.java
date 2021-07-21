@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erproject.command.ProductHelpVO;
 import com.erproject.command.ProductInfoVO;
 import com.erproject.command.ProductReviewVO;
 import com.erproject.product.mapper.ProductMapper;
@@ -91,26 +92,66 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int helpCountUp(ProductReviewVO vo) {
+	public ProductHelpVO helpSelect(ProductHelpVO vo) {
 		
-		return productMapper.helpCountUp(vo);
+		return productMapper.helpSelect(vo);
 	}
 
 	@Override
-	public int helpCountSelect(ProductReviewVO vo) {
+	public int helpInsert(ProductHelpVO vo) {
 		
-		return productMapper.helpCountSelect(vo);
+		return productMapper.helpInsert(vo);
 	}
-	
+
 	@Override
-	public int helpCountDown(ProductReviewVO vo) {
+	public int helpUpdateOne(ProductHelpVO vo) {
 		
-		int result = productMapper.helpCountSelect(vo);
-		if(result == 0) {
-			return productMapper.helpCountDownNo(vo);
-		}
-		return productMapper.helpCountDown(vo);		
+		return productMapper.helpUpdateOne(vo);
 	}
+
+	@Override
+	public int helpUpdateZero(ProductHelpVO vo) {
+		
+		return productMapper.helpUpdateZero(vo);
+	}
+
+	@Override
+	public ArrayList<Integer> helpTotal(ProductHelpVO vo) {
+		
+		return productMapper.helpTotal(vo);
+	}
+
+	@Override
+	public int updateTotal(ProductHelpVO vo, int total) {
+		
+		return productMapper.updateTotal(vo, total);
+	}
+
+	
+	
+	
+
+//	@Override
+//	public int helpCountUp(ProductReviewVO vo) {
+//		
+//		return productMapper.helpCountUp(vo);
+//	}
+//
+//	@Override
+//	public int helpCountSelect(ProductReviewVO vo) {
+//		
+//		return productMapper.helpCountSelect(vo);
+//	}
+//	
+//	@Override
+//	public int helpCountDown(ProductReviewVO vo) {
+//		
+//		int result = productMapper.helpCountSelect(vo);
+//		if(result == 0) {
+//			return productMapper.helpCountDownNo(vo);
+//		}
+//		return productMapper.helpCountDown(vo);		
+//	}
 
 
 }

@@ -168,16 +168,19 @@
 											</div>
 											<div class="reviewTextArea">
 												${vo.title }
+												${sessionScope.userVO.userId }
 											</div>
 										</a>
 										<div class="helpCheck" id="helpCheck" style="margin-top: 45px;">
-											<strong><span>${vo.helpcount }</span>명에게 도움 됨!</strong>
-											<!-- 도움 카운트가 0이면 보여주려고 합니다... -->
+											<strong><span>${vo.helpcount }</span>명에게 도움 됨</strong>
+											<!-- 카운트 0일때 -->
 											<strong style="display: none;">이 후기가 도움이 되었나요?</strong>
 											
 											<!-- 각 버튼 비동기 처리 -->
+											<c:if test="${sessionScope.userVO != null }">
 											<button class="btn btn-default btn-xs helpUpBtn" value="${vo.rno }" style="margin-left: 10px; color: #fff; background-color: cornflowerblue;">도움이 돼요</button>
-											<button class="btn btn-default btn-xs helpDownBtn" value="${vo.rno }" style="margin-left: 5px; color: #fff; background-color: rgb(171, 188, 227);">도움 안 돼요</button>
+											</c:if>
+											<%-- <button class="btn btn-default btn-xs helpDownBtn" value="${vo.rno }" style="margin-left: 5px; color: #fff; background-color: rgb(171, 188, 227);">도움 안 돼요</button> --%>
 										</div>
 										<hr />
 									</div>
@@ -351,6 +354,7 @@
     	$(document).ready(function() {
     		var parent = document.querySelector(".reviewTextWrap");
     		var pcode = "${info.pcode}";
+    		var userId = "${sessionScope.userVO.userId }";
     		
     		parent.onclick = () => {
     			if(event.target.nodeName !== 'BUTTON') return;
@@ -374,22 +378,35 @@
 					
 					var changeCss2 = event.target.parentElement.firstChild.nextElementSibling; // 위에 스트롱 문구
 					
+					console.log(rno);
+					console.log(pcode);
+					console.log(userId);
+					
+					
+					
+					
 					$.ajax({
 	    				type : "post",
-	    				url : "helpCountUp",
+	    				url : "helpCountChange",
 	    				dataType: "json",
 	    				contentType: "application/json; charset=UTF-8",
-	    				data : JSON.stringify({"rno": rno, "pcode": pcode}),
+	    				data : JSON.stringify({"rno": rno, "pcode": pcode, "userId": userId}),
 	    				success : function(data) {
-	    					if(data == 1) { //성공
+	    					if(data == 1) { //성공, 도움돼요+1
+	    						
 	    						var plus = (changeTarget.innerHTML*1) + 1;
 	    						changeTarget.innerHTML = plus;
-	    						if(helpCount == 0) {
-	    							changeCss.style.display = "none";
-	    							changeCss2.style.display = "inline-block";
-	    							
-	    						}
-	    					}  else { //실패
+	    							    						
+	    						
+	    						
+	    					}  else if(data == 0) { //성공, 도움돼요-1
+	    						
+	    						var minus = (changeTarget.innerHTML*1) - 1;
+	    						changeTarget.innerHTML = minus;
+	    						
+	    						
+	    						
+	    					} else { //실패
 	    						alert("등록에 실패했습니다. 다시 시도하세요");
 	    					}
 	    					
@@ -402,7 +419,7 @@
 				}
 				
     			
-				if(event.target.classList.contains("helpDownBtn")) {
+				/* if(event.target.classList.contains("helpDownBtn")) {
 					var rno = event.target.value;
 					var changeTarget = event.target.parentElement.firstChild.nextElementSibling.firstChild;
 					var helpCount = event.target.parentElement.firstChild.nextElementSibling.firstChild.innerHTML;
@@ -439,7 +456,7 @@
 	    				}
 	    			});
 					
-				}
+				} */
     			
     			
     			

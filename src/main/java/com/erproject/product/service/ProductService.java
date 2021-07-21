@@ -2,6 +2,7 @@ package com.erproject.product.service;
 
 import java.util.ArrayList;
 
+import com.erproject.command.ProductHelpVO;
 import com.erproject.command.ProductInfoVO;
 import com.erproject.command.ProductReviewVO;
 import com.erproject.product.util.Criteria;
@@ -34,15 +35,28 @@ public interface ProductService {
 	// 후기 중복 확인 메서드
 	public int productReviewCheck(String userId);
 	
-	// 도움 카운트 플러스 메서드
-	public int helpCountUp(ProductReviewVO vo);
+//	// 도움 카운트 플러스 메서드
+//	public int helpCountUp(ProductReviewVO vo);
+//	
+//	// 도움 카운트 조회 메서드
+//	public int helpCountSelect(ProductReviewVO vo);
+//	
+//	// 도움 카운트 마이너스 메서드
+//	public int helpCountDown(ProductReviewVO vo);
 	
-	// 도움 카운트 조회 메서드
-	public int helpCountSelect(ProductReviewVO vo);
 	
-	// 도움 카운트 마이너스 메서드
-	public int helpCountDown(ProductReviewVO vo);
-	
-	
+	// 비동기처리 도움 카운트 메서드 모음입니다...
+	// 헬프카운트 조회하기 위한 메서드
+	public ProductHelpVO helpSelect(ProductHelpVO vo);
+	// 없을 경우 insert해주는 메서드
+	public int helpInsert(ProductHelpVO vo);
+	// 헬프카운트 다시 1로 업데이트 메서드
+	public int helpUpdateOne(ProductHelpVO vo);
+	// 헬프카운트 다시 0으로 업데이트 메서드
+	public int helpUpdateZero(ProductHelpVO vo);
+	// pcode, rno에 해당하는 전체 헬프카운트를 조회해서 리뷰vo에 업데이트 시켜줘야함
+	public ArrayList<Integer> helpTotal(ProductHelpVO vo);
+	// update시켜줍시다.
+	public int updateTotal(ProductHelpVO vo, int total);
 		
 }
