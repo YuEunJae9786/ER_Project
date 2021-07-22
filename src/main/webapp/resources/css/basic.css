@@ -11,14 +11,14 @@
 .info-all{
     position: absolute;
     top:25px;
-    left: 1100px;
+    left: 1200px;
     display: inline-block;
     overflow: hidden;
 }
 .head-info{
-    width: 60px;
+    width: 80px;
     float: left;
-    margin-left: 10px;
+    margin-right: 20px;
 }
 .head-info > a{
     text-decoration: none;

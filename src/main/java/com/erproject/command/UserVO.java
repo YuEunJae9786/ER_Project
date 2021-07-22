@@ -1,8 +1,5 @@
 package com.erproject.command;
 
-import java.util.ArrayList;
-
-
 public class UserVO {
 	
 	private String userId;
@@ -21,16 +18,12 @@ public class UserVO {
 	private String addrBasic;
 	private String addrDetail;
 	
-	/*보드*/
-	private ArrayList<QnaVO> qnaList;
-
 	public UserVO() {
 		
 	}
 
 	public UserVO(String userId, String userPw, String userName, String userPhone, String userEmail, String userEmail1,
-			String userEmail2, String addrAll, String addrZipNum, String addrBasic, String addrDetail,
-			ArrayList<QnaVO> qnaList) {
+			String userEmail2, String addrAll, String addrZipNum, String addrBasic, String addrDetail) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
@@ -43,7 +36,14 @@ public class UserVO {
 		this.addrZipNum = addrZipNum;
 		this.addrBasic = addrBasic;
 		this.addrDetail = addrDetail;
-		this.qnaList = qnaList;
+	}
+
+	@Override
+	public String toString() {
+		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userPhone=" + userPhone
+				+ ", userEmail=" + userEmail + ", userEmail1=" + userEmail1 + ", userEmail2=" + userEmail2
+				+ ", addrAll=" + addrAll + ", addrZipNum=" + addrZipNum + ", addrBasic=" + addrBasic + ", addrDetail="
+				+ addrDetail + "]";
 	}
 
 	public String getUserId() {
@@ -133,30 +133,7 @@ public class UserVO {
 	public void setAddrDetail(String addrDetail) {
 		this.addrDetail = addrDetail;
 	}
-
-	public ArrayList<QnaVO> getQnaList() {
-		return qnaList;
-	}
-
-	public void setQnaList(ArrayList<QnaVO> qnaList) {
-		this.qnaList = qnaList;
-	}
-
-	@Override
-	public String toString() {
-		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userPhone=" + userPhone
-				+ ", userEmail=" + userEmail + ", userEmail1=" + userEmail1 + ", userEmail2=" + userEmail2
-				+ ", addrAll=" + addrAll + ", addrZipNum=" + addrZipNum + ", addrBasic=" + addrBasic + ", addrDetail="
-				+ addrDetail + ", qnaList=" + qnaList + "]";
-	}
-	
 	
 	
 
-	}
-	
-	
-	
-	
-	
-
+}

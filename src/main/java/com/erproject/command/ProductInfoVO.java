@@ -17,6 +17,5 @@ public class ProductInfoVO {
 	private String pspec1;
 	private String pspec2;
 	private String pspec3;
-	
 
 }

@@ -4,13 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
-
-
-<head>
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
-</head>
-
-
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/cookie.js"></script>
@@ -172,95 +165,6 @@
                 </ul>
             </div>
             <div class="content-section">
-
-
-                <ul>
-                    <li class="col-xs-2 col-sm-1">1</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" id="a" onclick="contentView()">자주 묻는 질문 게시판 입니다.</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/star.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            수없이 <br/>
-
-                            많은 <br/>
-                            
-                            별들 중<br/>
-                            
-                            가장 빛나는<br/>
-
-                            별은<br/>
-
-                            바로 너야<br/>
-                        </div>
-                        <div class="content-view-btn">
-                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">2</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#" onclick="contentView()">하 진짜 애니메이션은 또 어떻게 넣지 ...?</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-05</li>
-                    <li class="col-xs-2 col-md-1">3</li>
-                    <li class="col-xs-12 content-view hidden">
-                        <div class="content-view-img">
-                            <img src="${pageContext.request.contextPath }/resources/img/day.png" alt="이미지">
-                        </div>
-                        <div class="cotnet-view-wrap">
-                            햇빛은 달콤하고, 비는 상쾌하고, <br/>
-
-                            바람은 시원하며, 눈은 기분을 들뜨게 만든다 <br/>
-                            
-                            세상에 나쁜 날씨란 없다.<br/>
-
-                            서로 다른 종류의 좋은 날씨만 있을 뿐 <br/>
-                        </div>
-                        <div class="content-view-btn">
-                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-                            <button type="button" class="btn btn-default btn-signature2">삭제</button>
-                        </div>
-                    ​</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">3</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">후... 이거 맞습니까?</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">4</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">너무... 어렵습니다 ~</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-                <ul>
-                    <li class="col-xs-2 col-sm-1">5</li>
-                    <li class="col-xs-3 col-md-6">
-                        <a href="#">어찌 합 니까.. 어떻게 할까요..</a>
-                    </li>
-                    <li class="col-xs-2 col-md-2">관리자</li>
-                    <li class="col-xs-3 col-md-2">2021-07-03</li>
-                    <li class="col-xs-2 col-md-1">1</li>
-                </ul>
-        
-
                <c:forEach var="list" items="${faqList }">
                 	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.faq_No }</li>
@@ -286,7 +190,6 @@
 	                    ​</li>
                 	</ul>
                 </c:forEach>
-
             </div>
         </div>
     </div>
@@ -476,13 +379,7 @@
 	   			setCookie("whereboard", whereBoard)
 	   			
 	   			$("#listForm").submit();
-
-
-	   		}); // change
-
-
 	   			
-
 	   		}); // 게시판 순서
 	   		
 	   		// 대분류
@@ -502,7 +399,6 @@
                 document.pageForm.pageNum.value = event.target.dataset.pagenum;
 			    document.pageForm.submit();
             });
-
 	   		
     	}); // ready
     	
@@ -519,7 +415,6 @@
     
     <!-- 동적 작동 -->
     <script>
-
 
         /* 쿠키를 통해 현재 게시판 탐색 */
         $(document).ready( function() {
@@ -547,7 +442,6 @@
             registBtn(); // 글쓰기 버튼 표시 여부
         });
 
-
         /* 헤더 active */
         $(".content-header").on("click", "a", function () {
             event.preventDefault();
@@ -573,12 +467,7 @@
 
             $(".post-regist").css("display", "none");
 
-
-
-            listOption();
-
             listOption(); // 대분류 보여줄지 말지
-
 
             setCookie("whereboard", $(".content-header .active").html());
 
@@ -587,7 +476,6 @@
             registBtn(); // 글쓰기 버튼 표시 여부
             
             document.pageForm.submit();
-
         });
 
         /* 대분류 */
