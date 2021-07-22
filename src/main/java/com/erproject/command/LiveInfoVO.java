@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LiveInfoVO {
+	private String parkingBikeTotCnt;
+	private String rackTotCnt;
+	private String shared;
 	private String stationId;
 	private String stationName;
 	private String stationLatitude;
