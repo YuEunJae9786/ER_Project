@@ -228,10 +228,7 @@
   
         var ws;
         var messages = document.getElementById("messages");
-        
         var mesege = document.querySelector("#messageinput");
-        
-        
         
         mesege.onclick = function openSocket(){
             if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
