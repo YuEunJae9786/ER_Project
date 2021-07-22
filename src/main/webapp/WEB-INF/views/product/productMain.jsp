@@ -9,7 +9,7 @@
 
 <section class="sect-main">
 	<div class="container">
-		<div class="top-text">
+		<div class="top-text" style="margin-top: 30px;">
 			<h3>PRODUCT INFO</h3>
 		</div>
 		<!-- 전체페이지 바디 -->
