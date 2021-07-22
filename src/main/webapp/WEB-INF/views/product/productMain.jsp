@@ -112,13 +112,14 @@
 							</div>
 							<div class="linkVideo">
 								<h3>유튜브 영상~</h3>
-								<br /> <a href="#">https://www.youtube/kickboard</a><br />
-								<a href="#">https://www.youtube/kickboard123</a>
+								<br /> <a href="#">https://www.youtube/kickboard1</a><br />
+								<a href="#">https://www.youtube/kickboard2</a>
 							</div>
 							<hr>
 							<div class="linkBlog">
 								<h3>블로그 리뷰~</h3>
-								<br /> <a href="#">https://www.naver.com/post/kickboard</a>
+								<br /> <a href="#">https://www.naver.com/post/kickboard1</a><br />
+								<a href="#">https://www.naver.com/post/kickboard2</a>
 							</div>
 						</div>
 					</div>
