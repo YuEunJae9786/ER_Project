@@ -13,5 +13,4 @@ public class PhotoListVO {
 	private int PhotoMini;
 	private int PhotoTitle;
 	private int PhotoAdd;
-	
 }

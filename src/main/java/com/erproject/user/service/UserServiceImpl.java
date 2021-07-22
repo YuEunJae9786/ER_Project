@@ -1,14 +1,7 @@
 package com.erproject.user.service;
 
-
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import com.erproject.command.UserVO;
 import com.erproject.user.mapper.UserMapper;
@@ -36,15 +29,13 @@ public class UserServiceImpl implements UserService {
 		
 		return userMapper.login(vo);
 	}
-	
+
 	@Override
 	public UserVO getInfo(String userId) {
 		
 		return userMapper.getInfo(userId);
 	}
 
-
-	
 	@Override
 	public int update(UserVO vo) {
 	
@@ -57,71 +48,11 @@ public class UserServiceImpl implements UserService {
 		return userMapper.delete(vo);
 	}
 
-	@Override
-	public int kakaojoin(String id , String email) {
-		
-		UserVO vo = new UserVO();
-		vo.setUserId(id);
-		vo.setUserEmail(email);
-		
-		return userMapper.kakaojoin(vo);
-	}
-
-	@Override
-	public int kakaoCheck(String email) {
-		
-		return userMapper.kakaoCheck(email);
-	}
-
-	@Override
-	public int forgotck(UserVO vo) {
-		
-		return userMapper.forgotck(vo);
-	}
-
-	@Override
-	public int pwUpdate(UserVO vo) {
-		
-		return userMapper.pwUpdate(vo);
-	}
-
-	@Override
-	public int qnaDelete(String[] bno) {
-		
-		for(int i =0; i <bno.length; i++) {
-			
-			int result = userMapper.qnaDelete(bno[i]);
-			
-			if(result==0) {
-				return result;
-			} else {
-				
-				userMapper.qnaReDelete(bno[i]);
-			}
-			
-		}
-		
-		
-		return 1;
-	}
-
-
-
-
 
 	
 
 
 	
+
+
 }
-
-
-
-
-	
-
-
-	
-
-
-

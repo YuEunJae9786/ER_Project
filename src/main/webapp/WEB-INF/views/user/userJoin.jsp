@@ -5,7 +5,7 @@
 
 
 
-    <section class="login-big-group">
+    <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 join-form">
@@ -30,7 +30,7 @@
 
                         <div class="join-group">
                             <label>Password</label>
-                            <input type="password" autocomplete="off" class="form-control" placeholder="8~16 길이의 영소문자와 숫자를 이용한 패스워드를 입력하세요" name="userPw" id="userPw" style="margin-bottom: 5px;"> 
+                            <input type="password" autocomplete="off" class="form-control" placeholder="8~16 길이의 영소문자를 이용한 패스워드를 입력하세요" name="userPw" id="userPw" style="margin-bottom: 5px;"> 
                         </div>
                         <span id="msgPw"></span>
 
@@ -96,18 +96,6 @@
         </div>
 
     </section>
-    <script>
-    
-    	window.onload = function() {
-    		var msg = "${msg}";
-    		if(msg != "") {
-    			alert(msg);
-    		}
-    		
-    	}
-    	
-    </script>
-
 
     <script>
         /*아이디중복검사*/
@@ -140,11 +128,7 @@
         var pw = document.getElementById("userPw");
         var msgPw =document.getElementById("msgPw");
             pw.onkeyup = function () {
-            	
-            	
-            	var regex = /^[A-Za-z0-9+]{8,16}$/;
-            	
-
+                var regex = /^[A-Za-z0-9+]{8,16}$/;
                 if (regex.test(pw.value)) {
                     pw.style.borderColor = "cornflowerblue";
                     msgPw.innerHTML = "사용가능한 패스워드입니다";
@@ -165,7 +149,7 @@
             var pwCheck = document.getElementById("pwCheck");
             
             pwCheck.onkeyup = function () {
-            	var regex = /^[A-Za-z0-9+]{8,16}$/;
+                var regex = /^[A-Za-z0-9+]{8,16}$/;
                 if (pwCheck.value == document.getElementById("userPw").value) {
                     pwCheck.style.borderColor = "cornflowerblue";
                     document.getElementById("msgPw-c").style.color="cornflowerblue";

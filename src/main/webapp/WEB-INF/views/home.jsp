@@ -107,18 +107,6 @@
     <section class="three">
     
     </section>
-    
-    <script>
-    
-    	window.onload = function() {
-    		var msg = "${msg}";
-    		if(msg != "") {
-    			alert(msg);
-    		}
-    		
-    	}
-    	
-    </script>
 
 
 

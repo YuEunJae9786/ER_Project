@@ -8,23 +8,6 @@ public class Criteria {
 	private int pageNum;
 	private int amount;
 	
-	
-	public int getPageNum() {
-		return pageNum;
-	}
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
 	public Criteria() {
 		this(1, 10);
 	}

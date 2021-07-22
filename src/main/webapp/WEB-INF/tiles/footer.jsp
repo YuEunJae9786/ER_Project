@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-	<footer class="footer" style="margin-top: 30px;">
+	<footer class="footer">
         <div class="foot-info">
             
             <strong>회사소개</strong><br/>
