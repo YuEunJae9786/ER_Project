@@ -1,0 +1,11 @@
+
+## 폴더 무시
+Notice/
+FAQ/
+
+## 파일 무시
+hikari.properties
+web.xml
+APP_CONSTANT.java
+
+target/

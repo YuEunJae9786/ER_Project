@@ -38,9 +38,11 @@ a:hover, a:focus {
     width: 100%;
 
     font-size: 26px;
+    box-sizing: border-box;
 }
 
 .content-header > li > a:hover {
+    padding-bottom: -2px;
     border-bottom: 2px solid #777;
 }
 
@@ -62,7 +64,41 @@ a:hover, a:focus {
     text-align: left;
 }
 
-.post-regist > form > .btn {
+/* 이미지 미리보기 */
+.fileDiv > .imageFile {
+	display: inline-block;
+	position: relative;
+}
+
+.fileDiv > .imageFile > .imgDeleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.post-regist .file {
+    text-align: center;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 3px;
+    font-size: 15px;
+}
+
+.post-regist input[type="file"] {
+	position: absolute;
+	width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    
+}
+
+.post-regist > form > .imageBtn {
     float: right;
 }
 

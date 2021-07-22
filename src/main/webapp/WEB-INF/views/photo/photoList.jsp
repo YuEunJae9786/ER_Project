@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<head>
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/dongyeon.css">
+</head>
+
  <section>
         <div class="container photoBody">
             <div class="info-title">
@@ -10,7 +14,7 @@
                 <div class="photoList">
     
                     <div class="photo">
-                        <img src="${pageContext.request.contextPath }/resources/img/kic1.jpg" alt=""  height="262px">
+                        <img src="${pageContext.request.contextPath }/resources/img/kick1.jpg" alt=""  height="262px">
                     </div>
 
                     <div class="photo-content">
@@ -37,7 +41,7 @@
 
                 <div class="photoList">
                     <div class="photo">
-                        <img src="${pageContext.request.contextPath }/resources/img/kic1.jpg" alt="" height="262px">
+                        <img src="${pageContext.request.contextPath }/resources/img/kick1.jpg" alt="" height="262px">
                     </div>
 
                     <div class="photo-content">

@@ -19,6 +19,7 @@ public class ProductReviewVO {
 	private Timestamp regdate;
 	private Timestamp updatedate;
 	private String pcode;
+
 	public ProductReviewVO() {
 		
 	}
@@ -92,5 +93,8 @@ public class ProductReviewVO {
 	
 	
 	
+
+	private int helpcount;
+
 
 }

@@ -2,6 +2,14 @@ package com.erproject.command;
 
 
 
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+
 
 public class QnaVO {
 
@@ -16,6 +24,7 @@ public class QnaVO {
 	private String qna_Regdate;
 	private String qna_UpdateDate;
 	
+
 	public QnaVO() {
 		
 	}
@@ -103,5 +112,8 @@ public class QnaVO {
 	}
 	
 	
+
+	private List<QnaAnswerVO> qnaAnswerList;
+
 	
 }
