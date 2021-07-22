@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.erproject.user.mapper.UserMapper">
+  
+  <select id="idCheck" resultType="int">
+  select count(*) as result 
+  from users where userId =#{userId}
+  
+  
+  </select>
+  
+  <!-- 회원가입 -->
+ <insert id="join">
+  		insert into users(userId, userPw, userName, userPhone, userEmail, addrAll)
+  		values(#{userId}, #{userPw}, #{userName},  #{userPhone} , #{userEmail1} || #{userEmail2}, #{addrZipNum} ||#{addrBasic}|| #{addrDetail})
+  		
+  	</insert>
+  	
+  	<!-- 로그인 -->
+  	
+  	<select id="login" resultType="UserVO">
+  	
+  	select * from users where userId= #{userId} and userPw = #{userPw}
+  	
+  	</select>
+  	
+  	<select id="getInfo" resultMap="userInfo">
+  	select userId,
+  	       userName,
+  	       userPhone
+  	       
+  	from users
+  	where userId = #{userId}
+  	</select>
+  	<resultMap type="UserVO" id="userInfo">
+  	<result property="userId" column="USERID"/>
+  	<result property="userName" column="USERNAME"/>
+  	<result property="userPhone" column="USERPHONE"/>
+ 
+  	
+  	</resultMap>
+  	
+  	<update id="update">
+  	
+  	update USERS set userPw = #{userPw},
+  	                 userName =#{userName},
+  	                 userPhone =#{userPhone},
+  	                 userEmail =#{userEmail1} || #{userEmail2},
+  	                 addrAll =#{addrZipNum} || #{addrBasic} || #{addrDetail}
+  	                 
+  	                 where userId =#{userId}
+  	</update>
+  	
+  	<delete id="delete">
+  	delete from users where userId=#{userId} and userPw =#{userPw}
+  	</delete>
+  	
+ 
+  
+  
+  
+  
+  </mapper>
