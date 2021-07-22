@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC
-  "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
-  "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
   
   <tiles-definitions>
 
@@ -13,9 +13,13 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 	</definition>	
-
+	
+	
 	<!-- 위에 선언된 타일즈템플릿을 상속 -->
 	<!-- name속성은 controller에서 연결할 이름 -->
+	
+	<definition name="servicePage/servicePage" template="/WEB-INF/views/servicePage/servicePage.jsp" />
+
 	<definition name="*" extends="templateDefault">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
@@ -28,6 +32,4 @@
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
 
-	<definition name="servicePage/servicePage" extends="/WEB-INF/views/servicePage/servicePage.jsp"/>
-	
 </tiles-definitions>

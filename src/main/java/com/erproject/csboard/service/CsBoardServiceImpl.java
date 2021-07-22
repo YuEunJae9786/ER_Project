@@ -28,11 +28,99 @@ public class CsBoardServiceImpl implements CsBoardService{
 	
 	@Override
 	public int noticeRegist(NoticeVO vo) {
+		
+		try {
+			
+			for(int i = 0 ; i < vo.getFile().size() ; i++) {
+				
+			File folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "Notice"); // 폴더 생성위치
+			
+			if(!folder.exists()) { // 해당 경로에 폴더가 없다면
+				folder.mkdir(); // 폴더 생성
+			}
+			
+			MultipartFile file = vo.getFile().get(i);
+			
+			// 파일명
+			String fileRealName = file.getOriginalFilename();
+			// 사이즈
+			Long size = file.getSize();
+			
+			// 저장된 전체경로
+			String uploadPath = folder.getPath(); // 폴더명을 포함한 경로
+			
+			// 확장자
+			String fileExtention = fileRealName.substring( fileRealName.lastIndexOf(".") , fileRealName.length() );
+			UUID uuid = UUID.randomUUID();
+			String uuids = uuid.toString().replaceAll("-", "");
+			
+			// 업로드 파일명
+			String fileName = uuids + fileExtention;
+			
+			File saveFile = new File(uploadPath + "\\" + fileName);
+			file.transferTo(saveFile); // 파일쓰기
+			
+			NoticeImageVO imageVo = new NoticeImageVO();
+			imageVo.setNotice_No(csBoardMapper.getNoticeCurrent() + 1 );
+			imageVo.setNi_Path(uploadPath);
+			imageVo.setNi_Name(fileName);
+			
+			csBoardMapper.noticeImageUpload(imageVo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return csBoardMapper.noticeRegist(vo);
 	}
 	
 	@Override
 	public int faqRegist(FaqVO vo) {
+		
+		try {
+			
+			for(int i = 0 ; i < vo.getFile().size() ; i++) {
+				
+			File folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "FAQ"); // 폴더 생성위치
+			
+			if(!folder.exists()) { // 해당 경로에 폴더가 없다면
+				folder.mkdir(); // 폴더 생성
+			}
+			
+			MultipartFile file = vo.getFile().get(i);
+			
+			// 파일명
+			String fileRealName = file.getOriginalFilename();
+			// 사이즈
+			Long size = file.getSize();
+			
+			// 저장된 전체경로
+			String uploadPath = folder.getPath(); // 폴더명을 포함한 경로
+			
+			// 확장자
+			String fileExtention = fileRealName.substring( fileRealName.lastIndexOf(".") , fileRealName.length() );
+			UUID uuid = UUID.randomUUID();
+			String uuids = uuid.toString().replaceAll("-", "");
+			
+			// 업로드 파일명
+			String fileName = uuids + fileExtention;
+			
+			File saveFile = new File(uploadPath + "\\" + fileName);
+			file.transferTo(saveFile); // 파일쓰기
+			
+			FaqImageVO imageVo = new FaqImageVO();
+			imageVo.setFaq_No(csBoardMapper.getFaqCurrent() + 1 );
+			imageVo.setFi_Path(uploadPath);
+			imageVo.setFi_Name(fileName);
+			
+			csBoardMapper.faqImageUpload(imageVo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return csBoardMapper.faqRegist(vo);
 	}
 	
@@ -134,61 +222,6 @@ public class CsBoardServiceImpl implements CsBoardService{
 		}
 		
 		return result;
-	}
-	
-	@Override
-	public void imageUpload(String whereboard, MultipartFile file) {
-		
-		try {
-			
-			File folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + whereboard); // 폴더 생성위치
-			
-			if(!folder.exists()) { // 해당 경로에 폴더가 없다면
-				folder.mkdir(); // 폴더 생성
-			}
-			
-			// 파일명
-			String fileRealName = file.getOriginalFilename();
-			// 사이즈
-			Long size = file.getSize();
-			
-			// 저장된 전체경로
-			String uploadPath = folder.getPath(); // 폴더명을 포함한 경로
-			
-			// 확장자
-			String fileExtention = fileRealName.substring( fileRealName.lastIndexOf(".") , fileRealName.length() );
-			UUID uuid = UUID.randomUUID();
-			String uuids = uuid.toString().replaceAll("-", "");
-			
-			// 업로드 파일명
-			String fileName = uuids + fileExtention;
-			
-			File saveFile = new File(uploadPath + "\\" + fileName);
-			file.transferTo(saveFile); // 파일쓰기
-			
-			if(whereboard.equals("Notice")) {
-				
-				NoticeImageVO vo = new NoticeImageVO();
-				vo.setNotice_No(csBoardMapper.getNoticeCurrent() + 1 );
-				vo.setNi_Path(uploadPath);
-				vo.setNi_Name(fileName);
-				
-				csBoardMapper.noticeImageUpload(vo);
-			} else if(whereboard.equals("FAQ")) {
-				
-				FaqImageVO vo = new FaqImageVO();
-				vo.setFaq_No(csBoardMapper.getFaqCurrent() + 1);
-				vo.setFi_Path(uploadPath);
-				vo.setFi_Name(fileName);
-				
-				csBoardMapper.faqImageUpload(vo);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
 	}
 	
 }
