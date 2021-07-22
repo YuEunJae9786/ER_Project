@@ -13,9 +13,12 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 	</definition>	
-
+	
+	
 	<!-- 위에 선언된 타일즈템플릿을 상속 -->
 	<!-- name속성은 controller에서 연결할 이름 -->
+	
+	<definition name="servicePage/servicePage" template="/WEB-INF/views/servicePage/servicePage.jsp" />
 
 	<definition name="*" extends="templateDefault">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
@@ -29,7 +32,4 @@
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
 
-
-	
-	
 </tiles-definitions>
