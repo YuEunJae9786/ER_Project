@@ -4,11 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
-<<<<<<< HEAD
+
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
 </head>
-=======
+
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
 >>>>>>> master
@@ -159,7 +159,7 @@
                 </ul>
             </div>
             <div class="content-section">
-<<<<<<< HEAD
+
                 <ul>
                     <li class="col-xs-2 col-sm-1">1</li>
                     <li class="col-xs-3 col-md-6">
@@ -245,8 +245,7 @@
                     <li class="col-xs-3 col-md-2">2021-07-03</li>
                     <li class="col-xs-2 col-md-1">1</li>
                 </ul>
-                
-=======
+        
                <c:forEach var="list" items="${faqList }">
                 	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.faq_No }</li>
@@ -268,7 +267,7 @@
 	                    ​</li>
                 	</ul>
                 </c:forEach>
->>>>>>> master
+
             </div>
         </div>
 
@@ -440,10 +439,9 @@
 	   		$(".list-option > select").change( function() {
 	   			
 	   			$("#listForm").submit();
-	   			
-<<<<<<< HEAD
+
 	   		}); // change
-=======
+
 	   		}); // 게시판 순서
 	   		
 	   		// 대분류
@@ -463,7 +461,7 @@
                 document.pageForm.pageNum.value = event.target.dataset.pagenum;
 			    document.pageForm.submit();
             });
->>>>>>> master
+
 	   		
     	}); // ready
     	
@@ -481,8 +479,7 @@
     <!-- 동적 작동 -->
     <script>
 
-<<<<<<< HEAD
-=======
+
         /* 쿠키를 통해 현재 게시판 탐색 */
         $(document).ready( function() {
             
@@ -508,7 +505,7 @@
             listOption(); // 처음에 대분류를 화면에 표시할지 메서드 실행
         });
 
->>>>>>> master
+
         /* 헤더 active */
         $(".content-header").on("click", "a", function () {
             event.preventDefault();
@@ -534,8 +531,7 @@
 
             $(".post-regist").css("display", "none");
 
-<<<<<<< HEAD
-=======
+
             listOption();
 
             setCookie("whereboard", $(".content-header .active").html());
@@ -543,7 +539,7 @@
             init();
             
             document.pageForm.submit();
->>>>>>> master
+
         });
 
         /* 글쓰기 hidden */
