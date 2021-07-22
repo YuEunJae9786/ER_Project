@@ -312,19 +312,20 @@ public class CsBoardServiceImpl implements CsBoardService{
 		// 추가된 이미지 로컬 저장 + 데이터베이스 저장
 		try {
 			
+			File folder = null; // 폴더 생성위치
+			
+			if(whereBoard.equals("Notice")) {
+				folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "Notice");
+			} else if (whereBoard.equals("FAQ")) {
+				folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "FAQ");
+			}
+			
+			if(!folder.exists()) { // 해당 경로에 폴더가 없다면
+				folder.mkdir(); // 폴더 생성
+			}
+			
 			for(int i = 0 ; i < vo.getFile().size() ; i++) {
 				
-				File folder = null; // 폴더 생성위치
-				
-				if(whereBoard.equals("Notice")) {
-					folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "Notice");
-				} else if (whereBoard.equals("FAQ")) {
-					folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "FAQ");
-				}
-				
-				if(!folder.exists()) { // 해당 경로에 폴더가 없다면
-					folder.mkdir(); // 폴더 생성
-				}
 				
 				MultipartFile file = vo.getFile().get(i);
 				
