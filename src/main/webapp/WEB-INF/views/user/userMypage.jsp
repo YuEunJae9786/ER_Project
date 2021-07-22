@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
  
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css">
@@ -66,15 +67,18 @@
 
 								<div class="join-group">
 									<label>Phone number</label> <input type="text"
-										class="form-control" name="userPhone"
-										value=${userInfo.userPhone } placeholder="010XXXXXXXX">
+										class="form-control" name="userPhone" value="${userInfo.userPhone }" placeholder="010XXXXXXXX">
 								</div>
 
 								<div class="join-group">
 									<label for="email">Email</label><br />
 									<div class="email-group">
+									
+									<input type="text" class="form-control" id="email" name="userEmail" readonly value="${userInfo.userEmail }" placeholder="">
+									
+									<%-- 
 										<input type="text" class="form-control email-left"
-											name="userEmail1" id="email"> <select
+											name="userEmail1" id="email" value="${userInfo.userEmail }"> <select
 											class="form-control email-right" name="userEmail2">
 											<option>@naver.com</option>
 											<option>@daum.net</option>
@@ -82,7 +86,7 @@
 											<option>@hanmail.com</option>
 
 
-										</select>
+										</select> --%>
 									</div>
 
 								</div>
@@ -103,10 +107,6 @@
 								</div>
 							</form>
 
-
-
-
-
 							<div class="page-btn">
 								<button type="button" class="btn btn-default mypageBtn2"
 									data-toggle="modal" data-target="#myModal">Drop out</button>
@@ -121,8 +121,13 @@
 
 
 
+				<form action="userDelete" method="post">
+				
 				<div class="modal fade" id="myModal" role="dialog">
 					<div class="modal-dialog">
+					
+					<input type="hidden" name="userId" value="${userVO.userId }">
+					
 
 						<div class="modal-content">
 							<div class="modal-header">
@@ -134,11 +139,11 @@
 								<p>${userInfo.userId}님 탈퇴 하시려면 해당 아이디의 비밀번호를 입력해주세요</p>
 
 								<label>Password</label> <input type="password"
-									class="form-control" id="delPw" name="delPw">
+									class="form-control" id="Pw" name="userPw">
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" id="delBtn">탈퇴하기</button>
+								<button type="submit" class="btn btn-default">탈퇴하기</button>
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">닫기</button>
 
@@ -147,6 +152,7 @@
 
 					</div>
 				</div>
+				</form>
 
 
 
@@ -168,6 +174,7 @@
 									<th class="listBox">Reply</th>
 								</tr>
 							</thead>
+							
 							<tbody>
 								<tr class="boxList">
 									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
@@ -275,53 +282,33 @@
 					</div>
 
 					<div class="tab-post">
-
+					
+					<form action="checkDelete" method="post">
 						<table class="table table-hover info-table">
 							<thead>
 								<tr>
 									<th class="checkBox"><input id="allCheck" type="checkbox" name="allCheck"></th>
 									<th class="listBox">Bno</th>
 									<th>Title</th>
-									<th class="listBox">Answer</th>
+								    <th class="listBox">Answer</th>
 								</tr>
 							</thead>
 							<tbody>
+							    <c:forEach var="vo" items="${userInfo.qnaList}">	
 								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">3</td>
-									<td>배송언제되나요</td>
-									<td class="listBox">미확인</td>
-
+									<td class="checkBox"><input type="checkbox" name="RowCheck" value="${vo.qna_No }"></td>
+									<td class="listBox">${vo.qna_No}</td>
+									<td><a href=""></a>${vo.qna_Title }</td>
+									<td class="listBox">${vo.qna_IsAnswer}</td> 
 								</tr>
-
-							</tbody>
-
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">2</td>
-									<td>회원탈퇴하고싶습니다</td>
-									<td class="listBox">답변완료</td>
-
-								</tr>
-
-							</tbody>
-
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">1</td>
-									<td>연령제한이있나요?</td>
-									<td class="listBox">답변완료</td>
-
-								</tr>
-
+								</c:forEach> 
 							</tbody>
 						</table>
 
 						<div class="page-btn">
 							<button type="submit" class="btn qnaBtn">Delete</button>
 						</div>
+						</form>
 
 
 
@@ -330,8 +317,11 @@
 				</div>
 </section>
 
+
 <script>
-                   $(function(){
+
+//전체체크하는 법 
+                      $(function(){
                 	   var chkObj = document.getElementsByName("RowCheck");
                 	   var rowcount =chkObj.length;
                 	   
@@ -349,8 +339,22 @@
                 	   
                 	   
                    })
-                   </script>
+</script>
 
+
+<script>
+
+
+
+
+
+
+</script>
+
+
+
+
+       
 <script>
 
             //비밀번호 검사
@@ -412,9 +416,20 @@
 			document.getElementById("addrZipNum").value = zipNo;
 	}
 </script>
-    
-
   
-    </script>
+  
+
+	
+<script>
+    
+    	window.onload = function() {
+    		var msg = "${msg}";
+    		if(msg != "") {
+    			alert(msg);
+    		}
+    		
+    	}
+    	
+</script>
 
      
