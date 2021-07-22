@@ -9,7 +9,7 @@
 
 <section class="sect-main">
 	<div class="container">
-		<div class="top-text" style="margin-top: 30px;">
+		<div class="top-text">
 			<h3>PRODUCT INFO</h3>
 		</div>
 		<!-- 전체페이지 바디 -->
@@ -74,7 +74,7 @@
 				<ul class="tabs-basic">
 					<li class="bt1"><a>킥보드 소개</a></li>
 					<li class="bt2"><a>관련링크</a></li>
-					<li class="bt3"><a>후기 (${total })</a></li>
+					<li class="bt3"><a>후기 (${list.size() })</a></li>
 					<li class="bt4"><a>문의하기</a></li>
 					<li class="bt5"><a>대여하기</a></li>
 				</ul>
@@ -134,7 +134,7 @@
 							</div>
 							<div class="boardTotalGrade">
 								<h3>
-									${starAvg } / 5 <small>(${total }개 후기)</small>
+									??(...) / 5 <small>(${list.size() }개 후기)</small>
 								</h3>
 								<hr>
 							</div>
@@ -146,44 +146,15 @@
 									<div class="reviewMoveWin">
 										<a href="productReviewSave?rno=${vo.rno }">
 											<div class="textHeader">
-												
-												<!-- 별점을 별 갯수 만큼 반복문 돌려주기 -->
-												<c:forEach var="starNum" begin="1" end="${vo.star }">
-												<div class="reviewStar">★</div>
-												</c:forEach>
-												<c:choose>
-													<c:when test="${vo.star == 4 }">
-														<div style="float: left;">☆</div>
-													</c:when>
-													<c:when test="${vo.star == 3 }">
-														<div style="float: left;">☆☆</div>
-													</c:when><c:when test="${vo.star == 2 }">
-														<div style="float: left;">☆☆☆</div>
-													</c:when><c:when test="${vo.star == 1 }">
-														<div style="float: left;">☆☆☆☆</div>
-													</c:when>
-												</c:choose>
-												
+												<div class="reviewStar">${vo.star }</div>
 												<div class="reviewWriter">${vo.writer }</div>
-												<div class="reviewDate"><fmt:formatDate value="${vo.updatedate }" pattern="yyyy.MM.dd"/></div>
+												<div class="reviewDate">${vo.regdate }</div>
 											</div>
 											<div class="reviewTextArea">
-												${vo.title }
-												${sessionScope.userVO.userId }
+												${vo.content }
+												<hr />
 											</div>
 										</a>
-										<div class="helpCheck" id="helpCheck" style="margin-top: 45px;">
-											<strong><span>${vo.helpcount }</span>명에게 도움 됨</strong>
-											<!-- 카운트 0일때 -->
-											<strong style="display: none;">이 후기가 도움이 되었나요?</strong>
-											
-											<!-- 각 버튼 비동기 처리 -->
-											<c:if test="${sessionScope.userVO != null }">
-											<button class="btn btn-default btn-xs helpUpBtn" value="${vo.rno }" style="margin-left: 10px; color: #fff; background-color: cornflowerblue;">도움이 돼요</button>
-											</c:if>
-											<%-- <button class="btn btn-default btn-xs helpDownBtn" value="${vo.rno }" style="margin-left: 5px; color: #fff; background-color: rgb(171, 188, 227);">도움 안 돼요</button> --%>
-										</div>
-										<hr />
 									</div>
 									</c:forEach>
 									<!-- 여기까지 반복문 돌려서 후기를 쌓기 -->
@@ -195,30 +166,23 @@
         						<ul class="paging">
 
             						<!-- 이전 -->
-            						<c:if test="${pageVO.prev }">
-            						<li class="prev"><a href="productMain?pageNum=${pageVO.startPage - 1 }&amount=${pageVO.amount }&pnScroll=true">이전</a></li>
-            						</c:if>
+            						<li class="prev"><a href="#">이전</a></li>
 
 						            <!-- 페이지 -->
-						            <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
-						            <li class="${pageVO.pageNum eq num ? 'active' : '' }">
-						            	<a href="productMain?pageNum=${num }&amount=${pageVO.amount }&pnScroll=true">${num }</a>
-						            </li>
-						            </c:forEach>
+						            <li class="active"><a href="#">1</a></li>
+						            <li><a href="#">2</a></li>
+						            <li><a href="#">3</a></li>
+						            <li><a href="#">4</a></li>
+						            <li><a href="#">5</a></li>
 
 						            <!-- 다음 -->
-						            <c:if test="${pageVO.next }">
-						            <li class="next"><a href="productMain?pageNum=${pageVO.endPage + 1 }&amount=${pageVO.amount }&pnScroll=true">다음</a></li>
-						            </c:if>
-
+						            <li class="next"><a href="#">다음</a></li>
 
 						            <!-- 후기쓰기 -->
-						            <c:if test="${sessionScope.userVO != null }">
 						            <div class="reviewPostBtn">
 						                <button type="button" class="btn" 
-						                	onclick="location.href='productReviewCheck?userId=${sessionScope.userVO.userId }' ">후기 쓰기</button>
+						                	onclick="location.href='productReviewRegist?pcode=${info.pcode }' ">후기 쓰기</button>
 						            </div>
-						            </c:if>
 
 						        </ul>
 						    </div>
@@ -300,19 +264,19 @@
         var bt5 = document.querySelector(".bt5");
 
         bt1.addEventListener("click", function() {
-            window.scrollTo({top: box1.offsetTop - 100, behavior: "smooth"})
+            window.scrollTo({top: box1.offsetTop - 170, behavior: "smooth"})
         })
         bt2.addEventListener("click", function() {
-            window.scrollTo({top: box2.offsetTop - 100, behavior: "smooth"})
+            window.scrollTo({top: box2.offsetTop - 170, behavior: "smooth"})
         })
         bt3.addEventListener("click", function() {
-            window.scrollTo({top: box3.offsetTop - 100, behavior: "smooth"})
+            window.scrollTo({top: box3.offsetTop - 170, behavior: "smooth"})
         })
         bt4.addEventListener("click", function() {
-            window.scrollTo({top: box4.offsetTop - 100, behavior: "smooth"})
+            window.scrollTo({top: box4.offsetTop - 170, behavior: "smooth"})
         })
         bt5.addEventListener("click", function() {
-            window.scrollTo({top: box5.offsetTop - 100, behavior: "smooth"})
+            window.scrollTo({top: box5.offsetTop - 170, behavior: "smooth"})
         })
 
     </script>
@@ -320,11 +284,6 @@
     <script>
     
     	window.onload = function() {
-    		
-    		/* 페이지네이션 버튼을 클릭하여 후기 리스트를 볼 경우에는 바로 후기 페이지 위치로 이동합니다. */
-    		if('${pageVO.cri.pnScroll}' == 'true') {
-    			window.scrollTo({top: box3.offsetTop - 100});
-    		}
     		
     		if(history.state == '') return;
     		
@@ -337,7 +296,6 @@
 				console.log(history.state);
 			
     		}
-    		
     	}
     	
     </script>
@@ -349,137 +307,5 @@
             window.scrollTo({top: topBox.offsetTop, behavior: "smooth"})
         })
     </script>
-    
-    <!-- helpCheck 비동기 처리 -->
-    <script>
-    	$(document).ready(function() {
-    		var parent = document.querySelector(".reviewTextWrap");
-    		var pcode = "${info.pcode}";
-    		var userId = "${sessionScope.userVO.userId }";
-    		
-    		parent.onclick = () => {
-    			if(event.target.nodeName !== 'BUTTON') return;
-    			
-				if(event.target.classList.contains("helpUpBtn")) {
-					var rno = event.target.value;
-					/* console.log(rno);
-					console.log(pcode);
-					console.log(event.target.parentElement);
-					console.log(event.target.parentElement.nextElementSibling);
-					
-					console.log(event.target.parentElement.firstChild);
-					console.log(event.target.parentElement.firstChild.nextElementSibling);
-					console.log(event.target.parentElement.firstChild.nextElementSibling.firstChild);
-					console.log(event.target.parentElement.firstChild.nextElementSibling.firstChild.innerHTML); */
-					var changeTarget = event.target.parentElement.firstChild.nextElementSibling.firstChild;
-					var helpCount = event.target.parentElement.firstChild.nextElementSibling.firstChild.innerHTML;
-					
-					/* console.log(event.target.parentElement.firstChild.nextElementSibling.nextSibling.nextElementSibling); */
-					var changeCss = event.target.parentElement.firstChild.nextElementSibling.nextSibling.nextElementSibling; // 아래 스트롱 문구
-					
-					var changeCss2 = event.target.parentElement.firstChild.nextElementSibling; // 위에 스트롱 문구
-					
-					console.log(rno);
-					console.log(pcode);
-					console.log(userId);
-					
-					
-					
-					
-					$.ajax({
-	    				type : "post",
-	    				url : "helpCountChange",
-	    				dataType: "json",
-	    				contentType: "application/json; charset=UTF-8",
-	    				data : JSON.stringify({"rno": rno, "pcode": pcode, "userId": userId}),
-	    				success : function(data) {
-	    					if(data == 1) { //성공, 도움돼요+1
-	    						
-	    						var plus = (changeTarget.innerHTML*1) + 1;
-	    						changeTarget.innerHTML = plus;
-	    							    						
-	    						
-	    						
-	    					}  else if(data == 0) { //성공, 도움돼요-1
-	    						
-	    						var minus = (changeTarget.innerHTML*1) - 1;
-	    						changeTarget.innerHTML = minus;
-	    						
-	    						
-	    						
-	    					} else { //실패
-	    						alert("등록에 실패했습니다. 다시 시도하세요");
-	    					}
-	    					
-	    				},
-	    				error : function(status, error) {
-	    					alert("등록 실패입니다. 잠시 후에 다시 시도하세요");
-	    				}
-	    			});
-					
-				}
-				
-    			
-				/* if(event.target.classList.contains("helpDownBtn")) {
-					var rno = event.target.value;
-					var changeTarget = event.target.parentElement.firstChild.nextElementSibling.firstChild;
-					var helpCount = event.target.parentElement.firstChild.nextElementSibling.firstChild.innerHTML;
-					
-					var changeCss = event.target.parentElement.firstChild.nextElementSibling.nextSibling.nextElementSibling; // 아래 스트롱 문구
-					
-					var changeCss2 = event.target.parentElement.firstChild.nextElementSibling; // 위에 스트롱 문구
-					
-					$.ajax({
-	    				type : "post",
-	    				url : "helpCountDown",
-	    				dataType: "json",
-	    				contentType: "application/json; charset=UTF-8",
-	    				data : JSON.stringify({"rno": rno, "pcode": pcode}),
-	    				success : function(data) {
-	    					if(data == 1) { //성공
-	    						
-	    						if(helpCount == 0) {
-	    							changeCss2.style.display = "none";
-	    							changeCss.style.display = "inline-block";
-	    							
-	    							return;
-	    						}
-	    						var plus = (changeTarget.innerHTML*1) - 1;
-	    						changeTarget.innerHTML = plus;
-	    						
-	    					}  else { //실패
-	    						alert("등록에 실패했습니다. 다시 시도하세요");
-	    					}
-	    					
-	    				},
-	    				error : function(status, error) {
-	    					alert("등록 실패입니다. 잠시 후에 다시 시도하세요");
-	    				}
-	    			});
-					
-				} */
-    			
-    			
-    			
-    			
-    			
-    		} 
-    		
-    	})
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	/* $(".reviewTextWrap").on("click", "button", function() {
-    		console.log(event.target);
-    		console.log(event.target.value);
-    	}) */
-    
-    </script>
-    
     
     
