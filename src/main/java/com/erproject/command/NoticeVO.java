@@ -19,8 +19,9 @@ public class NoticeVO {
 	private String notice_Content; // 내용
 	private int notice_View = 0; // 조회수
 	private String notice_Regdate; // 등록일
-	private String notice_UpdateDate; // 수정일
-	
+
+	private String notice_UpdateDate; // 업데이트 등록일
+
 	private List<NoticeImageVO> noticeImageList; 
 	
 	private List<MultipartFile> file;

@@ -5,13 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PhotoListVO {
-
-	private int PhotoBno;
-	private int PhotoMini;
-	private int PhotoTitle;
-	private int PhotoAdd;
+@NoArgsConstructor
+public class ProductHelpVO {
 	
+	private String userId;
+	private int rno;
+	private String pcode;
+	private int helpcount;
+
 }

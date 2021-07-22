@@ -20,4 +20,7 @@ public class ProductReviewVO {
 	private Timestamp updatedate;
 	private String pcode;
 
+	private int helpcount;
+
+
 }

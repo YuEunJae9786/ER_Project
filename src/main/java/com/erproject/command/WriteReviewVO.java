@@ -14,4 +14,5 @@ public class WriteReviewVO {
 	private String writer;
 	private String title;
 	private Timestamp regdate;
+	
 }
