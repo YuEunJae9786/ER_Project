@@ -6,9 +6,10 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/csBoard.css">
 	<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/cookie.js"></script>
 
 	<style>
-		.content-view-wrap {
+		.content-view-wrap, .reply-comment {
 		    white-space: pre-wrap;
 		}
 	</style>
@@ -29,10 +30,10 @@
 
     <!-- 글등록 -->
     <div class="container post-regist hidden2">
-        <form action="noticeRegist" method="post" id="registForm">
+        <form action="noticeRegist" method="post" id="registForm" enctype="multipart/form-data">
         
         	<!-- 컨트롤러에 같이 넘겨줘야 하는 데이터 -->
-        	<input type="hidden" id="boardWriter" name="" value="master123">
+        	<input type="hidden" id="boardWriter" name="" value="${userVO.userId }">
         	
         	<div class="categori" id="boardCategori">
 	        	<label>대분류</label><br/>
@@ -52,16 +53,15 @@
             
             <!-- 이미지 업로드 미리보기 -->
             <div class="fileDiv">
-				<img id="fileImg" src="">
 			</div>
         	
             <!-- 내용 -->
             <label>내용</label><br/>
             <textarea id="boardContent" name="" class="regist-content" placeholder="내용을 입력하세요"></textarea><br/>
 
-            <div class="btn">
-            	<label for="file" class="file">이미지 업로드</label>
-                <input type="file" id="file" name="file" class="btn btn-default btn-upload ">
+            <div class="imageBtn">
+            	<label for="file0" class="file" >이미지 업로드</label>
+                <input type="file" id="file0" name="file[0]" class="btn btn-default btn-upload ">
                 <button type="button" id="registBtn" class="btn btn-default btn-signature2">등록</button>
             </div>
 
@@ -96,9 +96,10 @@
 	        <!-- 검색 -->
 	        <div class="search">
 	            <select name="searchType">
-	                <option value="title">제목</option>
-	                <option value="writer">작성자</option>
-	                <option value="tiwri">제목+작성자</option>
+                    <option value=''>검색타입</option>
+	                <option value="title" >제목</option>
+	                <option value="writer" >작성자</option>
+	                <option value="tiwri" >제목+작성자</option>
 	            </select>
 	
 	            <input type="text" name="searchName" placeholder="검색내용">
@@ -133,14 +134,16 @@
 	                    <li class="col-xs-12 content-view hidden">
 	                    	<c:forEach var="imageList" items="${list.noticeImageList }">
 		                        <div class="content-view-img">
-		                            <img src="/noticeImageFilePath/${imageList.ni_Name}" alt="이미지">
+		                            <img src="view/${imageList.ni_Path }/${imageList.ni_Name}" alt="이미지">
 		                        </div>
 	                        </c:forEach>
 	                        <div class="content-view-wrap">${list.notice_Content }</div>
-	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.notice_No});">삭제</button>
-	                        </div>
+	                        <c:if test="${userVO.userId eq 'master123' }">
+		                        <div class="content-view-btn">
+		                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.notice_No}'">수정</button>
+		                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.notice_No});">삭제</button>
+		                        </div>
+	                        </c:if>
 	                    ​</li>
 	                </ul>
            		</c:forEach>
@@ -174,14 +177,16 @@
 	                    <li class="col-xs-12 content-view hidden">
 		                    <c:forEach var="imageList" items="${list.faqImageList }">
 		                        <div class="content-view-img">
-		                            <img src="/faqImageFilePath/${imageList.fi_Name}" alt="이미지">
+		                            <img src="view/${imageList.fi_Path }/${imageList.fi_Name}" alt="이미지">
 		                        </div>
 		                    </c:forEach>
 	                        <div class="content-view-wrap">${list.faq_Content }</div>
-	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.faq_No});">삭제</button>
-	                        </div>
+	                        <c:if test="${userVO.userId eq 'master123' }">
+		                        <div class="content-view-btn">
+		                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.faq_No}'">수정</button>
+		                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.faq_No});">삭제</button>
+		                        </div>
+	                        </c:if>
 	                    ​</li>
                 	</ul>
                 </c:forEach>
@@ -206,7 +211,14 @@
                 	<ul>
 	                    <li class="col-xs-2 col-sm-1">${list.qna_No }</li>
 	                    <li class="col-xs-3 col-md-6">
-	                        <a href="#" id="a" onclick="contentView(${list.qna_No })">${list.qna_Title }</a>
+	                        <a href="#" id="a" onclick="contentView(${list.qna_No }, '${list.qna_Writer }', '${list.qna_Tow }')">
+	                         	<c:if test="${list.qna_Tow eq 'secret' }">
+			                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+									  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+									</svg>
+								</c:if>
+	                        	${list.qna_Title }
+	                        </a>
 	                    </li>
 	                    <li class="col-xs-2 col-md-2">${list.qna_Writer }</li>
 	                    <li class="col-xs-3 col-md-2">${list.qna_Regdate }</li>
@@ -214,27 +226,36 @@
 	                    <li class="col-xs-12 content-view hidden">
 	                        <div class="content-view-wrap">${list.qna_Content }</div>
 	                        <div class="content-view-btn">
-	                            <button type="button" class="btn btn-default btn-signature1">수정</button>
-	                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
-	                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
+	                        	<c:if test="${userVO.userId eq list.qna_Writer }">
+		                            <button type="button" class="btn btn-default btn-signature1" onclick="location.href='csBoardUpdate?bno=${list.qna_No}'">수정</button>
+		                        </c:if>
+		                        <c:if test="${userVO.userId eq 'master123' }">
+		                            <button type="button" id="btn-reply" class="btn btn-default btn-signature1">답변</button>
+		                         </c:if>
+		                         <c:if test="${userVO.userId eq list.qna_Writer or userVO.userId eq 'master123' }">
+		                            <button type="button" class="btn btn-default btn-signature2" onclick="deleteList(${list.qna_No})">삭제</button>
+		                        </c:if>
 	                        </div>
 	                        <!-- 답변 -->
-	                        <div class="col-xs-12 content-reply">
-	                            <div class="reply-id">
-	                                <span>아이디 : </span>
-	                            </div>
-	                            <div class="reply-comment">
-                               			답변이 길어져도 어떻게 잘 되기 위해서 어디까지 길어져야 확인할 수가 있는거지? 좀 알려줄래요?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	                            </div>
-	                        </div>
+	                        <c:forEach items="${list.qnaAnswerList }" var="answerList">
+		                        <div class="col-xs-12 content-reply">
+		                            <div class="reply-id">
+		                                <span>${answerList.qa_Writer } : </span>
+		                            </div>
+		                            <div class="reply-comment">${answerList.qa_Content }</div>
+		                        </div>
+	                        </c:forEach>
 	                        
 	                        <!-- 답변 폼 -->
-	                        <form action="" method="post" class="hidden">
-	                            <textarea class="regist-reply">답변쓰기</textarea>
+	                        <form action="replyRegist" method="post" class="hidden">
+	                            <textarea class="regist-reply" name="qa_Content" placeholder="답변쓰기"></textarea>
 	
 	                            <div class="btn-right">
-	                                <button type="button" class="btn btn-single btn-signature1">등록</button>
+	                                <button type="submit" class="btn btn-single btn-signature1">등록</button>
 	                            </div>
+	                            
+	                            <input type="hidden" name="qna_No" value="${list.qna_No }">
+	                            <input type="hidden" name="qa_Writer" value="master123">
 	                        </form>
 	                    ​</li>
                 	</ul>
@@ -307,15 +328,16 @@
 	
 	        </ul>
 
-             <!-- 글쓰기 -->
-             <div class="btn-right">
+            <!-- 글쓰기 -->
+            <div class="btn-right">
                 <button type="button" class="btn btn-default btn-signature1 btn-single" id="regist">글쓰기</button>
             </div>
-
+            
             <input type="hidden" name="pageNum" value="1">
             <input type="hidden" name="orderType" value="${orderUtil.orderType }">
             <input type="hidden" name="searchType" value="${orderUtil.searchType }">
             <input type="hidden" name="searchName" value="${orderUtil.searchName }">
+            <input type="hidden" name="listOrder" value="${orderUtil.listOrder }">
 	        
 	    </div>
     </form>
@@ -326,7 +348,7 @@
     	$(document).ready( function() {
     		
             // 글쓰기 등록
-	   		$("#registForm > .btn > #registBtn").click( function() {
+	   		$("#registBtn").click( function() {
 	   			
 	   			$("#registForm > input[name=whereBoard]").attr("value", $(".content-header .active").html() );
 	   			
@@ -345,39 +367,8 @@
 	   				$("#registForm textarea[id=boardContent]").attr("name", "faq_Content");
 	   			}
 
-	   			setCookie("whereboard", whereBoard);
+                setCookie("whereboard", whereBoard);
 	   			$("#registForm").submit();
-	   			
-                /* 파일 업로드 */
-                var file = $("#file").val();
-                file = file.slice(file.lastIndexOf(".", file.length) + 1 , file.length); // 파일 확장자
-				
-				if(file != 'png' && file != 'jpg' && file != 'bmp'){
-					alert("이미지 파일형태만 등록가능 합니다(jpg, png, bmp)");
-					return;
-				} 
-
-                var formData = new FormData();
-                formData.append("whereboard", whereBoard);
-                formData.append("file", $("#file")[0].files[0]);
-
-                $.ajax({
-					type: "post",
-					url: "imageUpload",
-					processData: false, // 키=값 으로 전송되는 것을 막는 옵션
-					contentType: false, // default 멀티파트 폼데이터 형식으로 지정
-					data: formData,
-					success: function(data){
-						
-                        $("#file").val(""); // 태그
-                        $(".fileDiv").css("display", "none"); // 안보이도록 처리
-
-					},
-					error: function(status, error){
-						console.log(status, error);
-						alert("서버 문제가 발생했습니다. 관리자에게 문의하세요.");
-					}
-				});
 	   			
 	   		}); // click
 	   		
@@ -448,6 +439,7 @@
             document.querySelector( ".content-page > " + document.querySelector( "#" + active).dataset.select  ).classList.remove("hidden");
 
             listOption(); // 처음에 대분류를 화면에 표시할지 메서드 실행
+            registBtn(); // 글쓰기 버튼 표시 여부
         });
 
         /* 헤더 active */
@@ -475,11 +467,13 @@
 
             $(".post-regist").css("display", "none");
 
-            listOption();
+            listOption(); // 대분류 보여줄지 말지
 
             setCookie("whereboard", $(".content-header .active").html());
 
-            init();
+            init(); // 설정되어있던 pageNum 등 초기화
+            
+            registBtn(); // 글쓰기 버튼 표시 여부
             
             document.pageForm.submit();
         });
@@ -492,9 +486,38 @@
                 $(".list-mainCategori").css("display", "inline-block");
             }
         }
-            
-
-        /* 글쓰기 hidden */
+        
+        /* 글쓰기버튼 hidden 처리 */
+        function registBtn() {
+        	
+        	var user = "${userVO.userId}";
+        	var whereboard = getCookie("whereboard");
+        	
+        	if(whereboard == 'Notice' || whereboard == 'FAQ'){
+        		
+        		if(user != 'master123'){
+        			if($("#regist").hasClass("hidden") == false){
+	        			$("#regist").addClass("hidden");
+        			}
+        		} else {
+        			$("#regist").removeClass("hidden");
+        		}
+        		
+        	} else if(whereboard == 'QNA'){
+        		
+        		if(user == '' || user == 'master123'){
+        			if($("#regist").hasClass("hidden") == false){
+	        			$("#regist").addClass("hidden");
+        			}
+        		} else {
+        			$("#regist").removeClass("hidden");
+        		}
+        		
+        	}
+        	
+        }
+        
+        /* 글등록 hidden */
         $("#regist").click( function() {
             
             /* QNA 게시판에서 글쓰기를 누를경우 페이지 이동 */
@@ -523,8 +546,21 @@
 
         /* 글 상세 */
         var preTarget;
-        function contentView(bno) {
+        function contentView(bno, writer, tow) {
             event.preventDefault();
+            
+            // 비밀글 체크
+            if(getCookie("whereboard") == 'QNA'){
+            	if(tow == 'secret'){
+            		
+	  	      	    var user = "${userVO.userId}";
+	            
+	    	        if(user != writer && user != 'master123'){
+	    	        	alert("비밀글은 본인만 열람 가능합니다.");
+	    	        	return;
+	    	        }
+            	}
+            }
             
             /* 현재 누른 타겟 */
             var currentTarget = event.target.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.classList;
@@ -566,7 +602,8 @@
         $(".content-notice-box3").on("click", "button", function() {
             if(  $(this).attr("id") != 'btn-reply' ) return;
 
-            var currentTarget = event.target.parentElement.nextElementSibling.nextElementSibling.classList;
+            var currentTarget = event.target.parentElement.nextElementSibling.classList;
+            console.log(currentTarget);
             currentTarget.toggle("hidden");
         });
         
@@ -575,6 +612,7 @@
         	document.pageForm.pageNum.value = 1;
         	document.pageForm.searchType.value = '';
         	document.pageForm.searchName.value = '';
+        	document.pageForm.listOrder.value = '';
         }
 
     </script>
@@ -596,51 +634,63 @@
     
     </script>
     
+    <!-- 이미지 업로드 처리 -->
     <script>
 		//자바 스크립트 파일 미리보기 기능
+        var obj = {count: 0};
+        $("#registBtn").click(function() {
+            obj.count = 0;
+        })
 		function readURL(input) {
         	if (input.files && input.files[0]) {
         		
-            	var reader = new FileReader(); //비동기처리를 위한 파읽을 읽는 자바스크립트 객체
-            	//readAsDataURL 메서드는 컨텐츠를 특정 Blob 이나 File에서 읽어 오는 역할 (MDN참조)
-	        	reader.readAsDataURL(input.files[0]); 
-            	//파일업로드시 화면에 숨겨져있는 클래스fileDiv를 보이게한다
-	            $(".fileDiv").css("display", "block");
-            	
-            	reader.onload = function(event) { //읽기 동작이 성공적으로 완료 되었을 때 실행되는 익명함수
-                	$('#fileImg').attr("src", event.target.result); 
-                	console.log(event.target); //event.target은 이벤트로 선택된 요소를 의미
-	        	}
+                /* 파일 업로드 */
+                var file = input.files[0].name;
+                file = file.slice(file.lastIndexOf(".", file.length) + 1 , file.length); // 파일 확장자
+                
+                console.log(file);
+                
+                if(file != 'png' && file != 'jpg' && file != 'bmp'){
+                    alert("이미지 파일형태만 등록가능 합니다(jpg, png, bmp)");
+                    $("#file" + obj.count).val('');
+                    return;
+                } else if (file == '' || file == null){
+                    alert("이미지 파일형태만 등록가능 합니다(jpg, png, bmp)");
+                    $("#file" + obj.count).val('');
+                    return;
+                } else {
+                    var reader = new FileReader(); //비동기처리를 위한 파읽을 읽는 자바스크립트 객체
+                    //readAsDataURL 메서드는 컨텐츠를 특정 Blob 이나 File에서 읽어 오는 역할 (MDN참조)
+                    reader.readAsDataURL(input.files[0]); 
+                    
+                    $(".fileDiv").append(
+                    		"<div class='imageFile'>" +
+                    		"<img class='fileImg[" + obj.count + "]'  src=''>" +
+                    		"<button type='button' class='imgDeleteBtn' data-info='file" + obj.count + "'>x</button>" +
+                    		"</div>"
+                    		);
+                    
+                    reader.onload = function(event) { //읽기 동작이 성공적으로 완료 되었을 때 실행되는 익명함수
+                        $("img[class='fileImg[" + obj.count + "]']").attr("src", event.target.result); 
+                        $("#file" + obj.count)[0].files = input.files;
+                        obj.count++;
+                        $("#registForm .imageBtn").append("<input type='file' id='file" + obj.count + "' name='file[" + obj.count + "]' class='btn btn-default btn-upload '>");
+                        $("label[class='file']").attr("for", "file" + obj.count);
+                    }
+                }
         	}
 	    }
-		$("#file").change(function() {
-	        readURL(this); //this는 #file자신 태그를 의미
-	        
-	    });
+        
+        $(".imageBtn").on("change", "input[type='file']", function() {
+
+            readURL(this); //this는 #file자신 태그를 의미
+        });
+
+        $(".fileDiv").on("click", "button[class='imgDeleteBtn']", function() {
+
+            event.target.parentElement.classList.add("hidden");
+            $("#" + event.target.dataset.info).remove();
+        })
+		
 	</script>
-
-    <!-- 쿠기 -->
-    <script>
-    	function setCookie(cookieName, cookieValue) {
-    		var date = new Date();
-    		date.setDate(date.getDate() + 1);
-
-            var willCookie = "";
-            willCookie += cookieName + "=" + cookieValue + ";";
-            willCookie += "expires=" + date;
-
-            document.cookie = willCookie;
-    	}
-
-        function getCookie(cookieName){
-
-            var cookies = document.cookie.split(";");
-
-            for(var i in cookies){
-                if(cookies[i].indexOf(cookieName) != -1){
-                    return cookies[i].replace(" ", "").replace(cookieName + "=", "");
-                }
-            }
-        }
-    </script>
     

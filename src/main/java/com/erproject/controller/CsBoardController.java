@@ -1,6 +1,9 @@
 package com.erproject.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,20 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.erproject.command.APP_CONSTANT;
+import com.erproject.command.CsUpdateVO;
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
+import com.erproject.command.QnaAnswerVO;
 import com.erproject.command.QnaVO;
 import com.erproject.csboard.service.CsBoardService;
 import com.erproject.util.Criteria;
@@ -42,6 +52,8 @@ public class CsBoardController {
 	public void csBoard(OrderUtil orderUtil,
 						Criteria cri,
 						Model model) {
+		
+		System.out.println(orderUtil.toString());
 		
 //		노티스 게시판 페이징 만들기
 		PageVO noticePage = new PageVO(cri, csBoardService.getNoticeTotal(orderUtil));
@@ -74,12 +86,35 @@ public class CsBoardController {
 		
 	}
 	
+	@RequestMapping("/csBoardUpdate")
+	public void csBoardUpdate(@RequestParam("bno") int bno,
+							  HttpServletRequest request,
+							  Model model) {
+		
+		Cookie[] cookies = request.getCookies();
+		
+		if( cookies != null && cookies.length > 0) { // 쿠키가 있는경우
+			
+			for(int i = 0 ; i < cookies.length ; i++) {
+				
+				if(cookies[i].getName().equals("whereboard")) { // whereboard 라는 쿠키
+					String whereBoard = cookies[i].getValue();
+					model.addAttribute("whereBoard", whereBoard);
+					
+					model.addAttribute("UpdateList", csBoardService.getUpdateList(whereBoard, bno));
+				}
+			}
+		}
+		
+		
+	}
+	
 //	notice 게시판 글 등록
 	@RequestMapping("/noticeRegist")
 	public String noticeRegist(NoticeVO vo, 
 							   RedirectAttributes RA) {
 		
-		System.out.println(vo.toString());
+		System.out.println(vo.getFile().toString());
 		
 		int result = csBoardService.noticeRegist(vo);
 		
@@ -96,8 +131,6 @@ public class CsBoardController {
 	@RequestMapping("/faqRegist")
 	public String faqRegist(FaqVO vo,
 							RedirectAttributes RA) {
-		
-		System.out.println(vo.toString());
 		
 		int result = csBoardService.faqRegist(vo);
 		
@@ -124,6 +157,44 @@ public class CsBoardController {
 		} else {
 			RA.addFlashAttribute("msg", "글 등록에 실패했습니다. 다시 시도하세요");
 		}
+		
+		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	QnA 게시판 답변 글 등록
+	@RequestMapping("/replyRegist")
+	public String replayRegist(QnaAnswerVO vo,
+							   RedirectAttributes RA) {
+		
+		int result = csBoardService.qnaAnswerRegist(vo);
+		
+		if( result == 1) {
+			RA.addFlashAttribute("msg", "답변이 등록 되었습니다.");
+		} else {
+			RA.addFlashAttribute("msg", "답변 등록에 실패했습니다. 다시 시도하세요");
+		}
+		
+		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	게시판 수정하기 완료
+	@RequestMapping("/CsUpdateOK")
+	public String CsUpdateOK(CsUpdateVO vo, HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println(vo.toString());
+		
+		Cookie[] cookies = request.getCookies();
+		
+		if(cookies != null && cookies.length > 0) { // 쿠기가 있는 경우
+			
+			for(int i = 0 ; i < cookies.length; i++) {
+				if(cookies[i].getName().equals("whereboard")) {
+					csBoardService.updateList(cookies[i].getValue(), vo);
+				}
+			}
+			
+		}
+		
 		
 		return "redirect:/csBoard/csBoardList";
 	}
@@ -177,18 +248,30 @@ public class CsBoardController {
 		return "redirect:/csBoard/csBoardList";
 	}
 	
-//	이미지 업로드
+//	이미지 조회해서 가져오기
 	@ResponseBody
-	@CrossOrigin("*")
-	@RequestMapping(value= "/imageUpload", method = RequestMethod.POST)
-	public void imageUpload(@RequestParam("file") MultipartFile file,
-							  @RequestParam("whereboard") String whereboard) {
+	@RequestMapping("view/{fileLoca}/{fileName:.+}")
+	public ResponseEntity<byte[]> view(@PathVariable("fileLoca") String fileLoca,
+									   @PathVariable("fileName") String fileName) {
 		
-		System.out.println(whereboard);
-		System.out.println(file);
+		ResponseEntity<byte[]> result = null;
 		
-		csBoardService.imageUpload(whereboard, file);
+		try {
+//			파일데이터를 바이트데이터로 변환해서 반환
+			File file = new File(APP_CONSTANT.UPLOAD_PATH + "\\" + fileLoca + "\\" + fileName);
+			
+//			반환할 헤더객체
+			HttpHeaders header = new HttpHeaders(); //
+			header.add("Content-type", Files.probeContentType(file.toPath() ));
+			
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		return result;
 	}
+	
 	
 }

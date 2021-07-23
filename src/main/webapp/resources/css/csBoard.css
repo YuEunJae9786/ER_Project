@@ -64,6 +64,18 @@ a:hover, a:focus {
     text-align: left;
 }
 
+/* 이미지 미리보기 */
+.fileDiv > .imageFile {
+	display: inline-block;
+	position: relative;
+}
+
+.fileDiv > .imageFile > .imgDeleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .post-regist .file {
     text-align: center;
     color: white;
@@ -74,7 +86,7 @@ a:hover, a:focus {
     font-size: 15px;
 }
 
-.post-regist input#file {
+.post-regist input[type="file"] {
 	position: absolute;
 	width: 1px;
     height: 1px;
@@ -86,7 +98,7 @@ a:hover, a:focus {
     
 }
 
-.post-regist > form > .btn {
+.post-regist > form > .imageBtn {
     float: right;
 }
 
