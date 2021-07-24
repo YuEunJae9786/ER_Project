@@ -7,5 +7,5 @@ import com.erproject.command.KickListVO;
 public interface LocationService {
 	public int setMarkInfo(KickListVO vo);
 	public List<KickListVO> getKickInfo();
-	public List<KickListVO> updateKickInfo();
+	public int updateMarkInfo(KickListVO vo);
 }

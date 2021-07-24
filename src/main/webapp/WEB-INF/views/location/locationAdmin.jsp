@@ -44,8 +44,8 @@
 					url : "updateMarkInfo",
 					dataType : "json", //요청 데이터 형식
 					contentType : "application/json",//보내는 데이터에 대한 타입
-					success : function(kickInfo) {//성공시 돌려받을 콜백
-						alert("성공적으로 데이터가 추가 되었습니다.");
+					success : function(result) {//성공시 돌려받을 콜백
+						console.log(result);
 					},
 					error : function(status, error) {//실패시 결과를 돌려받을 콜백
 						console.log(status,

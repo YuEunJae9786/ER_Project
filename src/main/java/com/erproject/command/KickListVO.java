@@ -13,8 +13,8 @@ public class KickListVO {
 	private int markNo;
 	private String pCode;
 	private String cCode;
-	private Double location_x;
-	private Double location_y;
+	private double location_x;
+	private double location_y;
 	private String isRental;
 	private Date rentalDate;
 }
