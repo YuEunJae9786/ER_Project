@@ -27,9 +27,9 @@
                     <!-- 기본정보 리스트 -->
                     <div id="list${kickInfo.markNo}" class="kick-info-list">
                         <div class="mask">
-                            <div>모델명</div>
-                            <div>회사명</div>
-                            <div>좌표 정보</div>
+                            <div>${kickInfo.getPCode()}</div>
+                            <div>${kickInfo.getCCode()}</div>
+                            <br>
                             <div>상세보기</div>
                         </div>
                         <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"alt="" class="kick-img">  
@@ -40,8 +40,8 @@
                             <div class="detail-info">
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
                                     <!-- String 타입의 pcode와 ccode를 넣었을 때 vo를 찾지못하는 에러 발생 확인 -->
-                                    <div>모델명 : ${kickInfo.location_y}</div>
-                                    <div>회사명 : ${kickInfo.location_x}</div>
+                                    <div>모델명 : ${kickInfo.getPCode()}</div>
+                                    <div>회사명 : ${kickInfo.getCCode()}</div>
                                 </div>
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
                                      <div>좌표 정보</div>
@@ -55,7 +55,7 @@
 							스팩1.<br>
 							스팩2.<br>
 							스팩3.<br>
-                            <a>더 많은 정보 보러가기(여기에는 링크를 걸어준다.)</a>
+                            <a href="#">더 많은 정보 보러가기</a>
                         </div>
                         <div>
                             <button class="btn btn-default btn-signature1">문의하기</button>
