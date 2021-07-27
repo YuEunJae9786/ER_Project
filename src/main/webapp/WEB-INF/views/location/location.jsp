@@ -23,23 +23,22 @@
             <ul id="kick-list" class="kick-list">
                 <!-- forEach써서 리스트 목록 나오게설정 -->
                 <c:forEach var="kickInfo" items="${kickList}">
-                <li id="list${kickInfo.markNo}">
+                <li id="list${kickInfo.getMarkNo()}">
                     <!-- 기본정보 리스트 -->
-                    <div id="list${kickInfo.markNo}" class="kick-info-list">
+                    <div id="list${kickInfo.getMarkNo()}" class="kick-info-list">
                         <div class="mask">
                             <div>${kickInfo.getPCode()}</div>
                             <div>${kickInfo.getCCode()}</div>
                             <br>
                             <div>상세보기</div>
                         </div>
-                        <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png"alt="" class="kick-img">  
+                        <img src="${pageContext.request.contextPath }/resources/img/kick.png<%-- ${kickInfo.getProductInfoVO().getPimg1()} --%>"alt="" class="kick-img">  
                     </div>
                     <!-- 상세정보 -->
                     <div id="detail${kickInfo.markNo}" class="kick-info-detail">
                         <div class="detail-fix">
                             <div class="detail-info">
                                 <div style="border-bottom: 0.5px solid #ccc; padding: 10px; margin-bottom: 10px;">
-                                    <!-- String 타입의 pcode와 ccode를 넣었을 때 vo를 찾지못하는 에러 발생 확인 -->
                                     <div>모델명 : ${kickInfo.getPCode()}</div>
                                     <div>회사명 : ${kickInfo.getCCode()}</div>
                                 </div>
@@ -48,17 +47,17 @@
                                      <div style="padding: 5px;">좌표 (${kickInfo.location_x}, ${kickInfo.location_y})</div>
                                 </div>
                             </div>
-                            <img src="//thumbnail10.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/08f3/40b6e6c7e6086d690435883a6fa0a6d71dbd6751713617c3b1203e906240.png" alt="" class="detail-img">  
+                            <img src="${pageContext.request.contextPath }/resources/img/kick.png<%-- ${kickInfo.getProductInfoVO().getPimg1()} --%>" alt="" class="detail-img">  
                         </div>
                         <div class="spec">
 							상세정보 <br>
-							스팩1.<br>
-							스팩2.<br>
-							스팩3.<br>
-                            <a href="#">더 많은 정보 보러가기</a>
+							스팩1. ${kickInfo.getProductInfoVO().getPspec1()}<br>
+							스팩2. ${kickInfo.getProductInfoVO().getPspec2()}<br>
+							스팩3. ${kickInfo.getProductInfoVO().getPspec3()}<br>
+                            <a href="${pageContext.request.contextPath}/product/productMain?pcode=${kickInfo.getPCode()}">더 많은 정보 보러가기</a>
                         </div>
                         <div>
-                            <button class="btn btn-default btn-signature1">문의하기</button>
+                            <button class="btn btn-default btn-signature1" onclick="location.href='${pageContext.request.contextPath}/csBoard/csBoardList'">문의하기</button>
                             <button class="btn btn-default btn-signature2">예약하기</button>
                         </div>                           
                     </div>           
@@ -142,18 +141,6 @@
 	    //var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
       	
 	    function clickClusterer(clusterer, originMap){	
-			/*kakao.maps.event.addListener( clusterer, 'clusterover', function( cluster ) {
-	    		var styles = [{
-	    	        width : '83px', height : '83px'
-	    	    }];
-
-	    		clusterer.setStyles(styles);
-	    	});
-	    	
-	    	kakao.maps.event.addListener( clusterer, 'clusterout', function( cluster ) {
-	    		clusterer.setGridSize(60);
-	    	}); */
-	    	
 			kakao.maps.event.addListener( clusterer, 'clusterclick', function( cluster ) {
 				// 현재 지도 레벨에서 1레벨 확대한 레벨
 		        var level = originMap.getLevel()-1;
@@ -217,9 +204,13 @@
                 !!selectedMarker && selectedMarker.setImage(normalImage);
                 
                 // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-                
                 marker.setImage(clickImage);
-                //getKickList(marker.Fb);
+                // 이동할 위도 경도 위치를 생성합니다 
+                var moveLatLon = marker.n;
+                // 지도 중심을 부드럽게 이동시킵니다
+                // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+                map.panTo(marker);
+                
             } else if(selectedMarker){
                 if(marker.getImage()==clickImage) {
                     marker.setImage(normalImage);
@@ -227,6 +218,7 @@
                     marker.setImage(clickImage);
                 }
             }
+            
             hideKickList(marker.Fb)
             getKickList(marker.Fb);
             // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KickListVO {
+public class KickDetailVO {
 	private int markNo;
 	private String pCode;
 	private String cCode;

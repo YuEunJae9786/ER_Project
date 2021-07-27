@@ -22,8 +22,8 @@ public class LocationController {
 	@RequestMapping("/location")
 	public String location(Model model) {
 		List<KickListVO> kickList = locationService.getKickInfo();
-		model.addAttribute("kickList",kickList);
 		
+		model.addAttribute("kickList",kickList);
 		return "location/location";
 	};
 	
@@ -31,5 +31,4 @@ public class LocationController {
 	public void locationAdmin() {
 
 	};
-	
 }

@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/map.css">
+    <div class="here">킥보드 위치 정보 업데이트</div>
     
-    <br>
-	<button type="button" id="insertBtn">apiInsert</button>
-	<br>
-	<br>
-	<button type="button" id="updateBtn">apiUpdate</button>
-	<br>
+    <div class="update-box" style="margin:100px;padding:50px;">
+		<button type="button" id="insertBtn">apiInsert</button>
+		<br>
+		<br>
+		<button type="button" id="updateBtn">apiUpdate</button>
+    </div>
 	
 	<script type="text/javascript">
 		$("#insertBtn").click(function getFetch() {
@@ -45,7 +47,7 @@
 					dataType : "json", //요청 데이터 형식
 					contentType : "application/json",//보내는 데이터에 대한 타입
 					success : function(result) {//성공시 돌려받을 콜백
-						console.log(result);
+						alert("성공적으로 업데이트 되었습니다.");
 					},
 					error : function(status, error) {//실패시 결과를 돌려받을 콜백
 						console.log(status,
