@@ -12,9 +12,42 @@
 		.content-view-wrap, .reply-comment {
 		    white-space: pre-wrap;
 		}
+		
+		.chatting {
+		    position: fixed;
+		
+		    top: 20%;
+		    right: 10px;
+		}
+		
+		.chat-wrap {
+		
+		    width: 300px;
+		
+		    padding: 10px 0;
+		}
+		
+		.chat-wrap > p {
+		    text-align: center;
+		}
+		
+		.chat-wrap > .chat {
+		    height: 200px;
+		    border: 1px solid #777;
+		    
+		    overflow: auto;
+		}
+		
+		.chat-wrap > .chat > p > span:hover {
+			cursor: pointer;
+		}
+		
+		.chat-wrap > input[type='text'] {
+		    width: 230px;
+		}
 	</style>
 
-<!-- 본문 제목 -->
+	<!-- 본문 제목 -->
     <div class="col-xs-12">
         <div class="content-title">고객지원</div>
     </div>
@@ -48,7 +81,7 @@
         	
             <!-- 제목 -->
             <label>제목</label><br/>
-            <input type="text" id="boardTitle" name="" placeholder="제목을 입력하세요" autocomplete="off" style="width: 70%;"><br/>
+            <input type="text" id="boardTitle" name="" placeholder="제목을 입력하세요" autocomplete="off" style="width: 70%;" required><br/>
             <hr/>
             
             <!-- 이미지 업로드 미리보기 -->
@@ -57,7 +90,7 @@
         	
             <!-- 내용 -->
             <label>내용</label><br/>
-            <textarea id="boardContent" name="" class="regist-content" placeholder="내용을 입력하세요"></textarea><br/>
+            <textarea id="boardContent" name="" class="regist-content" placeholder="내용을 입력하세요" required></textarea><br/>
 
             <div class="imageBtn">
             	<label for="file0" class="file" >이미지 업로드</label>
@@ -342,6 +375,20 @@
 	    </div>
     </form>
     
+    <!-- 관리자와 1:1 채팅 -->
+    <c:if test="${userVO != null }">
+	    <aside class="chatting">
+	        <div class="chat-wrap">
+	
+	            <p>관리자와 1:1 채팅</p>
+	
+	            <div class="chat"></div>
+	            <input type="text" name="chat" id="chat">
+	            <button type="button" class="btn btn-default btn-signature1" id="chatBtn">보내기</button>
+	        </div>
+	    </aside>
+    </c:if>
+    
     <!-- 컨트롤러 이동 스크립트 -->
     <script>
     	
@@ -617,23 +664,6 @@
 
     </script>
     
-    <!-- 메시지 처리 -->
-    <script>
-    
-    	$(document).ready( function() {
-    		
-    		if(history.state == '' ) return;	
-    		
-	    	var msg = '<c:out value="${msg }" />';
-	    	if(msg != ''){
-	    		alert(msg);
-				// 기존 기록을 삭제하고 새로운 기록을 추가 ( 이렇게 변경된 값은 history.state로 데이터를 확인가능 )
-				history.replaceState('', null, null);
-	    	}
-    	});
-    
-    </script>
-    
     <!-- 이미지 업로드 처리 -->
     <script>
 		//자바 스크립트 파일 미리보기 기능
@@ -691,6 +721,126 @@
             event.target.parentElement.classList.add("hidden");
             $("#" + event.target.dataset.info).remove();
         })
+	</script>
+	
+	<!-- 1:1채팅 소켓 -->
+	<script>
+	
+		// 웹소켓
+	    var websocket;
+		var chatLog = $(".chat");
+		var enterChatCount = 0;
+		
+		// 채팅 Input 포커스 시
+		$("#chat").focus(function() {
+			if(enterChatCount == 0){
+				connect();
+				enterChatCount++;
+			}
+		});
+		
+		// 채팅 보낼 상대 클릭
+		var chatTarget;
+		chatLog.on("click", "span", function() {
+            var userId = "${userVO.userId}";
+            if(userId != 'master123') return;
+
+            chatTarget = $(this).html();
+            $("#chat").val("(" + chatTarget + "에게) ");
+            
+            $("#chat").focus(); // 메세지 포커스
+        });
+		
+		// 채팅 엔터
+		$("#chat").keyup(function() {
+			if(event.keyCode != 13) return;
+			chattingSend();
+		});
+		
+		// 채팅 보내기 클릭 시
+		$("#chatBtn").click(function() {
+			chattingSend();
+		});
+		
+		// 메세지 보내기
+		function chattingSend() {
+			if($("#chat").val() =='') return;
+				
+			var userId = "${userVO.userId}";
+			
+			var chatMsg = $("#chat").val();
+			$("#chat").val("");
+			
+			if(userId != 'master123'){
+				var appendMsg = "<p><나> :" + chatMsg + "</p>";
+				chatLog.append(appendMsg);
+			
+				sendMessage(userId + ",master123," + chatMsg);				
+			} else {
+				chatLog.append("<p>나 : " + chatMsg + "</p>");
+				
+				chatMsg = chatMsg.substring(chatMsg.indexOf(")") + 1, chatMsg.length);
+				sendMessage(userId + "," + chatTarget + "," + chatMsg);
+			}
+			
+			divScrollControl();
+		}
+	
+	    //입장 버튼을 눌렀을 때 호출되는 함수
+	    function connect() {
+	        // 웹소켓 주소
+	        var wsUri = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/csBoardSocket";
+	        // 소켓 객체 생성
+	        websocket = new WebSocket(wsUri);
+	        //웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
+	        websocket.onopen = onOpen;
+	        websocket.onmessage = onMessage;
+	        websocket.sendMessage = sendMessage;
+	        websocket.onclose = onClose;
+	        
+	    }
+	    
+	    //웹 소켓에 연결되었을 때 호출될 함수
+	   	function onOpen() {
+	   		chatLog.append("<p>연결 되었습니다.</p>");
+	    }
+	    
+	    // * 1 메시지 전송
+	    function sendMessage(message) {
+	    	websocket.send(message);
+	    }
+	   
+	    // * 2 메세지 수신
+	    function onMessage(event) {
+	    	chatLog.append("<p>" + event.data + "</p>");
+	    	divScrollControl();
+	    }
+	    
+	    // 웹 소켓이 종료되었을 때 호출될 함수
+	    function onClose(event) {
+	    	chatLog.append("<p> 채팅이 종료되었습니다. </p>");
+	    	divScrollControl();
+	    }
+	    
+	    // 채팅창 스크롤 아래로 내리기
+	    function divScrollControl() {
+	    	chatLog.scrollTop(chatLog[0].scrollHeight);
+	    }
 		
 	</script>
+	
+	<!-- 메시지 처리 -->
+    <script>
+    	$(document).ready( function() {
+    		
+    		if(history.state == '' ) return;	
+    		
+	    	var msg = '<c:out value="${msg }" />';
+	    	if(msg != ''){
+	    		alert(msg);
+				// 기존 기록을 삭제하고 새로운 기록을 추가 ( 이렇게 변경된 값은 history.state로 데이터를 확인가능 )
+				history.replaceState('', null, null);
+	    	}
+    	});
+    </script>
     

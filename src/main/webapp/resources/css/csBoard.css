@@ -297,6 +297,40 @@ a:hover, a:focus {
     color: #fff;
 }
 
+/* aside 관리자와 채팅 */
+.chatting {
+    position: fixed;
+
+    top: 20%;
+    right: 10px;
+}
+
+.chat-wrap {
+
+    width: 300px;
+
+    padding: 10px 0;
+}
+
+.chat-wrap > p {
+    text-align: center;
+}
+
+.chat-wrap > .chat {
+    height: 200px;
+    border: 1px solid #777;
+    
+    overflow: auto;
+}
+
+.chat-wrap > .chat > p > span:hover {
+	cursor: pointer;
+}
+
+.chat-wrap > input[type='text'] {
+    width: 230px;
+}
+
 /* 글쓰기 버튼 */
 .btn-right {
     float: right;

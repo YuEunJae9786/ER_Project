@@ -47,7 +47,7 @@
                             <!-- 작성자 -->
                             <div class="form-title">
                                 <label>작성자 : </label>
-                                <input type="text" name="writer" value="${UpdateList.writer }" disabled>
+                                <input type="text" name="writer" value="${UpdateList.writer }" readonly>
                             </div>
                             
                             <!-- 제목 -->
@@ -67,7 +67,9 @@
                             
                             <!-- 버튼 -->
                             <div class="content-btn">
-                            	<label for="" class="file" >이미지 업로드</label>
+                            	<c:if test="${userVO.userId eq 'master123' }">
+                            		<label for="" class="file" >이미지 업로드</label>
+                            	</c:if>
                                 <button type="submit" class="btn btn-default btn-signature1">완료</button>
                                 <button type="button" class="btn btn-default btn-signature2" onclick="location.href='csBoardList'">취소</button>
                                 
