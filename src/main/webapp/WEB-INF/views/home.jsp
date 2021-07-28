@@ -22,7 +22,7 @@
                     <div class="wrapBtn">
                         <button class="button"><span class="glyphicon glyphicon-search gly"></span>비교하기</button>
                         <button class="button"><span class="glyphicon glyphicon-cloud gly"></span>리뷰쓰기</button>
-                        <button class="button" onclick="location.href='product/kangarooProductList'"><span class="glyphicon glyphicon-tags gly"></span>제품상세</button>
+                        <button class="button" onclick="location.href='product/ProductListSelect'"><span class="glyphicon glyphicon-tags gly"></span>제품상세</button>
                       </div>
             
                   </div>
