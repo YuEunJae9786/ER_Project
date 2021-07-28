@@ -14,7 +14,7 @@ public interface ProductService {
 //	public ArrayList<ProductReviewVO> reviewGetList(String pcdoe); // 메인 화면에 후기 리스트 가져오기
 	
 	public ArrayList<ProductReviewVO> reviewGetList(String pcode, Criteria cri); // 메인 화면에 후기 리스트 가져오기 + 페이지네이션
-	public int getTotal(); // 전체 게시글 수 가져오기
+	public int getTotal(String pcode); // 전체 게시글 수 가져오기
 	
 	public ProductReviewVO getDetail(int rno); // 후기 상세에서 보여질 데이터 가져오기
 	public int update(ProductReviewVO vo); // 후기 업데이트
@@ -33,7 +33,7 @@ public interface ProductService {
 	public double starAverage(int starSum, int total);
 	
 	// 후기 중복 확인 메서드
-	public int productReviewCheck(String userId);
+	public int productReviewCheck(String userId, String pcode);
 	
 //	// 도움 카운트 플러스 메서드
 //	public int helpCountUp(ProductReviewVO vo);

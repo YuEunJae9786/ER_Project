@@ -51,7 +51,7 @@
 					<div class="titlefoot">
 						<button type="submit" class="btn btn-default reviewRegistBtn">등록</button>
 						<button type="button" class="btn btn-default reviewListBtn"
-							onclick="location.href='productMain?pnScroll=true'">목록</button>
+							onclick="location.href='productMain?pcode=${pcode}&pnScroll=true'">목록</button>
 					</div>
 				</form>
 

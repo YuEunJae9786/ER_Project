@@ -1,5 +1,5 @@
--- 데이터베이스에 넣어 줄 제품 정보입니다! 전체 선택, 복사해서 sqldevelop에 넣어주고 커밋해주시면 됩니다..
--- ALTON 
+-- 데이터베이스에 넣어 줄 제품 정보입니다! 전체 선택, 복사해서 sqldevelop에 넣어주고 커밋해주시면 됩니다...
+-- ALTON
 insert into productinfo values('ALTON', 'ALTON Kick Board', '(주) ALTON (THE ALTON CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
 	MY ALTON <br />
 	부담 없이 렌탈하고 <br />
