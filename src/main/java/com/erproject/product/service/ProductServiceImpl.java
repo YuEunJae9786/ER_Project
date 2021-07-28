@@ -1,6 +1,8 @@
 package com.erproject.product.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,13 +52,19 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ArrayList<ProductReviewVO> reviewGetList(String pcode, Criteria cri) {
 		
-		return productMapper.reviewGetList(pcode, cri);
+		Map<String, String> map = new HashMap<>();
+		map.put("pcode", pcode);
+		map.put("pageNum", Integer.toString(cri.getPageNum()));
+		map.put("amount", Integer.toString(cri.getAmount()));
+		
+		
+		return productMapper.reviewGetList(map);
 	}
 
 	@Override
-	public int getTotal() {
+	public int getTotal(String pcode) {
 		
-		return productMapper.getTotal();
+		return productMapper.getTotal(pcode);
 	}
 
 	@Override
@@ -86,9 +94,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int productReviewCheck(String userId) {
+	public int productReviewCheck(String userId, String pcode) {
 		
-		return productMapper.productReviewCheck(userId);
+		return productMapper.productReviewCheck(userId, pcode);
 	}
 
 	@Override

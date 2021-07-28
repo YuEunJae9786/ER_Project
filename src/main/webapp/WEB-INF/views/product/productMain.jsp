@@ -19,24 +19,24 @@
 				<div class="productImgWrapper">
 					<div class="productImgMain">
 						<div class="productImgDetail">
-							<img src="${pageContext.request.contextPath }/resources/img/kick2.png">
+							<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg1}">
 						</div>
 					</div>
 					<div class="productImgSub">
 						<div class="subImg">
-							<img src="${pageContext.request.contextPath }/resources/img/kick2.png" id="${pageContext.request.contextPath }/resources/img/kick2.png">
+							<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg1}" id="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg1}">
 						</div>
 						<div class="subImg">
-							<img src="${pageContext.request.contextPath }/resources/img/kick1.jpg" id="${pageContext.request.contextPath }/resources/img/kick1.jpg">
+							<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg2}" id="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg2}">
 						</div>
 						<div class="subImg">
-							<img src="${pageContext.request.contextPath }/resources/img/kick3.jpg" id="${pageContext.request.contextPath }/resources/img/kick3.jpg">
+							<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg3}" id="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg3}">
 						</div>
 						<div class="subImg">
-							<img src="${pageContext.request.contextPath }/resources/img/kick4.jpg" id="${pageContext.request.contextPath }/resources/img/kick4.jpg">
+							<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg4}" id="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg4}">
 						</div>
 						<div class="subImg">
-							<img src="${pageContext.request.contextPath }/resources/img/copy.png" id="${pageContext.request.contextPath }/resources/img/copy.png">
+							<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg5}" id="${pageContext.request.contextPath }/resources/img/productimg/${info.pimg5}">
 						</div>
 					</div>
 
@@ -94,10 +94,10 @@
 							</div>
 							<div class="kickInfoImg">
 								<div class="kickImgSrc">
-									<img src="${pageContext.request.contextPath }/resources/img/productSpecImg.png">
+									<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pinfoimg1}">
 								</div>
 								<div class="kickImgSrc">
-									<img src="${pageContext.request.contextPath }/resources/img/productInfoImg.jpg">
+									<img src="${pageContext.request.contextPath }/resources/img/productimg/${info.pinfoimg2}">
 								</div>
 							</div>
 						</div>
@@ -169,7 +169,6 @@
 											</div>
 											<div class="reviewTextArea">
 												${vo.title }
-												${sessionScope.userVO.userId }
 											</div>
 										</a>
 										<div class="helpCheck" id="helpCheck" style="margin-top: 45px;">
@@ -196,19 +195,19 @@
 
             						<!-- 이전 -->
             						<c:if test="${pageVO.prev }">
-            						<li class="prev"><a href="productMain?pageNum=${pageVO.startPage - 1 }&amount=${pageVO.amount }&pnScroll=true">이전</a></li>
+            						<li class="prev"><a href="productMain?pageNum=${pageVO.startPage - 1 }&amount=${pageVO.amount }&pnScroll=true&pcode=${pcode }">이전</a></li>
             						</c:if>
 
 						            <!-- 페이지 -->
 						            <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
 						            <li class="${pageVO.pageNum eq num ? 'active' : '' }">
-						            	<a href="productMain?pageNum=${num }&amount=${pageVO.amount }&pnScroll=true">${num }</a>
+						            	<a href="productMain?pageNum=${num }&amount=${pageVO.amount }&pnScroll=true&pcode=${pcode }">${num }</a>
 						            </li>
 						            </c:forEach>
 
 						            <!-- 다음 -->
 						            <c:if test="${pageVO.next }">
-						            <li class="next"><a href="productMain?pageNum=${pageVO.endPage + 1 }&amount=${pageVO.amount }&pnScroll=true">다음</a></li>
+						            <li class="next"><a href="productMain?pageNum=${pageVO.endPage + 1 }&amount=${pageVO.amount }&pnScroll=true&pcode=${pcode }">다음</a></li>
 						            </c:if>
 
 
@@ -216,7 +215,7 @@
 						            <c:if test="${sessionScope.userVO != null }">
 						            <div class="reviewPostBtn">
 						                <button type="button" class="btn" 
-						                	onclick="location.href='productReviewCheck?userId=${sessionScope.userVO.userId }' ">후기 쓰기</button>
+						                	onclick="location.href='productReviewCheck?userId=${sessionScope.userVO.userId }&pcode=${pcode }' ">후기 쓰기</button>
 						            </div>
 						            </c:if>
 

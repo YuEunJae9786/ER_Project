@@ -15,86 +15,136 @@
 
 				<div class="contents">
 					<ul class="inner">
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick2.png" class="product">
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/altonimg1.png" class="product">
 							<h2>Product With kangaroo</h2>
 							<h3>
-								KICKGOING <span class=""></span> <br /> COMPANY NAME
+								ALTON Kick Board<br /> 
+								리뷰 (${reviewTotal[0]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> KICKGOING<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=ALTON">
+									Product(상세보기)
+									<hr />
+									ALTON Kick Board<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick4.jpg" class="product">
-							<h2>Product With Variants</h2>
+							</div>
+						</li>
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/motoveloimg1.jpg" class="product">
+							<h2>Product With kangaroo</h2>
 							<h3>
-								★★★☆☆ <span class="">REVIEWS(12)</span> <br /> XINGXING
+								MOTOVELO Kick Board<br /> 
+								리뷰 (${reviewTotal[1]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> XINGXING<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=MOTOVELO">
+									Product(상세보기)
+									<hr />
+									MOTOVELO Kick Board<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick3.jpg" class="product">
-							<h2>Product With Variants</h2>
+							</div>
+						</li>
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/nionq01img1.jpg" class="product">
+							<h2>Product With kangaroo</h2>
 							<h3>
-								★★★☆☆ <span class="">2REVIEWS(S)</span> <br /> $59.99
+								바이클로 Kick Board<br /> 
+								리뷰 (${reviewTotal[2]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> SWING<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=Nio-NQ-01">
+									Product(상세보기)
+									<hr />
+									바이클로 킥보드<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick1.jpg" class="product">
-							<h2>Product With Variants</h2>
+							</div>
+						</li>
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/onestep10dimg1.jpg" class="product">
+							<h2>Product With kangaroo</h2>
 							<h3>
-								★★★☆☆ <span class="">2REVIEWS(S)</span> <br /> $59.99
+								One Step Kick Board<br /> 
+								리뷰 (${reviewTotal[3]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> LIME<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=One-Step-10D">
+									Product(상세보기)
+									<hr />
+									One Step Kick Board<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick2.png" class="product">
-							<h2>Product With Variants</h2>
+							</div>
+						</li>
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/switchs10img1.jpg" class="product">
+							<h2>Product With kangaroo</h2>
 							<h3>
-								★★★☆☆ <span class="">2REVIEWS(S)</span> <br /> $59.99
+								SWING Kick Board<br /> 
+								리뷰 (${reviewTotal[4]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> KICKGOING<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=Switch-S10">
+									Product(상세보기)
+									<hr />
+									SWING Kick Board<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick4.jpg" class="product">
-							<h2>Product With Variants</h2>
+							</div>
+						</li>
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/zetaimg1.jfif" class="product">
+							<h2>Product With kangaroo</h2>
 							<h3>
-								★★★☆☆ <span class="">2REVIEWS(S)</span> <br /> $59.99
+								REDWING Kick Board<br /> 
+								리뷰 (${reviewTotal[5]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> XINGXING<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=ZETA">
+									Product(상세보기)
+									<hr />
+									REDWING Kick Board<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick3.jpg" class="product">
-							<h2>Product With Variants</h2>
+							</div>
+						</li>
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/m365img1.jpeg" class="product">
+							<h2>Product With kangaroo</h2>
 							<h3>
-								★★★☆☆ <span class="">2REVIEWS(S)</span> <br /> $59.99
+								Xiaomi Kick Board<br /> 
+								리뷰 (${reviewTotal[6]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> SWING<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=M365">
+									Product(상세보기)
+									<hr />
+									Xiaomi Kick Board<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
-						<li><img src="${pageContext.request.contextPath }/resources/img/kick1.jpg" class="product">
-							<h2>Product With Variants</h2>
+							</div>
+						</li>
+						<li><img src="${pageContext.request.contextPath }/resources/img/productimg/prc-456img1.jpg" class="product">
+							<h2>Product With kangaroo</h2>
 							<h3>
-								★★★☆☆ <span class="">2REVIEWS(S)</span> <br /> $59.99
+								샤오미 전동킥보드<br /> 
+								리뷰 (${reviewTotal[7]})
 							</h3>
 							<div class="content-hover">
-								<a href="#"> Product(상세보기)
-									<hr /> LIME<br /> 후기(15)<br /> ★★★☆☆<br /> PCODE
+								<a href="productMain?pcode=PRC-456">
+									Product(상세보기)
+									<hr />
+									샤오미 전동킥보드<br /> 
+									제품페이지로<br />
+									이동합니다.
 								</a>
-							</div></li>
+							</div>
+						</li>
+						
+						
 
 					</ul>
 				</div>
