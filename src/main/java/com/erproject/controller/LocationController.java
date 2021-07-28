@@ -24,7 +24,6 @@ public class LocationController {
 		List<KickListVO> kickList = locationService.getKickInfo();
 		
 		model.addAttribute("kickList",kickList);
-		
 		return "location/location";
 	};
 	
@@ -32,5 +31,4 @@ public class LocationController {
 	public void locationAdmin() {
 
 	};
-	
 }
