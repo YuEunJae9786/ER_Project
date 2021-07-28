@@ -205,11 +205,8 @@
                 
                 // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
                 marker.setImage(clickImage);
-                // 이동할 위도 경도 위치를 생성합니다 
-                var moveLatLon = marker.n;
-                // 지도 중심을 부드럽게 이동시킵니다
-                // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-                map.panTo(marker);
+                
+                //panTo(marker);
                 
             } else if(selectedMarker){
                 if(marker.getImage()==clickImage) {
@@ -225,6 +222,15 @@
             selectedMarker = marker;
             
         }
+        
+        function panTo(marker) {
+            // 이동할 위도 경도 위치를 생성합니다 
+            var moveLatLon = new kakao.maps.LatLng(marker.getPosition().Ma, marker.getPosition().La);
+            
+            // 지도 중심을 부드럽게 이동시킵니다
+            // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+            map.panTo(moveLatLon);            
+        }    
 
 	    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
         //selectedMarker = marker;
