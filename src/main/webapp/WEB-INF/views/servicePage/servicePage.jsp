@@ -27,13 +27,15 @@
   <div id="fullpage">
     <!-- 첫번째 화면 -->
     <div class="section servicepage-s1">
-
-      <div class="s1-header">
+    
+          <div class="s1-header">
           <a href="" class="s1header-logo"><img src="${pageContext.request.contextPath }/resources/img/logo.png" alt=""></a>
           <a href="" class="s1header-login">Login</a>
           <a href="" class="s1header-join">Join</a>
           <a href="" class="s1header-mypage">Mypage</a>
       </div>
+
+
       
       <div class="s1-pp">
         <p class="s1-p">Kangaroo</p>

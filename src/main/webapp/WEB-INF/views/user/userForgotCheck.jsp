@@ -67,7 +67,7 @@
     	} else if(emailCode.value.length ==6 ){
     		
     		emailCode.style.borderColor = "cornflowerblue";
-    		msgCode.innerHTML = "올바른 인증번호입니다";      
+    		msgCode.innerHTML = "올바른 인증번호양식입니다";      
     		msgCode.style.color="cornflowerblue";
     		
     		
