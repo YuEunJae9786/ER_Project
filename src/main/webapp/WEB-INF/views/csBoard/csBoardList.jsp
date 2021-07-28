@@ -356,7 +356,7 @@
 	    </aside>
     </c:if>
     
-    <script src="${pageContext.request.contextPath }/resources/js/csBoard.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/js/csBoardList.js"></script>
     
     <script>
     	userId = "${userVO.userId}";
