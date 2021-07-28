@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-  <script src="https://www.littlesnippets.net/css/codepen-result.css"></script>
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css">
+ 
+  
   
   <section class="one">
        
@@ -23,6 +26,42 @@
                       </div>
             
                   </div>
+
+              </div>
+              
+                <div class="twoMain" style="width: 40%; float: right;">
+             
+                
+                <div id="app">
+                  <input type="checkbox" id="toggle" name="toggle" />
+                  
+                  <div class="background">
+                    <div class="bg-content">
+                      <div class="drip"></div>
+                      <div class="drip"></div>
+                      <div class="drip"></div>
+                    </div>
+                    <div class="bg-description">
+                      <div class="drip"></div>
+                      <div class="drip"></div>
+                      <div class="drip"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="labelcontent" >
+    
+                    <header class="kNum-header"  style="font-style: italic; font-size: 1em;">현재 대여가능 킥보드 수 </header>
+                    
+                    <label class="button kNumBtn" for="toggle" style="color: cornflowerblue; margin:0;"></label>
+                  </div>
+                  <div class="description">
+                    <header class="kNum-header" style="font-style: italic; font-size: 1.3em;">
+                      <input type="text" value="${result }" style="background-color:cornflowerblue; text-align:center; border:none">
+                    </header>
+                  
+                  </div>
+                  
+                </div>
 
               </div>
 
@@ -104,8 +143,39 @@
         
     </section>
 
-    <section class="three">
+  <div class=""style="width: 100%; height: 150px; background-color: #6495ed;">
+	<div class=""><p style="color: white; text-align: center; font-size: 3em; font-style: italic;"><br>무엇이든 물어보세요</p>
+		<p style="color: white; text-align: center; font-size: 1.5em; font-style: italic; margin-top: -8px;">1:1문의, 자주하는질문등을 통해 여러분의 궁금증을 해결해드립니다</p>
+	</div>
+ </div>
+
+<section class="threeB">
+      
+        <div class="man">
+            <div class="manhead"></div>
+            <div class="manbody"></div>
+            <div class="manfeet">
+              <div class="manfoot"></div>
+              <div class="manfoot"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="wrapBtn">
+                <button class="button" onclick="location.href='${pageContext.request.contextPath }/Notice'"><span class=""></span>Notice</button>
+                <button class="button" onclick="location.href='${pageContext.request.contextPath }/FAQ'"><span class=""></span>FaQ</button>
+                <button class="button" onclick="location.href='${pageContext.request.contextPath }/QNA'"><span class=""></span>QnA</button>
+              </div>
+          </div>
+       
     
+        </div>
+    
+   
+        
+
+
+      
     </section>
 
 
