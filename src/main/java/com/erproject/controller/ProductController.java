@@ -32,12 +32,12 @@ public class ProductController {
 	// 제품 상세 페이지 화면처리 & 후기 리스트 (제품 데이터도 가져오는 작업 추가해야함)
 	@RequestMapping("/productMain")
 	public void productMain(Model model,
-							Criteria cri) {
+							Criteria cri,
+							@RequestParam("pcode") String pcode) {
 		
-		String pcode = "S1"; // 테스트
 		
 		ArrayList<ProductReviewVO> list = productService.reviewGetList(pcode, cri);
-		int total = productService.getTotal();
+		int total = productService.getTotal(pcode);
 		PageVO pageVO = new PageVO(cri, total);
 		
 		model.addAttribute("list", list); // 화면에 전달
@@ -47,6 +47,7 @@ public class ProductController {
 		
 		model.addAttribute("pageVO", pageVO);
 		model.addAttribute("total", total);
+		model.addAttribute("pcode", pcode);
 		
 		ArrayList<Integer> starList = productService.starGetList(pcode);
 		int starSum = productService.starTotalSum(starList);
@@ -69,17 +70,18 @@ public class ProductController {
 	// 로그인 회원은 1개의 제품 후기만 작성할 수 있음. (제품 후기 작성 화면으로 넘어가기 전 확인 작업)
 	@RequestMapping("productReviewCheck")
 	public String productReviewCheck(@RequestParam("userId") String userId,
+									 @RequestParam("pcode") String pcode,
 									 RedirectAttributes RA,
 									 Model model) {
 		
-		int result = productService.productReviewCheck(userId);
+		int result = productService.productReviewCheck(userId, pcode);
 //		System.out.println("작성한 후기 수: " + result);
 		
 		if(result >= 1) {
 			RA.addFlashAttribute("msg", "제품 후기는 1개만 작성할 수 있습니다.");
-			return "redirect:/product/productMain";
+			return "redirect:/product/productMain?pcode=" + pcode;
 		}
-		String pcode = "S1";
+		
 		model.addAttribute("pcode", pcode);
 		return "product/productReviewRegist";
 	}
@@ -110,7 +112,7 @@ public class ProductController {
 							 RedirectAttributes RA) {
 		
 		int result = productService.reviewRegist(vo);
-		
+		String pcode = vo.getPcode();
 //		System.out.println(result);
 		if(result == 1) {
 			RA.addFlashAttribute("msg", "후기 등록이 정상적으로 완료되었습니다.");
@@ -118,7 +120,7 @@ public class ProductController {
 			RA.addFlashAttribute("msg", "후기 등록에 실패하였습니다. 다시 시도해 주세요.");
 		}
 		
-		return "redirect:/product/productMain";
+		return "redirect:/product/productMain?pcode=" + pcode;
 	}
 	
 	// 제품 후기 업데이트
@@ -127,7 +129,7 @@ public class ProductController {
 							   RedirectAttributes RA) {
 		
 		int result = productService.update(vo);
-		
+		String pcode = vo.getPcode();
 //		System.out.println(result);
 		if(result == 1) {
 			RA.addFlashAttribute("msg", "후기 수정이 정상적으로 완료되었습니다.");
@@ -135,15 +137,17 @@ public class ProductController {
 			RA.addFlashAttribute("msg", "후기 수정에 실패하였습니다. 다시 시도해 주세요.");
 		}
 		
-		return "redirect:/product/productMain";
+		return "redirect:/product/productMain?pcode=" + pcode;
 	}
 	
 	// 제품 후기 삭제하기
 	@RequestMapping("/reviewDelete")
 	public String reviewDelete(@RequestParam("rno") int rno,
+							   @RequestParam("pcode") String pcode,
 							   RedirectAttributes RA) {
 		
 		int result = productService.delete(rno);
+		
 //		System.out.println(result);
 		if(result == 1) {
 			RA.addFlashAttribute("msg", "후기 삭제가 정상적으로 완료되었습니다.");
@@ -151,7 +155,7 @@ public class ProductController {
 			RA.addFlashAttribute("msg", "후기 삭제에 실패하였습니다. 다시 시도해 주세요.");
 		}
 		
-		return "redirect:/product/productMain";
+		return "redirect:/product/productMain?pcode=" + pcode;
 	}
 	
 	// 도움 카운트 컨트롤러
@@ -176,6 +180,18 @@ public class ProductController {
 //		
 //		return result;
 //	}
+	
+	// 제품 목록 페이지를 가기전 처리할 작업
+	@RequestMapping("/ProductListSelect")
+	public String ProductListSelect(Model model) {
+		String[] productList = {"ALTON", "MOTOVELO", "Nio-NQ-01", "One-Step-10D", "Switch-S10", "ZETA", "M365", "PRC-456"};
+		ArrayList<Integer> reviewTotal = new ArrayList<>();
+		for(int i = 0; i < productList.length; i++) {
+			 reviewTotal.add(productService.getTotal(productList[i]));
+		}
+		model.addAttribute("reviewTotal", reviewTotal);
+		return "product/kangarooProductList";
+	}
 	
 	// 제품 목록 페이지 화면처리
 	@RequestMapping("/kangarooProductList")

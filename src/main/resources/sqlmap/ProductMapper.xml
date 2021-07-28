@@ -10,21 +10,21 @@
   					VALUES(PRODUCTREVIEW_SEQ.NEXTVAL, #{writer}, #{title}, #{star}, #{content}, #{pcode}, #{helpcount})
   	</insert>
   	
-  	<select id="reviewGetList" resultType="ProductReviewVO">
+  	<select id="reviewGetList" resultType="ProductReviewVO" parameterType="HashMap">
   		<![CDATA[
   		select *
   		from (select rownum rn,
   					 a.*
   			  from (select *
   			  		from productreview
-  			  		where pcode = 'S1'
+  			  		where pcode = #{pcode}
   			  		order by rno desc) a)
-  		where rn > (#{cri.pageNum}-1) * #{cri.amount} and rn <= #{cri.pageNum} * #{cri.amount}
+  		where rn > (#{pageNum}-1) * #{amount} and rn <= #{pageNum} * #{amount}
   		]]>
   	</select>
   	
   	<select id="getTotal" resultType="int">
-  		select count(*) as total from productreview
+  		select count(*) as total from productreview where pcode = #{pcode}
   	</select>
   	
   	<select id="getDetail" resultType="ProductReviewVO">
@@ -45,15 +45,15 @@
   	</delete>
   	
   	<select id="productGetList" resultType="ProductInfoVO">
-  		select * from PRODUCTINFO where pcode = 'S1'
+  		select * from PRODUCTINFO where pcode = #{pcode}
   	</select>
   	
   	<select id="starGetList" resultType="int">
-  		select star from productreview where pcode = 'S1'
+  		select star from productreview where pcode = #{pcode}
   	</select>
   	
   	<select id="productReviewCheck" resultType="int">
-  		select count(*) from productreview where writer = #{userId}
+  		select count(*) from productreview where writer = #{userId} and pcode = #{pcode}
   	</select>
   	
   	<!-- <update id="helpCountUp">
