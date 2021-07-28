@@ -179,7 +179,7 @@ public class CsBoardController {
 	
 //	게시판 수정하기 완료
 	@RequestMapping("/CsUpdateOK")
-	public String CsUpdateOK(CsUpdateVO vo, HttpServletRequest request, HttpServletResponse response) {
+	public String CsUpdateOK(CsUpdateVO vo, HttpServletRequest request, HttpServletResponse response, RedirectAttributes RA) {
 		
 		System.out.println(vo.toString());
 		
@@ -189,7 +189,13 @@ public class CsBoardController {
 			
 			for(int i = 0 ; i < cookies.length; i++) {
 				if(cookies[i].getName().equals("whereboard")) {
-					csBoardService.updateList(cookies[i].getValue(), vo);
+					int result = csBoardService.updateList(cookies[i].getValue(), vo);
+					
+					if(result == 1) {
+						RA.addFlashAttribute("msg", "정상적으로 수정 되었습니다.");
+					} else {
+						RA.addFlashAttribute("msg", "오류가 발생했습니다. 다시 시도하세요");
+					}
 				}
 			}
 			
