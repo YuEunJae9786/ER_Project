@@ -125,9 +125,7 @@ public class ServicePageController {
 		String day5 = today.format(cal4.getTime());
 		String day6 = today.format(cal5.getTime());
 		String day7 = today.format(cal6.getTime());
-		
-		String ab =today.format(list.get(12).getRENTALDATE());
-		
+				
 		ArrayList<String> list2 = new ArrayList<String>();
 	
 		int[] arr = new int[7];
