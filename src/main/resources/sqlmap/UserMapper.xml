@@ -156,20 +156,8 @@
   	
   	<select id="rentalNum" resultType="int">
   	
-  	select count(*) as result from kickList where isRental =1
+  	select count(*) as result from kickList where isRental = 0
   	
   	</select>
   	
-
-  
-  
-  	
-  	
-  	
-
- 
-  
-  
-  
-  
   </mapper>
