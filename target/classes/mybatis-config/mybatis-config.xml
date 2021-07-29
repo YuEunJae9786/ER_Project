@@ -19,5 +19,6 @@
 			<typeAlias type="com.erproject.command.CsUpdateVO" alias="CsUpdateVO"/>	
 			<typeAlias type="com.erproject.command.GraphicVO" alias="GraphicVO"/>
 			<typeAlias type="com.erproject.command.KickListVO" alias="KickListVO" />
+			<typeAlias type="com.erproject.command.PhotoReviewVO" alias="PhotoReviewVO" />
 		</typeAliases>
 	</configuration>

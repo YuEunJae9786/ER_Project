@@ -181,21 +181,27 @@ public class ProductController {
 //		return result;
 //	}
 	
-	// 제품 목록 페이지를 가기전 처리할 작업
-	@RequestMapping("/ProductListSelect")
-	public String ProductListSelect(Model model) {
+//	// 제품 목록 페이지를 가기전 처리할 작업
+//	@RequestMapping("/ProductListSelect")
+//	public String ProductListSelect(Model model) {
+//		String[] productList = {"ALTON", "MOTOVELO", "Nio-NQ-01", "One-Step-10D", "Switch-S10", "ZETA", "M365", "PRC-456"};
+//		ArrayList<Integer> reviewTotal = new ArrayList<>();
+//		for(int i = 0; i < productList.length; i++) {
+//			 reviewTotal.add(productService.getTotal(productList[i]));
+//		}
+//		model.addAttribute("reviewTotal", reviewTotal);
+//		return "product/kangarooProductList";
+//	}
+	
+	// 제품 목록 페이지 화면처리
+	@RequestMapping("/kangarooProductList")
+	public void kangarooProductList(Model model) {
 		String[] productList = {"ALTON", "MOTOVELO", "Nio-NQ-01", "One-Step-10D", "Switch-S10", "ZETA", "M365", "PRC-456"};
 		ArrayList<Integer> reviewTotal = new ArrayList<>();
 		for(int i = 0; i < productList.length; i++) {
 			 reviewTotal.add(productService.getTotal(productList[i]));
 		}
 		model.addAttribute("reviewTotal", reviewTotal);
-		return "product/kangarooProductList";
-	}
-	
-	// 제품 목록 페이지 화면처리
-	@RequestMapping("/kangarooProductList")
-	public void kangarooProductList() {
 		
 	}
 	
