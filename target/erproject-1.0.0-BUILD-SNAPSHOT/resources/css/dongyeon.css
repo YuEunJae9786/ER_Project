@@ -1,0 +1,176 @@
+* {
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h2 {
+    font-size: 42px;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    margin: 0 0 10px;
+}
+a:hover, a:focus {
+    text-decoration: none;
+}
+
+.grade
+select {
+    padding: 3px;
+    width: 206px;
+    height: 31px;
+}
+
+/* 최신글, 조회순 */
+.box1 {
+    text-align: center;
+}
+
+.list-option {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+.list-option > select {
+    width: 220px;
+    height: 30px;
+}
+
+.list-categori > select {
+    width: 220px;
+    height: 30px;
+}
+
+.search > select {
+    width: 220px;
+    height: 30px;
+}
+
+/* 대분류 */
+.list-categori {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+/* 검색  */
+.search {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom : 10px;
+}
+
+
+.btn-signature1 {
+    float: right;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+}
+
+.btn-signature2 {
+    margin-top: -35px;
+    margin-right: 11px;
+    margin-bottom : 58px;
+    float: right;
+    text-align: center;
+    color: white;
+    background-color: rgb(171, 188, 227);
+    border: none;
+}
+
+.btn-single:hover {
+    text-align: center;
+    color: white;
+    background-color: rgb(171, 188, 227);
+    border: none;
+}
+
+.content-page {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.paging {
+    display: block;
+}
+
+.paging > li {
+    display:inline-block;
+    border-radius: 0px;
+    border: 1px solid cornflowerblue;
+    padding: 5px 10px;
+}
+
+.paging > li > a {
+    color:cornflowerblue;
+    font-weight: 600;
+}
+
+.paging > li.num {
+    color: #fff;
+    border-radius: 100px;
+}
+
+.paging > li.num > a {
+    color: cornflowerblue;
+}
+
+.paging > li > a {
+    text-align: right;
+}
+
+.titlebox {
+	width: 250px;
+	text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	margin: 70px auto;
+	border-top: 1px solid #E1E1E1;
+	border-bottom: 1px solid #E1E1E1;
+}
+
+.t-control .t-title {
+	width: 100px;
+	min-width: 100px; /*화면줄었을때 최소크기*/
+	vertical-align: middle; /*테이블에서 세로 가운대정렬*/
+    text-align: unset;
+}
+
+/*input 요소의 넓이만 선택*/
+.t-control input {
+	width: 200px;
+	display: inline; /*인라인요소로 변경한다*/
+}
+
+/*개발자 도구에서 input-sm의 정렬을 푼다*/
+.t-control .input-sm {
+	height: auto;
+	line-height: normal;
+}
+/*td의 아래만 밑줄*/
+.t-control td {
+	border-bottom: 1px solid #E1E1E1;
+}
+
+.titlefoot {
+	text-align: center;
+	margin: 30px auto; /*박스의 가운데정렬*/
+	width: 50%; /*크기 50%*/
+}
+
+.t-title {
+    font-size: 15px;
+    font-weight: bold;
+}
