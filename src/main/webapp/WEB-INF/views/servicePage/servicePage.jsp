@@ -314,7 +314,7 @@
                 return;
             }
             //웹소켓 객체 만드는 코드
-            ws = new WebSocket("ws://localhost:8181/erproject/echo/" + bno);
+            ws = new WebSocket("ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/echo/" + bno);
             
             ws.onopen = function(event){
                 if(event.data === undefined){
