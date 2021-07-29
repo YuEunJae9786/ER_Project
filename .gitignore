@@ -8,4 +8,8 @@ hikari.properties
 web.xml
 APP_CONSTANT.java
 
-target/
+pop.properties
+
+.settings
+
+/target
