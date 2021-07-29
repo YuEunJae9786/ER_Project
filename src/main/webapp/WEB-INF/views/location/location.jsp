@@ -32,7 +32,7 @@
                             <br>
                             <div>상세보기</div>
                         </div>
-                        <img src="${pageContext.request.contextPath }/resources/img/kick.png<%-- ${kickInfo.getProductInfoVO().getPimg1()} --%>"alt="" class="kick-img">  
+                        <img src="${pageContext.request.contextPath }/resources/img/productimg/${kickInfo.getProductInfoVO().getPimg1()}"alt="" class="kick-img">  
                     </div>
                     <!-- 상세정보 -->
                     <div id="detail${kickInfo.markNo}" class="kick-info-detail">
@@ -47,7 +47,7 @@
                                      <div style="padding: 5px;">좌표 (${kickInfo.location_x}, ${kickInfo.location_y})</div>
                                 </div>
                             </div>
-                            <img src="${pageContext.request.contextPath }/resources/img/kick.png<%-- ${kickInfo.getProductInfoVO().getPimg1()} --%>" alt="" class="detail-img">  
+                            <img src="${pageContext.request.contextPath }/resources/img/productimg/${kickInfo.getProductInfoVO().getPimg1()}" alt="" class="detail-img">  
                         </div>
                         <div class="spec">
 							상세정보 <br>
