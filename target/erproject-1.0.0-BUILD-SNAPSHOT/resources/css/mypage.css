@@ -1,0 +1,128 @@
+
+@charset "UTF-8";
+/*마이페이지 디자인*/
+
+.mytitle > a{
+    color: black;
+    font-size: 1.5em;
+    margin-right: 17px;
+    text-decoration: none;
+    color: #555555;
+}
+
+.mytitle {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50px;
+    font-style: italic;
+    font-weight: 100;
+}
+
+/*마이페이지*/
+
+.myBody {
+    height: 1100px;
+    padding: 0;
+}
+.tab-title{
+    color: #777;
+}
+.tab-login{
+    width: 600px;
+    margin: 0 auto;
+    
+}
+.info-title {
+   margin: 0 auto;
+   text-align: center;
+    font-size: 1.3em;
+    font-style: italic;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: #555555;
+    width: 300px;
+    border-bottom: 1px solid rgb(245, 243, 243);
+   
+}
+
+.tab-post{
+    width: 80%;
+    margin: 0 auto;
+}
+.page-btn{
+    display: inline-block;
+    overflow: hidden;
+    margin-top: 10px;
+    float:right;
+    
+}
+
+/* .mypageBtn1{} */
+
+.mypageBtn{
+
+    margin-left: 10px;
+    width: 80px;
+    text-align: center;
+    float: right;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+   
+}
+
+
+.mypageBtn2{
+    color: white;
+    margin-left: 10px;
+    width: 80px;
+    text-align: center;
+    float: right;
+   background-color:#abbce3;
+    border: none;
+   
+}
+
+
+
+.qnaBtn{
+    color: white;
+    margin-left: 10px;
+    width: 80px;
+    text-align: center;
+    float: right;
+   background-color:cornflowerblue;
+    border: none;
+   
+}
+.qnaBtn:hover{
+    background-color:rgb(171, 188, 227) ;
+    color: white;
+    border: none;
+    
+}
+
+.mypageBtn:hover{
+    border: none;
+    background-color:rgb(171, 188, 227);
+    color: white;
+}
+
+.checkBox{
+    width: 30px;
+    text-align: center;
+}
+
+.listBox{
+    text-align: center;
+}
+
+.boxList{
+    height: 30px;
+   
+}
+
+
+
+
