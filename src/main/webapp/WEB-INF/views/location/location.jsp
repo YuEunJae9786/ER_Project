@@ -54,7 +54,7 @@
 							스팩1. ${kickInfo.getProductInfoVO().getPspec1()}<br>
 							스팩2. ${kickInfo.getProductInfoVO().getPspec2()}<br>
 							스팩3. ${kickInfo.getProductInfoVO().getPspec3()}<br>
-                            <a href="${pageContext.request.contextPath}/product/productMain?pcode=${kickInfo.getPCode()}">더 많은 정보 보러가기</a>
+                            <a class="moveDetial" href="${pageContext.request.contextPath}/product/productMain?pcode=${kickInfo.getPCode()}">더 많은 정보 보러가기</a>
                         </div>
                         <div>
                             <button class="btn btn-default btn-signature1" onclick="location.href='${pageContext.request.contextPath}/csBoard/csBoardList'">문의하기</button>
