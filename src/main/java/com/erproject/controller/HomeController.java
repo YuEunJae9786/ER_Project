@@ -28,13 +28,9 @@ public class HomeController {
 	private UserService userService;
 	
 	@RequestMapping(value="/")
-	public String home() {
-		
-		
+	public String home(HttpServletRequest request ,HttpServletResponse response) {
+
 		return "home";
-		
-		
-		
 	}
 	
 	@ResponseBody
@@ -64,6 +60,7 @@ public class HomeController {
 			}
 		} 
 		
+		System.out.println("실행됌");
 		Cookie cookie = new Cookie("whereboard", "Notice");
 		response.addCookie(cookie);
 		
