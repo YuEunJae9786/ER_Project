@@ -30,19 +30,6 @@ public class HomeController {
 	@RequestMapping(value="/")
 	public String home(HttpServletRequest request ,HttpServletResponse response) {
 
-		Cookie[] cookies = request.getCookies();
-		
-		if ( cookies != null && cookies.length > 0) {
-			
-			for(int i = 0 ; i < cookies.length ; i++) {
-				
-				if(cookies[i].getName().equals("whereboard")) {
-					cookies[i].setMaxAge(0);
-					response.addCookie(cookies[i]);
-				}
-			}			
-		}
-		
 		return "home";
 	}
 	
