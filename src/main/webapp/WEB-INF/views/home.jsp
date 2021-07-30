@@ -7,7 +7,7 @@
  
   
   
-  <section class="one">
+    <section class="one">
        
            <div class="index1">
               <div class="oneMain">
@@ -20,9 +20,9 @@
                     <h2><img src="${pageContext.request.contextPath}/resources/img/logo2.png" alt=""></h2>
 
                     <div class="wrapBtn">
-                        <button class="button"><span class="glyphicon glyphicon-search gly"></span>비교하기</button>
-                        <button class="button"><span class="glyphicon glyphicon-cloud gly"></span>리뷰쓰기</button>
-                        <button class="button" onclick="location.href='product/ProductListSelect'"><span class="glyphicon glyphicon-tags gly"></span>제품상세</button>
+                        <button class="button" onclick="location.href='location/location'"><span class="glyphicon glyphicon-search gly"></span>비교하기</button>
+                        <button class="button" onclick="location.href='photo/photoList'"><span class="glyphicon glyphicon-cloud gly"></span>리뷰쓰기</button>
+                        <button class="button" onclick="location.href='product/kangarooProductList'"><span class="glyphicon glyphicon-tags gly"></span>제품상세</button>
                       </div>
             
                   </div>
@@ -52,11 +52,11 @@
     
                     <header class="kNum-header"  style="font-style: italic; font-size: 1em;">현재 대여가능 킥보드 수 </header>
                     
-                    <label class="button kNumBtn" for="toggle" style="color: cornflowerblue; margin:0;"></label>
+                    <label class="button kNumBtn" id="kickNumBtn" for="toggle" style="color: cornflowerblue; margin:0;"></label>
                   </div>
                   <div class="description">
                     <header class="kNum-header" style="font-style: italic; font-size: 1.3em;">
-                      <input type="text" value="${result }" style="background-color:cornflowerblue; text-align:center; border:none">
+                      <input type="text" value="" id="kickNum" style="background-color:cornflowerblue; text-align:center; border:none">
                     </header>
                   
                   </div>
@@ -69,6 +69,34 @@
 
         </div>
     </section>
+    
+     <script>
+    
+    $("#kickNumBtn").click(function(){
+    	
+    
+    	var kickNum = $("#kickNum");
+    	
+    	$.ajax({
+    		type:"get",
+    		url:"kickNum",
+    		dataType: "json",
+    		success:function(data){
+    			
+    			kickNum.val(data);
+    			
+    		},
+    		error : function(status , error){
+    			
+    			console.log(staus, error);
+    		}
+    		
+    	})
+    });
+    
+    
+    </script>
+    
 
     <section class="two">
         

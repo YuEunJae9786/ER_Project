@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpServerErrorException;
 
 import com.erproject.user.service.UserService;
@@ -25,16 +27,20 @@ public class HomeController {
 	@Qualifier("userService")
 	private UserService userService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		
-		int result = userService.rentalNum();
-		model.addAttribute("result", result);
-		System.out.println(result);
-		
-		
+	@RequestMapping(value="/")
+	public String home(HttpServletRequest request ,HttpServletResponse response) {
+
 		return "home";
 	}
+	
+	@ResponseBody
+	@GetMapping(value="kickNum")
+	public int kickNum() {
+		
+		int result = userService.rentalNum();
+		return result;
+	}
+
 	
 	@RequestMapping(value="/Notice")
 	public String notice(HttpServletRequest request ,HttpServletResponse response) {
@@ -54,6 +60,7 @@ public class HomeController {
 			}
 		} 
 		
+		System.out.println("실행됌");
 		Cookie cookie = new Cookie("whereboard", "Notice");
 		response.addCookie(cookie);
 		

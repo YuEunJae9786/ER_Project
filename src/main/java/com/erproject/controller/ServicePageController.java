@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.erproject.command.GraphicVO;
+import com.erproject.command.UserVO;
 import com.erproject.servicepage.service.ServicePageService;
 
 @Controller
@@ -23,7 +26,14 @@ public class ServicePageController {
 	
 	
 	@RequestMapping("/servicePage")
-	public void servicePage(Model model) throws ParseException {
+	public String servicePage(Model model, HttpSession session) throws ParseException {
+		
+		if(session.getAttribute("userVO") == null) {
+			return "redirect:/user/userLogin";
+		}
+		
+		UserVO vo = (UserVO)session.getAttribute("userVO");
+		model.addAttribute("userId", vo.getUserId());
 		
 		double Xiaomi = 0;
 		double Nio = 0;
@@ -115,9 +125,7 @@ public class ServicePageController {
 		String day5 = today.format(cal4.getTime());
 		String day6 = today.format(cal5.getTime());
 		String day7 = today.format(cal6.getTime());
-		
-		String ab =today.format(list.get(12).getRENTALDATE());
-		
+				
 		ArrayList<String> list2 = new ArrayList<String>();
 	
 		int[] arr = new int[7];
@@ -129,9 +137,6 @@ public class ServicePageController {
 		list2.add(day5);
 		list2.add(day6);
 		list2.add(day7);
-		
-		System.out.println(list2.toString());
-		
 
 		for(int j = 0; j<list2.size(); j++) {
 			
@@ -144,15 +149,7 @@ public class ServicePageController {
 			}
 			
 		}
-		
-		System.out.println(arr[0]);
-		System.out.println(arr[1]);
-		System.out.println(arr[2]);
-		System.out.println(arr[3]);
-		System.out.println(arr[4]);
-		System.out.println(arr[5]);
-		System.out.println(arr[6]);
-				
+					
 		
 		for(int i = 0; i < list2.size(); i++) {
 			
@@ -187,12 +184,9 @@ public class ServicePageController {
 			
 		}
 		
-		
-		
-		
-		
-		
+		return "servicePage/servicePage";
 		
 	}
+	
 	
 }

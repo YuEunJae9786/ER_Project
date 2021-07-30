@@ -6,8 +6,8 @@
   <mapper namespace="com.erproject.location.mapper.LocationMapper">
   
   	<insert id="setMarkInfo">	
-		insert into kickList(markno, pcode, ccode, location_x, location_y)
-  					VALUES(#{markNo}, #{pCode}, #{cCode}, #{location_x}, #{location_y})					
+		insert into kickList(markno, pcode, ccode, location_x, location_y, ISRENTAL, RENTALDATE)
+  					VALUES(#{markNo}, #{pCode}, #{cCode}, #{location_x}, #{location_y}, 0, '1111-11-11')					
   	</insert>
   	
   	<select id="getKickInfo" resultMap="kickList">
@@ -45,5 +45,11 @@
   			UPDATE kickList SET pCode=#{pCode}, cCode=#{cCode} WHERE markNo = #{markNo}
   	</update>
   	
+  	<update id="setRental">
+  			UPDATE kickList SET isRental=1, rentalDate=sysdate WHERE markNo = #{markNo}
+  	</update>
   	
+  	<update id="cencleRental">
+  			UPDATE kickList SET isRental=0, rentalDate='1111-11-11' WHERE markNo = #{markNo}
+  	</update>
   </mapper>
