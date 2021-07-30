@@ -73,6 +73,7 @@ public class HomeController {
 			}
 		} 
 		
+		System.out.println("실행됌");
 		Cookie cookie = new Cookie("whereboard", "Notice");
 		response.addCookie(cookie);
 		
