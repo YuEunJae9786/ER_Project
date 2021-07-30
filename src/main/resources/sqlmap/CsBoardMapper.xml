@@ -6,23 +6,23 @@
   <mapper namespace="com.erproject.csboard.mapper.CsBoardMapper">
   
   	<insert id="noticeRegist">
-  		insert into NOTICE(NOTICE_NO, NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_VIEW)
-  					VALUES(NOTICE_SEQ.NEXTVAL, #{notice_Writer}, #{notice_Title}, #{notice_Content}, #{notice_View})
+  		insert into NOTICE(NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_VIEW)
+  					VALUES(#{notice_Writer}, #{notice_Title}, #{notice_Content}, #{notice_View})
   	</insert>
   	
   	<insert id="faqRegist">
-  		insert into FAQ(FAQ_NO, FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_MAINCATEGORI)
-  					VALUES(FAQ_SEQ.NEXTVAL, #{faq_Writer}, #{faq_Title}, #{faq_Content}, #{faq_MainCategori})
+  		insert into FAQ(FAQ_TITLE, FAQ_CONTENT, FAQ_MAINCATEGORI)
+  					VALUES(#{faq_Writer}, #{faq_Title}, #{faq_Content}, #{faq_MainCategori})
   	</insert>
   	
   	<insert id="qnaRegist">
-  		insert into QNA(QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW)
-  					VALUES(QNA_SEQ.NEXTVAL, #{qna_Writer}, #{qna_Title}, #{qna_Content}, #{qna_MainCategori}, #{qna_Tow})
+  		insert into QNA(QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW)
+  					VALUES(#{qna_Writer}, #{qna_Title}, #{qna_Content}, #{qna_MainCategori}, #{qna_Tow})
   	</insert>
   	
   	<insert id="qnaAnswerRegist">
-  		insert into QNA_ANSWER(QA_NO, QNA_NO, QA_WRITER, QA_CONTENT)
-  					VALUES(QNA_ANSWER_SEQ.NEXTVAL, #{qna_No}, #{qa_Writer}, #{qa_Content})
+  		insert into QNA_ANSWER(QNA_NO, QA_WRITER, QA_CONTENT)
+  					VALUES(#{qna_No}, #{qa_Writer}, #{qa_Content})
   	</insert>
   	
   	<update id="qnaAnswerUpdate">
