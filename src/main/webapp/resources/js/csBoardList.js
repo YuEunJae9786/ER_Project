@@ -73,10 +73,6 @@ var socketPath;
     /* 쿠키를 통해 현재 게시판 탐색 */
     $(document).ready( function() {
         
-        if(getCookie("whereboard") == undefined){
-            setCookie("whereboard", "Notice");
-        } 
-        
         /* 전에 보여지던 게시판 */
         var preActive = document.querySelector("body > div.active");
         if(preActive != null){
