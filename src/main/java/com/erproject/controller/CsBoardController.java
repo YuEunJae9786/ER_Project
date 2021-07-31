@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,6 +35,7 @@ import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
 import com.erproject.command.QnaAnswerVO;
 import com.erproject.command.QnaVO;
+import com.erproject.command.UserVO;
 import com.erproject.csboard.service.CsBoardService;
 import com.erproject.util.Criteria;
 import com.erproject.util.OrderUtil;
@@ -48,10 +50,13 @@ public class CsBoardController {
 	private CsBoardService csBoardService;
 
 	@RequestMapping("/csBoardList")
-
 	public void csBoard(OrderUtil orderUtil,
 						Criteria cri,
-						Model model) {
+						Model model, HttpSession session) {
+		
+		UserVO userVO = new UserVO();
+		userVO.setUserId("master123");
+		session.setAttribute("userVO", userVO);
 		
 		System.out.println(orderUtil.toString());
 		
