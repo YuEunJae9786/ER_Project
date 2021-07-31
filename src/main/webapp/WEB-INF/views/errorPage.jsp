@@ -16,6 +16,8 @@
  
      <!-- 부트스트랩 js참조 -->
      <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
+     <!-- 제이쿼리 -->
+     <script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
 
 	<style>
         .errorPage {
@@ -60,8 +62,8 @@
 	                </div>
 	
 	                <div class="errorBtn">
-	                    <button type="button" class="btn btn-default btn-signature1">홈</button>
-	                    <button type="button" class="btn btn-default btn-signature2">이전</button>
+	                    <button type="button" class="btn btn-default btn-signature1" id="btnHome">홈</button>
+	                    <button type="button" class="btn btn-default btn-signature2" id="btnPrev">이전</button>
 	
 	                </div>
 	                
@@ -70,4 +72,17 @@
 	    </div>
 	
 </body>
+	
+	<script>
+		var contextPath = "${pageContext.request.contextPath}/";
+	
+		$("#btnHome").click(function() {
+			location.href=contextPath;
+		});
+		
+		$("#btnPrev").click(function() {
+			history.go(-1);
+		});
+	</script>
+
 </html>
