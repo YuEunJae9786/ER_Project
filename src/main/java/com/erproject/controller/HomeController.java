@@ -115,6 +115,12 @@ public class HomeController {
 		return "redirect:/csBoard/csBoardList";
 	}
 	
+	@RequestMapping(value = "/error")
+	public String error() {
+		
+		return "error";
+	}
+	
 	
 	
 	
