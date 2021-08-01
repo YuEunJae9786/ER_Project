@@ -1,3 +1,4 @@
+##orcle
 CREATE TABLE KICKLIST 
 (
     MARKNO NUMBER(10) PRIMARY KEY, 
@@ -9,4 +10,14 @@ CREATE TABLE KICKLIST
     rentalDate date
 );
 
-CREATE SEQUENCE KICKLIST_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
+##mysql
+CREATE TABLE KICKLIST 
+(
+    MARKNO int(10) PRIMARY KEY, 
+    PCODE varchar(100) NOT NULL, 
+    CCODE varchar(100) NOT NULL, 
+    LOCATION_X varchar(100) NOT NULL, 
+    LOCATION_Y varchar(100) NOT NULL, 
+    ISRENTAL int(2),
+    rentalDate datetime
+);
