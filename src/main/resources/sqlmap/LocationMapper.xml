@@ -46,7 +46,7 @@
   	</update>
   	
   	<update id="setRental">
-  			UPDATE kickList SET isRental=1, rentalDate=sysdate WHERE markNo = #{markNo}
+  			UPDATE kickList SET isRental=1, rentalDate=now() WHERE markNo = #{markNo};
   	</update>
   	
   	<update id="cencleRental">
