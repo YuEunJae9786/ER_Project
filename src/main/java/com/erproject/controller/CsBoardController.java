@@ -90,6 +90,8 @@ public class CsBoardController {
 							  HttpServletRequest request,
 							  Model model) {
 		
+		System.out.println("업데이트 글 : " + bno);
+		
 		Cookie[] cookies = request.getCookies();
 		
 		if( cookies != null && cookies.length > 0) { // 쿠키가 있는경우

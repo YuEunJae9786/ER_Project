@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.erproject.command.UserVO;
+
 public class CsBoardAuthHandler extends HandlerInterceptorAdapter {
 
 	@Override
@@ -16,7 +18,7 @@ public class CsBoardAuthHandler extends HandlerInterceptorAdapter {
 		
 		HttpSession session = request.getSession();
 		
-		String userVO = (String)session.getAttribute("userVO");
+		UserVO userVO = (UserVO)session.getAttribute("userVO");
 		
 		if(userVO == null) {
 			
