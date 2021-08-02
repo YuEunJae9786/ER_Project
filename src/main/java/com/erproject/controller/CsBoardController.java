@@ -249,6 +249,7 @@ public class CsBoardController {
 	
 //	이미지 조회해서 가져오기
 	@ResponseBody
+	@CrossOrigin(origins = "*")
 	@RequestMapping("view/{fileLoca}/{fileName:.+}")
 	public ResponseEntity<byte[]> view(@PathVariable("fileLoca") String fileLoca,
 									   @PathVariable("fileName") String fileName) {

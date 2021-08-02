@@ -123,7 +123,7 @@
   	                 
   	                 where userId =#{userId} -->
   	                 
-  	      update USERS set userPw = #{userPw},
+  	      update users set userPw = #{userPw},
   	                 userName =#{userName},
   	                 userPhone =#{userPhone},
   	                 userEmail =#{userEmail},
@@ -173,7 +173,7 @@
   	
   	<select id="rentalNum" resultType="int">
   	
-  	select count(*) as result from kickList where isRental =0
+  	select count(*) as result from KICKLIST where isRental =0
   	
   	</select>
   	

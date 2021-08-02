@@ -64,7 +64,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 					// 업로드 파일명
 					String fileName = uuids + fileExtention;
 					
-					File saveFile = new File(uploadPath + fileName);
+					File saveFile = new File(uploadPath + "/" + fileName);
 					file.transferTo(saveFile); // 파일쓰기
 					
 					NoticeImageVO imageVO = new NoticeImageVO();
@@ -119,7 +119,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 					// 업로드 파일명
 					String fileName = uuids + fileExtention;
 					
-					File saveFile = new File(uploadPath + fileName);
+					File saveFile = new File(uploadPath + "/" + fileName);
 					file.transferTo(saveFile); // 파일쓰기
 					
 					FaqImageVO imageVO = new FaqImageVO();
@@ -349,7 +349,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 						// 업로드 파일명
 						String fileName = uuids + fileExtention;
 						
-						File saveFile = new File(uploadPath + fileName);
+						File saveFile = new File(uploadPath + "/" + fileName);
 						file.transferTo(saveFile); // 파일쓰기
 						
 						if(whereBoard.equals("Notice")) {
