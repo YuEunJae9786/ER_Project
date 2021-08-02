@@ -6,12 +6,12 @@
   <mapper namespace="com.erproject.location.mapper.LocationMapper">
   
   	<insert id="setMarkInfo">	
-		insert into kickList(markno, pcode, ccode, location_x, location_y, ISRENTAL, RENTALDATE)
+		insert into KICKLIST(markno, pcode, ccode, location_x, location_y, ISRENTAL, RENTALDATE)
   					VALUES(#{markNo}, #{pCode}, #{cCode}, #{location_x}, #{location_y}, 0, '1111-11-11')					
   	</insert>
   	
   	<select id="getKickInfo" resultMap="kickList">
-  		select * from kickList k join ProductInfo p on k.pcode=p.pcode order by k.markNo
+  		select * from KICKLIST k join PRODUCTINFO p on k.pcode=p.pcode order by k.markNo
   	</select>
   	<resultMap id="kickList" type="kickListVO">
 		<result column="markNo" property="markNo" />
@@ -42,14 +42,14 @@
 	</resultMap>
 
   	<update id="updateMarkInfo">
-  			UPDATE kickList SET pCode=#{pCode}, cCode=#{cCode} WHERE markNo = #{markNo}
+  			UPDATE KICKLIST SET pCode=#{pCode}, cCode=#{cCode} WHERE markNo = #{markNo}
   	</update>
   	
   	<update id="setRental">
-  			UPDATE kickList SET isRental=1, rentalDate=now() WHERE markNo = #{markNo};
+  			UPDATE KICKLIST SET isRental=1, rentalDate=now() WHERE markNo = #{markNo};
   	</update>
   	
   	<update id="cencleRental">
-  			UPDATE kickList SET isRental=0, rentalDate='1111-11-11' WHERE markNo = #{markNo}
+  			UPDATE KICKLIST SET isRental=0, rentalDate='1111-11-11' WHERE markNo = #{markNo}
   	</update>
   </mapper>

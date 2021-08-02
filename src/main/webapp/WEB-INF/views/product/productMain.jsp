@@ -61,10 +61,10 @@
 						</p>
 					</div>
 					<div class="productRentalBtn1">
-						<button type="button" class="btn btn-lg">문의하기</button>
+						<button type="button" class="btn btn-lg" onclick="location.href='${pageContext.request.contextPath }/FAQ'">문의하기</button>
 					</div>
 					<div class="productRentalBtn2">
-						<button type="button" class="btn btn-lg">대여하기</button>
+						<button type="button" class="btn btn-lg" onclick="location.href='${pageContext.request.contextPath}/location/location'">예약하기</button>
 					</div>
 				</div>
 			</div>
@@ -76,7 +76,7 @@
 					<li class="bt2"><a>관련링크</a></li>
 					<li class="bt3"><a>후기 (${total })</a></li>
 					<li class="bt4"><a>문의하기</a></li>
-					<li class="bt5"><a>대여하기</a></li>
+					<li class="bt5"><a>예약하기</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -235,7 +235,7 @@
 						<div class="qnaWrap">
 							<h3>QNA</h3>
 							<hr>
-							<a href=""> <strong>문의하기 페이지로 이동합니다.</strong>
+							<a href="${pageContext.request.contextPath }/FAQ"> <strong>문의하기 페이지로 이동합니다.</strong>
 							</a>
 						</div>
 					</div>
@@ -245,7 +245,7 @@
 						<div class="rentalWrap">
 							<h3>Rental</h3>
 							<hr />
-							<a href=""> <strong>대여하기 페이지로 이동합니다.</strong>
+							<a href="${pageContext.request.contextPath }/location/location"> <strong>예약하기 페이지로 이동합니다.</strong>
 							</a>
 						</div>
 					</div>
@@ -258,7 +258,7 @@
 	</div>
 	
 	<div style="position: fixed; bottom: 25px; right: 25px; width: 50px; height: 50px; line-height: 50px; text-align: center; background-color: cornflowerblue; border-radius: 5px;" class="topBtnTest">
-        <a href="#sect-main" style="color: #fff; font-size: medium; text-decoration: none;">
+        <a href="" style="color: #fff; font-size: medium; text-decoration: none;">
             <strong>⇧</strong>
         </a>
     </div>
@@ -291,12 +291,14 @@
         var box3 = document.querySelector(".kickReview3");
         var box4 = document.querySelector(".kickQna4");
         var box5 = document.querySelector(".kickRental5");
+        var box6 = document.querySelector(".top-text");
 
         var bt1 = document.querySelector(".bt1");
         var bt2 = document.querySelector(".bt2");
         var bt3 = document.querySelector(".bt3");
         var bt4 = document.querySelector(".bt4");
         var bt5 = document.querySelector(".bt5");
+        var bt6 = document.querySelector(".topBtnTest");
 
         bt1.addEventListener("click", function() {
             window.scrollTo({top: box1.offsetTop - 100, behavior: "smooth"})
@@ -312,6 +314,9 @@
         })
         bt5.addEventListener("click", function() {
             window.scrollTo({top: box5.offsetTop - 100, behavior: "smooth"})
+        })
+        bt6.addEventListener("click", function() {
+            window.scrollTo({top: box6.offsetTop, behavior: "smooth"})
         })
 
     </script>

@@ -20,8 +20,8 @@
                     <h2><img src="${pageContext.request.contextPath}/resources/img/logo2.png" alt=""></h2>
 
                     <div class="wrapBtn">
-                        <button class="button"><span class="glyphicon glyphicon-search gly"></span>비교하기</button>
-                        <button class="button"><span class="glyphicon glyphicon-cloud gly"></span>리뷰쓰기</button>
+                        <button class="button" onclick="location.href='location/location'"><span class="glyphicon glyphicon-search gly"></span>예약하기</button>
+                        <button class="button" onclick="location.href='photo/photoList'"><span class="glyphicon glyphicon-cloud gly"></span>리뷰쓰기</button>
                         <button class="button" onclick="location.href='product/kangarooProductList'"><span class="glyphicon glyphicon-tags gly"></span>제품상세</button>
                       </div>
             
@@ -56,7 +56,7 @@
                   </div>
                   <div class="description">
                     <header class="kNum-header" style="font-style: italic; font-size: 1.3em;">
-                      <input type="text" value="" id="kickNum" style="background-color:cornflowerblue; text-align:center; border:none">
+                      <input type="text" value="" id="kickNum" style="background-color:cornflowerblue; text-align:center; border:none" readonly>
                     </header>
                   
                   </div>
