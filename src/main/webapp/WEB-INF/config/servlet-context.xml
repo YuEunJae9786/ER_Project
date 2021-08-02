@@ -63,10 +63,16 @@
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
-		
+	<!-- csBoard Intercepter -->
+	<beans:bean id="csBoardAuthHandler" class="com.erproject.intercepter.CsBoardAuthHandler" />
 	
-	
-
-	
+	<interceptors>
+		<!-- 게시판 수정, 삭제 에 대한 권한 핸들러 -->
+		<interceptor>
+			<mapping path="/csBoard/csBoardUpdate"/>
+			<mapping path="/csBoard/qnaRegist"/>
+			<beans:ref bean="csBoardAuthHandler"/>
+		</interceptor>		
+	</interceptors>
 	
 </beans:beans>
