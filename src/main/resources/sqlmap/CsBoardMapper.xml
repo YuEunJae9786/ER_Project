@@ -80,7 +80,7 @@
 				  			   NOTICE_VIEW,
 				  			   CASE WHEN gap <= 60 THEN '방금전'
 				  			        WHEN gap <= 60 * 24 THEN CONCAT(TRUNCATE( gap / 60, 0 ), '시간전')
-				  			   ELSE DATE_FORMAT(NOW(), '%Y-%m-%D')
+				  			   ELSE DATE_FORMAT(NOW(), '%Y-%m-%d')
 				  			   END AS NOTICE_REGDATE
 				  		 FROM ( SELECT NOTICE_NO, NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_VIEW, NOTICE_REGDATE, TRUNCATE( (NOW() - NOTICE_REGDATE) / 60, 0 ) AS gap
 				  				FROM NOTICE
@@ -136,7 +136,7 @@
 				  			  FAQ_VIEW,
 				  			   CASE when gap <= 60 THEN '방금전'
 				  			        WHEN gap <= 60 * 24 THEN CONCAT(TRUNCATE( gap / 60, 0 ), '시간전')
-				  			   ELSE DATE_FORMAT(FAQ_REGDATE, '%Y-%m-%D')
+				  			   ELSE DATE_FORMAT(FAQ_REGDATE, '%Y-%m-%d')
 				  			   END AS FAQ_REGDATE
 				  		from ( SELECT FAQ_NO, FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_VIEW, FAQ_MAINCATEGORI, FAQ_REGDATE, TRUNCATE( (NOW() - FAQ_REGDATE) / 60, 0 ) AS gap
 				  				FROM FAQ 
@@ -200,7 +200,7 @@
 		  				   QNA_VIEW,
 		  				   CASE WHEN gap <= 60 THEN '방금전'
 			  			        WHEN gap <= 60 * 24 THEN CONCAT(TRUNCATE( gap / 60, 0 ), '시간전')
-			  			   ELSE DATE_FORMAT(QNA_REGDATE, '%Y-%m-%D')
+			  			   ELSE DATE_FORMAT(QNA_REGDATE, '%Y-%m-%d')
 			  			   END AS QNA_REGDATE
 					 FROM ( SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW, QNA_VIEW, QNA_REGDATE, TRUNCATE( (NOW() - QNA_REGDATE) / 60, 0 ) AS gap
 					 		FROM QNA
