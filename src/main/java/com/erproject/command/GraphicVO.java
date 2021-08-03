@@ -1,6 +1,7 @@
 package com.erproject.command;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,6 @@ public class GraphicVO {
 	private String ccode;
 	private int isrental;
 	
-	private Date RENTALDATE;
+	private Timestamp RENTALDATE;
 	
 }
