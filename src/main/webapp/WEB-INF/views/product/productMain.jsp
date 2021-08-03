@@ -324,7 +324,7 @@
             window.scrollTo({top: box5.offsetTop - 100, behavior: "smooth"})
         })
         bt6.addEventListener("click", function() {
-            window.scrollTo({top: box6.offsetTop, behavior: "smooth"})
+            window.scrollTo({top: box6.offsetTop - 150, behavior: "smooth"})
         })
 
     </script>

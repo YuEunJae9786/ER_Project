@@ -4,8 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<%-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="og:title" content="Kangaroo" />
+<meta property="og:image" content="${pageContext.request.contextPath }/resources/img/kangaroo.png" />
+<meta property="og:url" content="http://15.165.144.193" />
+<meta property="og:description" content="보드 업체를 통합관리하여 가장 합리적인 가격으로 가장 가까이에있는 킥보드를 찾아빠르고 저렴하게  이용하자 !" /> --%>
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://15.165.144.193">
+<meta property="og:title" content="Kangaroo">
+<meta property="og:description" content="보드 업체를 통합관리하여 가장 합리적인 가격으로 가장 가까이에있는 킥보드를 찾아빠르고 저렴하게  이용하자 !">
+<!-- <meta property="og:image" content="http://deveroad.kr/img/kakao_logo_deveroad.png"> -->
+<meta property="og:image" content="${pageContext.request.contextPath }/resources/img/kangaroo.png">
+
+
 <title>Kangaroo</title>
+
 
 	<!-- 부트스트랩 css파일참조 -->
 	 <script src="https://www.littlesnippets.net/css/codepen-result.css"></script>
@@ -28,6 +41,10 @@
      
       <!-- 헤더 -->
      <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/header.css">  
+     
+     <!-- 파비콘 -->
+     <link rel=" shortcut icon" href="${pageContext.request.contextPath }/resources/img/icon.ico">
+     <link rel="icon" href="${pageContext.request.contextPath }/resources/img/icon.ico">
 
      
 	 <style>
