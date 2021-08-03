@@ -392,6 +392,14 @@
 
 <!-- 그래프1 -->
 <script>
+  console.log("${Mon}");
+  console.log("${Tue}");
+  console.log("${Wed}");
+  console.log("${Thu}");
+  console.log("${Fri}");
+  console.log("${Sat}");
+  console.log("${Sun}");
+
   var ctx = document.getElementById('myChart');
   var myChart = new Chart(ctx, {
       type: 'line',

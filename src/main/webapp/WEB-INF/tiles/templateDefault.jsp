@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Kangaroo</title>
 
 	<!-- 부트스트랩 css파일참조 -->
 	 <script src="https://www.littlesnippets.net/css/codepen-result.css"></script>

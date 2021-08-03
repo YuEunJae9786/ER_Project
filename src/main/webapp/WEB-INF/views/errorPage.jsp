@@ -4,6 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta property=”og:title” content=”Kangaroo” />
+<meta property=”og:description” content=”Kangaroo” />
+
 <title>error Page</title>
 
 	 <script src="https://www.littlesnippets.net/css/codepen-result.css"></script>

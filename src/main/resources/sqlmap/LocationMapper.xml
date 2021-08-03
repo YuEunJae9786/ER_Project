@@ -46,7 +46,8 @@
   	</update>
   	
   	<update id="setRental">
-  			UPDATE KICKLIST SET isRental=1, rentalDate=now() WHERE markNo = #{markNo};
+  			<!-- UPDATE KICKLIST SET isRental=1, rentalDate=now() WHERE markNo = #{markNo} -->
+  			UPDATE KICKLIST SET isRental=1, rentalDate= DATE_ADD(now(), INTERVAL 9 HOUR) WHERE markNo = #{markNo}
   	</update>
   	
   	<update id="cencleRental">
