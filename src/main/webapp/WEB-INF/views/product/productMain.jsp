@@ -111,16 +111,24 @@
 								<hr>
 							</div>
 							<div class="linkVideo">
-								<h3>유튜브 영상~</h3>
-								<br /> <a href="#">https://www.youtube/kickboard1</a><br />
-								<a href="#">https://www.youtube/kickboard2</a>
-							</div>
-							<hr>
-							<div class="linkBlog">
-								<h3>블로그 리뷰~</h3>
-								<br /> <a href="#">https://www.naver.com/post/kickboard1</a><br />
-								<a href="#">https://www.naver.com/post/kickboard2</a>
-							</div>
+		                        <h3>--유튜브 영상--</h3><br /> 
+		                        <a href="https://www.youtube.com/results?search_query=%EC%A0%84%EB%8F%99%ED%82%A5%EB%B3%B4%EB%93%9C">
+		                           Kick Board YouTube Review
+		                        </a><br />
+		                        <a href="https://www.youtube.com/watch?v=MiVJ9XnfTjM">
+		                           Kick Board YouTube Review
+		                        </a>
+		                     </div>
+		                     <hr>
+		                     <div class="linkBlog">
+		                        <h3>--블로그 리뷰--</h3><br /> 
+		                        <a href="https://section.blog.naver.com/Search/Post.naver?pageNo=1&rangeType=ALL&orderBy=sim&keyword=%EC%A0%84%EB%8F%99%ED%82%A5%EB%B3%B4%EB%93%9C">
+		                           Kick Board Blog Review
+		                        </a><br />
+		                        <a href="https://blog.naver.com/heritage4183/222454106416">
+		                           Kick Board Blog Review
+		                        </a>
+		                     </div>
 						</div>
 					</div>
 
