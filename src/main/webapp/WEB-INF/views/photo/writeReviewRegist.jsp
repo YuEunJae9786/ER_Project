@@ -19,7 +19,7 @@
     	<div class="photoList">
 				<div class="photo">
             		<div class=photo-image style="margin : 0 auto;">   
-               			<img src="${pageContext.request.contextPath }/img/productimg/altonimg1.png" alt=""  height="262px">
+               			<img src="${pageContext.request.contextPath }/resources/img/productimg/altonimg1.png" alt=""  height="262px">
 					</div>
 
 					<div class="photo-content">
