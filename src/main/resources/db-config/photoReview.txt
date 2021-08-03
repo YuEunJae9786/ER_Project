@@ -1,0 +1,71 @@
+use shm;
+
+CREATE TABLE PHOTOREVIEW(
+    PNO BIGINT(10) AUTO_INCREMENT PRIMARY KEY,
+    PCODE VARCHAR(30),
+    PHOTOIMAGE VARCHAR(100),
+    PHOTOWRITER VARCHAR(50),
+    PHOTOTITLE VARCHAR(100),
+    PHOTOSTAR BIGINT(20),
+    PHOTOCONTENT VARCHAR(1000),
+    created varchar(100)
+    
+);
+
+	insert into photoreview values(0, 'ALTON', '' , 'dhrhddus', '제목', 4, '내용', NOW() );
+    
+    select * from photoreview;
+    
+    commit;
+
+
+select p.PNO as pno,
+		         p.PCODE as pcode,
+		         p.PHOTOIMAGE as photoimage,
+		         p.PHOTOWRITER as photowriter ,
+		         p.PHOTOTITLE as phototitle,
+		         p.PHOTOSTAR as photostar,
+		         p.PHOTOCONTENT as photocontent,
+		         p.CREATED as created
+		 from (select PNO,
+			         PCODE,
+			         PHOTOIMAGE,
+			         PHOTOWRITER,
+			         PHOTOTITLE,
+			         PHOTOSTAR,
+			         PHOTOCONTENT,
+		             created
+		        from PHOTOREVIEW 
+			  			where PCODE = 'ALTON'  
+		    order by PNO DESC ) as p;
+
+CREATE TABLE PRODUCTINFO(
+    PCODE VARCHAR(30) PRIMARY KEY NOT NULL,
+    PNAME VARCHAR(30),
+    CPNAME VARCHAR(100),
+    PBASICINFO VARCHAR(1500),
+    PCONTENT VARCHAR(3000),
+    PSPEC1 VARCHAR(100),
+    PSPEC2 VARCHAR(100),
+    PSPEC3 VARCHAR(100),
+    PIMG1 VARCHAR(100),
+    PIMG2 VARCHAR(100),
+    PIMG3 VARCHAR(100),
+    PIMG4 VARCHAR(100),
+    PIMG5 VARCHAR(100),
+    PINFOIMG1 VARCHAR(100),
+    PINFOIMG2 VARCHAR(100)
+);
+
+select * from PRODUCTINFO where pcode = 'ALTON';
+
+
+
+
+
+
+
+
+
+
+
